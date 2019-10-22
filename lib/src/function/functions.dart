@@ -26,3 +26,17 @@
 //    ios: (pool) => ObjectFactory_iOS.release(ref),
 //  );
 //}
+
+import 'package:flutter/services.dart';
+
+import '../../foundation_fluttify.dart';
+
+Future<void> performSelectorWithObject(
+    Ref ref, String selector, Object object) {
+  return MethodChannel('com.fluttify/foundation')
+      .invokeMethod('Ref::performSelectorWithObject', {
+    'refId': ref.refId,
+    'selector': selector,
+    'object': object,
+  });
+}
