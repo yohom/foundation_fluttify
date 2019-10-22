@@ -1,13 +1,17 @@
 #import "FoundationFluttifyPlugin.h"
 #import <CoreLocation/CoreLocation.h>
 
+// Dart端一次方法调用所存在的栈, 只有当MethodChannel传递参数受限时, 再启用这个容器
+NSMutableDictionary<NSString*, NSObject*>* STACK;
 // Dart端随机存取对象的容器
-NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
+NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 
 @implementation FoundationFluttifyPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
+  // 栈容器
+  STACK = @{}.mutableCopy;
   // 堆容器
-  HEAP_Platform = @{}.mutableCopy;
+  HEAP = @{}.mutableCopy;
     
   FlutterMethodChannel* channel = [FlutterMethodChannel
       methodChannelWithName:@"com.fluttify/foundation"
@@ -26,7 +30,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
     CLLocationCoordinate2D data = CLLocationCoordinate2DMake(latitude, longitude);
 
     NSValue* dataValue = [NSValue value:&data withObjCType:@encode(CLLocationCoordinate2D)];
-    HEAP_Platform[@(dataValue.hash)] = dataValue;
+    HEAP[@(dataValue.hash)] = dataValue;
 
     methodResult(@(dataValue.hash));
   }
@@ -34,7 +38,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocationCoordinate2D::get_latitude" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    NSValue* dataValue = (NSValue*) HEAP_Platform[refId];
+    NSValue* dataValue = (NSValue*) HEAP[refId];
 
     CLLocationCoordinate2D _structValue;
     [dataValue getValue:&_structValue];
@@ -45,7 +49,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocationCoordinate2D::get_longitude" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    NSValue* dataValue = (NSValue*) HEAP_Platform[refId];
+    NSValue* dataValue = (NSValue*) HEAP[refId];
 
     CLLocationCoordinate2D _structValue;
     [dataValue getValue:&_structValue];
@@ -56,12 +60,12 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_coordinate" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
 
     CLLocationCoordinate2D data = location.coordinate;
 
     NSValue* dataValue = [NSValue value:&data withObjCType:@encode(CLLocationCoordinate2D)];
-    HEAP_Platform[@(dataValue.hash)] = dataValue;
+    HEAP[@(dataValue.hash)] = dataValue;
 
     methodResult(@(dataValue.hash));
   }
@@ -69,7 +73,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_altitude" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
 
     methodResult(@(location.altitude));
   }
@@ -77,7 +81,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_horizontalAccuracy" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
 
     methodResult(@(location.horizontalAccuracy));
   }
@@ -85,7 +89,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_verticalAccuracy" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
 
     methodResult(@(location.verticalAccuracy));
   }
@@ -93,7 +97,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_course" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
 
     methodResult(@(location.course));
   }
@@ -101,7 +105,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_speed" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
 
     methodResult(@(location.speed));
   }
@@ -109,10 +113,10 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLLocation::get_floor" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLLocation* location = (CLLocation*) HEAP_Platform[refId];
+    CLLocation* location = (CLLocation*) HEAP[refId];
     CLFloor* floor = location.floor;
 
-    HEAP_Platform[@(floor.hash)] = floor;
+    HEAP[@(floor.hash)] = floor;
 
     methodResult(@(floor.hash));
   }
@@ -120,7 +124,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
   else if ([@"CLFloor::get_level" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
-    CLFloor* floor = (CLFloor*) HEAP_Platform[refId];
+    CLFloor* floor = (CLFloor*) HEAP[refId];
 
     methodResult(@(floor.level));
   }
@@ -130,9 +134,78 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP_Platform;
 
     UIImage* bitmap = [UIImage imageWithData:bitmapBytes.data];
 
-    HEAP_Platform[@(bitmap.hash)] = bitmap;
+    HEAP[@(bitmap.hash)] = bitmap;
 
     methodResult(@(bitmap.hash));
+  }
+  // 释放一个对象
+  else if ([@"PlatformFactory::release" isEqualToString:methodCall.method]) {
+    NSNumber* refId = (NSNumber *) args[@"refId"];
+
+    NSLog(@"PlatformFactory::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
+
+    [HEAP removeObjectForKey:refId];
+    methodResult(@"success");
+
+    NSLog(@"HEAP: %@", HEAP);
+  }
+  // 清空堆
+  else if ([@"PlatformFactory::clearHeap" isEqualToString:methodCall.method]) {
+    NSLog(@"PlatformFactory::清空堆");
+
+    [HEAP removeAllObjects];
+    methodResult(@"success");
+
+    NSLog(@"HEAP: %@", HEAP);
+  }
+  // 压入栈
+  else if ([@"PlatformFactory::pushStack" isEqualToString:methodCall.method]) {
+    NSString* name = (NSString*) args[@"name"];
+    NSNumber* refId = (NSNumber*) args[@"refId"];
+
+    // todo release去掉日志
+    NSLog(@"PlatformFactory::压入栈 %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
+
+    STACK[name] = HEAP[refId];
+
+    methodResult(@"success");
+
+    NSLog(@"STACK: %@", STACK);
+  }
+  // 压入栈 jsonable
+  else if ([@"PlatformFactory::pushStackJsonable" isEqualToString:methodCall.method]) {
+    NSString* name = (NSString*) args[@"name"];
+    NSObject* data = (NSObject*) args[@"data"];
+
+    // todo release去掉日志
+    NSLog(@"PlatformFactory::压入栈 %@", data);
+
+    STACK[name] = data;
+
+    methodResult(@"success");
+
+    NSLog(@"STACK: %@", STACK);
+  }
+  // 清空栈
+  else if ([@"PlatformFactory::clearStack" isEqualToString:methodCall.method]) {
+    NSLog(@"PlatformFactory::清空栈");
+
+    [STACK removeAllObjects];
+    methodResult(@"success");
+
+    NSLog(@"STACK: %@", STACK);
+  }
+  // 通过反射调用方法
+  else if ([@"Ref::performSelectorWithObject" isEqualToString:methodCall.method]) {
+    NSNumber* refId = (NSNumber*) args[@"refId"];
+    NSString* selector = (NSString*) args[@"selector"];
+    NSObject* object = (NSObject*) args[@"object"];
+
+    NSObject* target = (NSObject*) HEAP[refId];
+
+    [target performSelector: NSSelectorFromString(selector) withObject: object];
+
+    methodResult(@"success");
   } else {
     methodResult(FlutterMethodNotImplemented);
   }
