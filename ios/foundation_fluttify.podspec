@@ -17,5 +17,7 @@ A new Flutter project.
   s.dependency 'Flutter'
 
   s.ios.deployment_target = '8.0'
+  # 系统framework
+  s.frameworks = ["CoreLocation"]
 end
 

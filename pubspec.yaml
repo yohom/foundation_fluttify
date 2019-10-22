@@ -2,7 +2,7 @@ name: foundation_fluttify
 description: A new Flutter project.
 version: 0.0.1
 author: yohom <382146139@qq.com>
-homepage:
+homepage: https://github.com/fluttify-project/foundation_fluttify
 
 environment:
   sdk: ">=2.2.2 <3.0.0"

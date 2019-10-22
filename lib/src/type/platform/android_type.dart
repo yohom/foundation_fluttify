@@ -41,20 +41,6 @@ class PlatformFactory_Android {
   static Future<void> clearHeap() async {
     await kMethodChannel.invokeMethod('PlatformFactory::clearHeap');
   }
-
-  static Future<void> pushStack(String name, Ref ref) async {
-    await kMethodChannel.invokeMethod(
-        'PlatformFactory::pushStack', {'name': name, 'refId': ref.refId});
-  }
-
-  static Future<void> pushStackJsonable(String name, dynamic jsonable) async {
-    await kMethodChannel.invokeMethod(
-        'PlatformFactory::pushStackJsonable', {'name': name, 'data': jsonable});
-  }
-
-  static Future<void> clearStack() async {
-    await kMethodChannel.invokeMethod('PlatformFactory::clearStack');
-  }
 }
 
 class java_lang_Object extends Ref {}

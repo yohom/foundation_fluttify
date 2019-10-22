@@ -1,13 +1,7 @@
-import 'dart:async';
+library foundation_fluttify;
 
-import 'package:flutter/services.dart';
-
-class FoundationFluttify {
-  static const MethodChannel _channel =
-      const MethodChannel('foundation_fluttify');
-
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
-}
+export 'src/function/functions.dart';
+export 'src/object/obejcts.dart';
+export 'src/type/base/ref.dart';
+export 'src/type/platform/android_type.dart';
+export 'src/type/platform/ios_type.dart';
