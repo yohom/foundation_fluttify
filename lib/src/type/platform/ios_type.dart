@@ -50,12 +50,12 @@ class NSObject extends Ref {}
 // STRUCT
 class CLLocationCoordinate2D extends Ref {
   Future<double> get latitude {
-    return MethodChannel('#__method_chanel__#')
+    return kMethodChannel
         .invokeMethod('CLLocationCoordinate2D::get_latitude', {'refId': refId});
   }
 
   Future<double> get longitude {
-    return MethodChannel('#__method_chanel__#').invokeMethod(
+    return kMethodChannel.invokeMethod(
         'CLLocationCoordinate2D::get_longitude', {'refId': refId});
   }
 }
@@ -75,38 +75,38 @@ class CLLocationManager extends NSObject {}
 
 class CLLocation extends NSObject {
   Future<CLLocationCoordinate2D> get coordinate async {
-    final result = await MethodChannel('#__method_chanel__#')
+    final result = await kMethodChannel
         .invokeMethod('CLLocation::get_coordinate', {'refId': refId});
     return CLLocationCoordinate2D()..refId = result;
   }
 
   Future<double> get altitude {
-    return MethodChannel('#__method_chanel__#')
+    return kMethodChannel
         .invokeMethod('CLLocation::get_altitude', {'refId': refId});
   }
 
   Future<double> get horizontalAccuracy {
-    return MethodChannel('#__method_chanel__#')
+    return kMethodChannel
         .invokeMethod('CLLocation::get_horizontalAccuracy', {'refId': refId});
   }
 
   Future<double> get verticalAccuracy {
-    return MethodChannel('#__method_chanel__#')
+    return kMethodChannel
         .invokeMethod('CLLocation::get_verticalAccuracy', {'refId': refId});
   }
 
   Future<double> get course {
-    return MethodChannel('#__method_chanel__#')
+    return kMethodChannel
         .invokeMethod('CLLocation::get_course', {'refId': refId});
   }
 
   Future<double> get speed {
-    return MethodChannel('#__method_chanel__#')
+    return kMethodChannel
         .invokeMethod('CLLocation::get_speed', {'refId': refId});
   }
 
   Future<CLFloor> get floor async {
-    final result = await MethodChannel('#__method_chanel__#')
+    final result = await kMethodChannel
         .invokeMethod('CLLocation::get_floor', {'refId': refId});
     return CLFloor()..refId = result;
   }
@@ -114,8 +114,7 @@ class CLLocation extends NSObject {
 
 class CLFloor extends NSObject {
   Future<String> get level {
-    return MethodChannel('#__method_chanel__#')
-        .invokeMethod('CLFloor::get_level', {'refId': refId});
+    return kMethodChannel.invokeMethod('CLFloor::get_level', {'refId': refId});
   }
 }
 
