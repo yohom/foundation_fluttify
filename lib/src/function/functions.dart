@@ -27,9 +27,13 @@
 //  );
 //}
 
+import 'dart:io';
+
 import 'package:flutter/services.dart';
 
 import '../../foundation_fluttify.dart';
+
+typedef Future<T> _FutureCallback<T>(List<Ref> releasePool);
 
 Future<void> performSelectorWithObject(
     Ref ref, String selector, Object object) {
@@ -39,4 +43,32 @@ Future<void> performSelectorWithObject(
     'selector': selector,
     'object': object,
   });
+}
+
+Future<T> platform<T>(
+    {_FutureCallback<T> android, _FutureCallback<T> ios}) async {
+  if (android != null && Platform.isAndroid) {
+    final releasePool = <Ref>[];
+    final result = await android(releasePool);
+    releasePool
+      ..forEach((it) => PlatformFactory_Android.release(it))
+      ..clear();
+    return result;
+  } else if (ios != null && Platform.isIOS) {
+    final releasePool = <Ref>[];
+    final result = await ios(releasePool);
+    releasePool
+      ..forEach((it) => PlatformFactory_iOS.release(it))
+      ..clear();
+    return result;
+  } else {
+    return Future.value();
+  }
+}
+
+Future release(Ref ref) {
+  return platform(
+    android: (pool) => PlatformFactory_Android.release(ref),
+    ios: (pool) => PlatformFactory_iOS.release(ref),
+  );
 }
