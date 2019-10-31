@@ -13,119 +13,119 @@ val STACK = mutableMapOf<String, Any>()
 // Container for Dart side random access objects
 val HEAP = mutableMapOf<Int, Any>()
 
-class FoundationFluttifyPlugin(private val registrar: Registrar): MethodCallHandler {
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      val channel = MethodChannel(registrar.messenger(), "com.fluttify/foundation")
-      channel.setMethodCallHandler(FoundationFluttifyPlugin(registrar))
+class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHandler {
+    companion object {
+        @JvmStatic
+        fun registerWith(registrar: Registrar) {
+            val channel = MethodChannel(registrar.messenger(), "com.fluttify/foundation")
+            channel.setMethodCallHandler(FoundationFluttifyPlugin(registrar))
+        }
     }
-  }
 
-  override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
-    val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
-    when (methodCall.method) {
-      // get Application obejct
-      "PlatformFactory::getandroid_app_Application" -> {
-        methodResult.success(registrar.activity().application.apply { HEAP[hashCode()] = this }.hashCode())
-      }
-      // get FlutterActivity object
-      "PlatformFactory::getandroid_app_Activity" -> {
-        methodResult.success(registrar.activity().apply { HEAP[hashCode()] = this }.hashCode())
-      }
-      // create android.os.Bundle
-      "PlatformFactory::createandroid_os_Bundle" -> {
-        methodResult.success(Bundle().apply { HEAP[hashCode()] = this }.hashCode())
-      }
-      // create bitmap object
-      "PlatformFactory::createandroid_graphics_Bitmap" -> {
-        val bitmapBytes = args["bitmapBytes"] as ByteArray
-        val bitmap = android.graphics.BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
+    override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
+        val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
+        when (methodCall.method) {
+            // get Application obejct
+            "PlatformFactory::getandroid_app_Application" -> {
+                methodResult.success(registrar.activity().application.apply { HEAP[hashCode()] = this }.hashCode())
+            }
+            // get FlutterActivity object
+            "PlatformFactory::getandroid_app_Activity" -> {
+                methodResult.success(registrar.activity().apply { HEAP[hashCode()] = this }.hashCode())
+            }
+            // create android.os.Bundle
+            "PlatformFactory::createandroid_os_Bundle" -> {
+                methodResult.success(Bundle().apply { HEAP[hashCode()] = this }.hashCode())
+            }
+            // create bitmap object
+            "PlatformFactory::createandroid_graphics_Bitmap" -> {
+                val bitmapBytes = args["bitmapBytes"] as ByteArray
+                val bitmap = android.graphics.BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
 
-        HEAP[bitmap.hashCode()] = bitmap
+                HEAP[bitmap.hashCode()] = bitmap
 
-        methodResult.success(bitmap.hashCode())
-      }
-      // release an object
-      "PlatformFactory::release" -> {
-        Log.d("PlatformFactory", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
+                methodResult.success(bitmap.hashCode())
+            }
+            // release an object
+            "PlatformFactory::release" -> {
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
 
-        HEAP.remove(args["refId"] as Int)
+                HEAP.remove(args["refId"] as Int)
 
-        methodResult.success("success")
+                methodResult.success("success")
 
-        // print current HEAP
-        Log.d("PlatformFactory", "HEAP: $HEAP")
-      }
-      // clear objects in HEAP
-      "PlatformFactory::clearHeap" -> {
-        Log.d("PlatformFactory", "CLEAR HEAP")
+                // print current HEAP
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "HEAP: $HEAP")
+            }
+            // clear objects in HEAP
+            "PlatformFactory::clearHeap" -> {
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "CLEAR HEAP")
 
-        HEAP.clear()
-        methodResult.success("success")
+                HEAP.clear()
+                methodResult.success("success")
 
-        // print current HEAP
-        Log.d("PlatformFactory", "HEAP: $HEAP")
-      }
-      // release an object
-      "PlatformFactory::release" -> {
-        Log.d("PlatformFactory", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
+                // print current HEAP
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "HEAP: $HEAP")
+            }
+            // push an object to stack
+            "PlatformFactory::pushStack" -> {
+                val name = args["name"] as String
+                val refId = args["refId"] as Int
 
-        HEAP.remove(args["refId"] as Int)
+                Log.d("PlatformFactory", "PUSH OBJECT: ${HEAP[refId]?.javaClass}@${refId}")
 
-        methodResult.success("success")
+                HEAP[refId]?.run { STACK[name] = this }
 
-        // print current HEAP
-        Log.d("PlatformFactory", "HEAP: $HEAP")
-      }
-      // clear objects in HEAP
-      "PlatformFactory::clearHeap" -> {
-        Log.d("PlatformFactory", "CLEAR HEAP")
+                methodResult.success("success")
 
-        HEAP.clear()
-        methodResult.success("success")
+                // print current STACK
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "STACK: $STACK")
+            }
+            // push a jsonable to stack
+            "PlatformFactory::pushStackJsonable" -> {
+                val name = args["name"] as String
+                val data = args["data"]
 
-        // print current HEAP
-        Log.d("PlatformFactory", "HEAP: $HEAP")
-      }
-      // push an object to stack
-      "PlatformFactory::pushStack" -> {
-        val name = args["name"] as String
-        val refId = args["refId"] as Int
+                Log.d("PlatformFactory", "压入jsonable: ${data?.javaClass}@${data}")
 
-        Log.d("PlatformFactory", "PUSH OBJECT: ${HEAP[refId]?.javaClass}@${refId}")
+                STACK[name] = data!!
 
-        HEAP[refId]?.run { STACK[name] = this }
+                methodResult.success("success")
 
-        methodResult.success("success")
+                // 打印当前STACK
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "STACK: $STACK")
+            }
+            // clear STACK
+            "PlatformFactory::clearStack" -> {
+                STACK.clear()
 
-        // print current STACK
-        Log.d("PlatformFactory", "STACK: $STACK")
-      }
-      // push a jsonable to stack
-      "PlatformFactory::pushStackJsonable" -> {
-        val name = args["name"] as String
-        val data = args["data"]
+                methodResult.success("success")
 
-        Log.d("PlatformFactory", "压入jsonable: ${data?.javaClass}@${data}")
+                // print current STACK
+                if (BuildConfig.DEBUG)
+                    Log.d("PlatformFactory", "STACK: $STACK")
+            }
+            // android.location.Location latitude
+            "android.location.Location::getLatitude" -> {
+                val refId = args["refId"] as Int
+                val location = HEAP[refId] as android.location.Location
 
-        STACK[name] = data!!
+                methodResult.success(location.latitude)
+            }
+            // android.location.Location longitude
+            "android.location.Location::getLongitude" -> {
+                val refId = args["refId"] as Int
+                val location = HEAP[refId] as android.location.Location
 
-        methodResult.success("success")
-
-        // 打印当前STACK
-        Log.d("PlatformFactory", "STACK: $STACK")
-      }
-      // clear STACK
-      "PlatformFactory::clearStack" -> {
-        STACK.clear()
-
-        methodResult.success("success")
-
-        // print current STACK
-        Log.d("PlatformFactory", "STACK: $STACK")
-      }
-      else -> methodResult.notImplemented()
+                methodResult.success(location.longitude)
+            }
+            else -> methodResult.notImplemented()
+        }
     }
-  }
 }

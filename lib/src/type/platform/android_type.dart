@@ -79,7 +79,17 @@ class android_graphics_PointF extends java_lang_Object {}
 
 class android_graphics_Bitmap extends java_lang_Object {}
 
-class android_location_Location extends java_lang_Object {}
+class android_location_Location extends java_lang_Object {
+  Future<double> get latitude {
+    return kMethodChannel.invokeMethod(
+        'android.location.Location::getLatitude', {'refId': refId});
+  }
+
+  Future<double> get longitude {
+    return kMethodChannel.invokeMethod(
+        'android.location.Location::getLongitude', {'refId': refId});
+  }
+}
 
 class android_view_MotionEvent extends java_lang_Object {}
 
