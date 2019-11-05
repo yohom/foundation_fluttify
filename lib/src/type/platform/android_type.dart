@@ -6,23 +6,29 @@ import 'package:foundation_fluttify/src/type/base/ref.dart';
 import '../../constants.dart';
 
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
-class PlatformFactory_Android {
+class PlatformFactoryAndroid {
   static Future<android_app_Application> getandroid_app_Application() async {
     final refId = await kMethodChannel
         .invokeMethod('PlatformFactory::getandroid_app_Application');
-    return android_app_Application()..refId = refId;
+    return android_app_Application()
+      ..refId = refId
+      ..tag = 'platform';
   }
 
   static Future<android_app_Activity> getandroid_app_Activity() async {
     final refId = await kMethodChannel
         .invokeMethod('PlatformFactory::getandroid_app_Activity');
-    return android_app_Activity()..refId = refId;
+    return android_app_Activity()
+      ..refId = refId
+      ..tag = 'platform';
   }
 
   static Future<android_os_Bundle> createandroid_os_Bundle() async {
     final refId = await kMethodChannel
         .invokeMethod('PlatformFactory::createandroid_os_Bundle');
-    return android_os_Bundle()..refId = refId;
+    return android_os_Bundle()
+      ..refId = refId
+      ..tag = 'platform';
   }
 
   static Future<android_graphics_Bitmap> createandroid_graphics_Bitmap(
@@ -30,7 +36,9 @@ class PlatformFactory_Android {
     final refId = await kMethodChannel.invokeMethod(
         'PlatformFactory::createandroid_graphics_Bitmap',
         {'bitmapBytes': bitmapBytes});
-    return android_graphics_Bitmap()..refId = refId;
+    return android_graphics_Bitmap()
+      ..refId = refId
+      ..tag = 'platform';
   }
 
   static Future<void> release(Ref ref) async {
@@ -104,3 +112,63 @@ class android_widget_LinearLayout extends android_view_ViewGroup {}
 class android_widget_RelativeLayout extends android_view_ViewGroup {}
 
 mixin android_os_Parcelable on java_lang_Object {}
+
+@Deprecated('使用PlatformFactoryAndroid代替')
+class PlatformFactory_Android {
+  static Future<android_app_Application> getandroid_app_Application() async {
+    final refId = await kMethodChannel
+        .invokeMethod('PlatformFactory::getandroid_app_Application');
+    return android_app_Application()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  static Future<android_app_Activity> getandroid_app_Activity() async {
+    final refId = await kMethodChannel
+        .invokeMethod('PlatformFactory::getandroid_app_Activity');
+    return android_app_Activity()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  static Future<android_os_Bundle> createandroid_os_Bundle() async {
+    final refId = await kMethodChannel
+        .invokeMethod('PlatformFactory::createandroid_os_Bundle');
+    return android_os_Bundle()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  static Future<android_graphics_Bitmap> createandroid_graphics_Bitmap(
+      Uint8List bitmapBytes) async {
+    final refId = await kMethodChannel.invokeMethod(
+        'PlatformFactory::createandroid_graphics_Bitmap',
+        {'bitmapBytes': bitmapBytes});
+    return android_graphics_Bitmap()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  static Future<void> release(Ref ref) async {
+    await kMethodChannel
+        .invokeMethod('PlatformFactory::release', {'refId': ref.refId});
+  }
+
+  static Future<void> clearHeap() async {
+    await kMethodChannel.invokeMethod('PlatformFactory::clearHeap');
+  }
+
+  static Future<void> pushStack(String name, Ref ref) async {
+    await kMethodChannel.invokeMethod(
+        'PlatformFactory::pushStack', {'name': name, 'refId': ref.refId});
+  }
+
+  static Future<void> pushStackJsonable(String name, dynamic jsonable) async {
+    await kMethodChannel.invokeMethod(
+        'PlatformFactory::pushStackJsonable', {'name': name, 'data': jsonable});
+  }
+
+  static Future<void> clearStack() async {
+    await kMethodChannel.invokeMethod('PlatformFactory::clearStack');
+  }
+}
