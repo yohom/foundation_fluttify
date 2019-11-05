@@ -138,6 +138,20 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 
     methodResult(@(bitmap.hash));
   }
+  // 创建UIColor
+  else if ([@"PlatformFactory::createUIColor" isEqualToString:methodCall.method]) {
+    NSNumber* colorValue = (NSNumber*) args[@"colorValue"];
+    CGFloat alpha = (0xff000000 & [colorValue integerValue]) >> 24;
+    CGFloat red = (0x00ff0000 & [colorValue integerValue]) >> 16;
+    CGFloat green = (0x0000ff00 & [colorValue integerValue]) >> 8;
+    CGFloat blue = (0x000000ff & [colorValue integerValue]) >> 0;
+      
+    UIColor* color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+
+    HEAP[@(color.hash)] = color;
+
+    methodResult(@(color.hash));
+  }
   // 释放一个对象
   else if ([@"PlatformFactory::release" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber *) args[@"refId"];

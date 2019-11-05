@@ -53,6 +53,8 @@ Future<T> platform<T>(
     releasePool
       ..forEach((it) => PlatformFactory_Android.release(it))
       ..clear();
+    // remove all local object from global object pool
+    kNativeObjectPool.removeAll(releasePool);
     return result;
   } else if (ios != null && Platform.isIOS) {
     final releasePool = <Ref>[];
@@ -60,6 +62,8 @@ Future<T> platform<T>(
     releasePool
       ..forEach((it) => PlatformFactory_iOS.release(it))
       ..clear();
+    // remove all local object from global object pool
+    kNativeObjectPool.removeAll(releasePool);
     return result;
   } else {
     return Future.value();
