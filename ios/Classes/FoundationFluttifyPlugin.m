@@ -146,7 +146,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
     CGFloat green = (0x0000ff00 & [colorValue integerValue]) >> 8;
     CGFloat blue = (0x000000ff & [colorValue integerValue]) >> 0;
       
-    UIColor* color = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
+    UIColor* color = [UIColor colorWithRed:red / 0xFF green:green / 0xFF blue:blue / 0xFF alpha:alpha / 0xFF];
 
     HEAP[@(color.hash)] = color;
 
