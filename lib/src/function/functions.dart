@@ -29,16 +29,15 @@
 
 import 'dart:io';
 
-import 'package:flutter/services.dart';
+import 'package:foundation_fluttify/src/constants.dart';
 
 import '../../foundation_fluttify.dart';
 
-typedef Future<T> _FutureCallback<T>(List<Ref> releasePool);
+typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);
 
 Future<void> performSelectorWithObject(
     Ref ref, String selector, Object object) {
-  return MethodChannel('com.fluttify/foundation')
-      .invokeMethod('Ref::performSelectorWithObject', {
+  return kMethodChannel.invokeMethod('Ref::performSelectorWithObject', {
     'refId': ref.refId,
     'selector': selector,
     'object': object,
@@ -48,19 +47,19 @@ Future<void> performSelectorWithObject(
 Future<T> platform<T>(
     {_FutureCallback<T> android, _FutureCallback<T> ios}) async {
   if (android != null && Platform.isAndroid) {
-    final releasePool = <Ref>[];
+    final releasePool = <Ref>{};
     final result = await android(releasePool);
     releasePool
-      ..forEach((it) => PlatformFactory_Android.release(it))
+      ..forEach((it) => PlatformFactoryAndroid.release(it))
       ..clear();
     // remove all local object from global object pool
     kNativeObjectPool.removeAll(releasePool);
     return result;
   } else if (ios != null && Platform.isIOS) {
-    final releasePool = <Ref>[];
+    final releasePool = <Ref>{};
     final result = await ios(releasePool);
     releasePool
-      ..forEach((it) => PlatformFactory_iOS.release(it))
+      ..forEach((it) => PlatformFactoryIOS.release(it))
       ..clear();
     // remove all local object from global object pool
     kNativeObjectPool.removeAll(releasePool);
@@ -72,7 +71,7 @@ Future<T> platform<T>(
 
 Future release(Ref ref) {
   return platform(
-    android: (pool) => PlatformFactory_Android.release(ref),
-    ios: (pool) => PlatformFactory_iOS.release(ref),
+    android: (pool) => PlatformFactoryAndroid.release(ref),
+    ios: (pool) => PlatformFactoryIOS.release(ref),
   );
 }
