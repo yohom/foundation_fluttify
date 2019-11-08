@@ -84,7 +84,17 @@ class CGSize extends Ref {}
 class UIEdgeInsets extends Ref {}
 
 // CLASS
-class CLLocationManager extends NSObject {}
+class CLLocationManager extends NSObject {
+  Future<void> requestAlwaysAuthorization() async {
+    await kMethodChannel.invokeMethod(
+        'CLLocationManager::requestAlwaysAuthorization', {'refId': refId});
+  }
+
+  Future<void> requestWhenInUseAuthorization() async {
+    await kMethodChannel.invokeMethod(
+        'CLLocationManager::requestWhenInUseAuthorization', {'refId': refId});
+  }
+}
 
 class CLLocation extends NSObject {
   Future<CLLocationCoordinate2D> get coordinate async {

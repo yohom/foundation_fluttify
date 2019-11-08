@@ -220,6 +220,26 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
     [target performSelector: NSSelectorFromString(selector) withObject: object];
 
     methodResult(@"success");
+  }
+  // CLLocationManager::requestAlwaysAuthorization
+  else if ([@"CLLocationManager::requestAlwaysAuthorization" isEqualToString:methodCall.method]) {
+    NSNumber* refId = (NSNumber*) args[@"refId"];
+
+    CLLocationManager* target = (CLLocationManager*) HEAP[refId];
+
+    [target requestAlwaysAuthorization];
+
+    methodResult(@"success");
+  }
+  // CLLocationManager::requestAlwaysAuthorization
+  else if ([@"CLLocationManager::requestWhenInUseAuthorization" isEqualToString:methodCall.method]) {
+    NSNumber* refId = (NSNumber*) args[@"refId"];
+
+    CLLocationManager* target = (CLLocationManager*) HEAP[refId];
+
+    [target requestWhenInUseAuthorization];
+
+    methodResult(@"success");
   } else {
     methodResult(FlutterMethodNotImplemented);
   }
