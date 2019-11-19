@@ -1,10 +1,12 @@
 #import "FoundationFluttifyPlugin.h"
 #import <CoreLocation/CoreLocation.h>
 
-// Dart端一次方法调用所存在的栈, 只有当MethodChannel传递参数受限时, 再启用这个容器
+// The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 NSMutableDictionary<NSString*, NSObject*>* STACK;
-// Dart端随机存取对象的容器
+// Container for Dart side random access objects
 NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
+// whether enable log or not
+BOOL enableLog;
 
 @implementation FoundationFluttifyPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -22,8 +24,13 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 
 - (void)handleMethodCall:(FlutterMethodCall*)methodCall result:(FlutterResult)methodResult {
   NSDictionary<NSString *, id> *args = (NSDictionary<NSString *, id> *) [methodCall arguments];
+  // toggle log
+  if ([@"PlatformService::enableLog" isEqualToString:methodCall.method]) {
+    enableLog = [args[@"enable"] boolValue];
+    methodResult(@"success");
+  }
   // 创建CLLocationCoordinate2D
-  if ([@"PlatformFactory::createCLLocationCoordinate2D" isEqualToString:methodCall.method]) {
+  else if ([@"PlatformFactory::createCLLocationCoordinate2D" isEqualToString:methodCall.method]) {
     CLLocationDegrees latitude = [args[@"latitude"] doubleValue];
     CLLocationDegrees longitude = [args[@"longitude"] doubleValue];
 
@@ -161,7 +168,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
     [HEAP removeObjectForKey:refId];
     methodResult(@"success");
 
-    NSLog(@"HEAP: %@", HEAP);
+    if (enableLog) NSLog(@"HEAP: %@", HEAP);
   }
   // 清空堆
   else if ([@"PlatformFactory::clearHeap" isEqualToString:methodCall.method]) {
@@ -170,7 +177,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
     [HEAP removeAllObjects];
     methodResult(@"success");
 
-    NSLog(@"HEAP: %@", HEAP);
+    if (enableLog) NSLog(@"HEAP: %@", HEAP);
   }
   // 压入栈
   else if ([@"PlatformFactory::pushStack" isEqualToString:methodCall.method]) {
@@ -184,7 +191,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 
     methodResult(@"success");
 
-    NSLog(@"STACK: %@", STACK);
+    if (enableLog) NSLog(@"STACK: %@", STACK);
   }
   // 压入栈 jsonable
   else if ([@"PlatformFactory::pushStackJsonable" isEqualToString:methodCall.method]) {
@@ -198,7 +205,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 
     methodResult(@"success");
 
-    NSLog(@"STACK: %@", STACK);
+    if (enableLog) NSLog(@"STACK: %@", STACK);
   }
   // 清空栈
   else if ([@"PlatformFactory::clearStack" isEqualToString:methodCall.method]) {
@@ -207,7 +214,7 @@ NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
     [STACK removeAllObjects];
     methodResult(@"success");
 
-    NSLog(@"STACK: %@", STACK);
+    if (enableLog) NSLog(@"STACK: %@", STACK);
   }
   // 通过反射调用方法
   else if ([@"Ref::performSelectorWithObject" isEqualToString:methodCall.method]) {

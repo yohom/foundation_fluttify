@@ -12,6 +12,8 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 val STACK = mutableMapOf<String, Any>()
 // Container for Dart side random access objects
 val HEAP = mutableMapOf<Int, Any>()
+// whether enable log or not
+var enableLog: Boolean = true
 
 class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHandler {
     companion object {
@@ -25,6 +27,11 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
     override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
         val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
         when (methodCall.method) {
+            // toggle log
+            "PlatformService::enableLog" -> {
+                enableLog = args["enable"] as Boolean
+                methodResult.success("success")
+            }
             // get Application obejct
             "PlatformFactory::getandroid_app_Application" -> {
                 methodResult.success(registrar.activity().application.apply { HEAP[hashCode()] = this }.hashCode())
@@ -48,7 +55,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
             }
             // release an object
             "PlatformFactory::release" -> {
-                if (BuildConfig.DEBUG)
+                if (enableLog)
                     Log.d("PlatformFactory", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
 
                 HEAP.remove(args["refId"] as Int)
@@ -56,19 +63,18 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 methodResult.success("success")
 
                 // print current HEAP
-                if (BuildConfig.DEBUG)
-                    Log.d("PlatformFactory", "HEAP: $HEAP")
+                if (enableLog) Log.d("PlatformFactory", "HEAP: $HEAP")
             }
             // clear objects in HEAP
             "PlatformFactory::clearHeap" -> {
-                if (BuildConfig.DEBUG)
+                if (enableLog)
                     Log.d("PlatformFactory", "CLEAR HEAP")
 
                 HEAP.clear()
                 methodResult.success("success")
 
                 // print current HEAP
-                if (BuildConfig.DEBUG)
+                if (enableLog)
                     Log.d("PlatformFactory", "HEAP: $HEAP")
             }
             // push an object to stack
@@ -83,8 +89,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 methodResult.success("success")
 
                 // print current STACK
-                if (BuildConfig.DEBUG)
-                    Log.d("PlatformFactory", "STACK: $STACK")
+                if (enableLog) Log.d("PlatformFactory", "STACK: $STACK")
             }
             // push a jsonable to stack
             "PlatformFactory::pushStackJsonable" -> {
@@ -98,8 +103,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 methodResult.success("success")
 
                 // 打印当前STACK
-                if (BuildConfig.DEBUG)
-                    Log.d("PlatformFactory", "STACK: $STACK")
+                if (enableLog) Log.d("PlatformFactory", "STACK: $STACK")
             }
             // clear STACK
             "PlatformFactory::clearStack" -> {
@@ -108,8 +112,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 methodResult.success("success")
 
                 // print current STACK
-                if (BuildConfig.DEBUG)
-                    Log.d("PlatformFactory", "STACK: $STACK")
+                if (enableLog) Log.d("PlatformFactory", "STACK: $STACK")
             }
             // android.location.Location latitude
             "android.location.Location::getLatitude" -> {
