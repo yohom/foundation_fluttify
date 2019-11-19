@@ -35,11 +35,15 @@ import '../../foundation_fluttify.dart';
 
 typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);
 
+bool _enableFluttifyLog = true;
 Future<void> enableFluttifyLog(bool enable) {
+  _enableFluttifyLog = enable;
   return kMethodChannel.invokeMethod('PlatformService::enableLog', {
     'enable': enable,
   });
 }
+
+bool get fluttifyLogEnabled => _enableFluttifyLog;
 
 Future<void> performSelectorWithObject(
     Ref ref, String selector, Object object) {
