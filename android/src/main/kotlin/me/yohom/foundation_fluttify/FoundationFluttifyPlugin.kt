@@ -1,5 +1,7 @@
 package me.yohom.foundation_fluttify
 
+import android.graphics.BitmapFactory
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import io.flutter.plugin.common.MethodCall
@@ -47,7 +49,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
             // create bitmap object
             "PlatformFactory::createandroid_graphics_Bitmap" -> {
                 val bitmapBytes = args["bitmapBytes"] as ByteArray
-                val bitmap = android.graphics.BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
+                val bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
 
                 HEAP[bitmap.hashCode()] = bitmap
 
@@ -117,18 +119,50 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
             // android.location.Location latitude
             "android.location.Location::getLatitude" -> {
                 val refId = args["refId"] as Int
-                val location = HEAP[refId] as android.location.Location
+                val location = HEAP[refId] as Location
 
                 methodResult.success(location.latitude)
             }
             // android.location.Location longitude
             "android.location.Location::getLongitude" -> {
                 val refId = args["refId"] as Int
-                val location = HEAP[refId] as android.location.Location
+                val location = HEAP[refId] as Location
 
                 methodResult.success(location.longitude)
             }
+            // android.util.Pair first
+            "android.util.Pair::getFirst" -> {
+                val refId = args["refId"] as Int
+                val pair = HEAP[refId] as Pair<*, *>
+
+                if (pair.first.jsonable()) {
+                    methodResult.success(pair.first)
+                } else {
+                    methodResult.success(pair.first.hashCode())
+                }
+            }
+            // android.util.Pair second
+            "android.util.Pair::getSecond" -> {
+                val refId = args["refId"] as Int
+                val pair = HEAP[refId] as Pair<*, *>
+
+                if (pair.second.jsonable()) {
+                    methodResult.success(pair.second)
+                } else {
+                    methodResult.success(pair.second.hashCode())
+                }
+            }
             else -> methodResult.notImplemented()
+        }
+    }
+
+    private fun <T> T.jsonable(): Boolean {
+        return when (this) {
+            is Byte, is Short, is Int, is Long, is Float, is Double -> true
+            is String -> true
+            is List<*> -> true
+            is Map<*, *> -> true
+            else -> false
         }
     }
 }

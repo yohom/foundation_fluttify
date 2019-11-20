@@ -111,6 +111,18 @@ class android_widget_LinearLayout extends android_view_ViewGroup {}
 
 class android_widget_RelativeLayout extends android_view_ViewGroup {}
 
+class android_util_Pair<F, S> extends java_lang_Object {
+  Future<F> get first {
+    return kMethodChannel
+        .invokeMethod('android.util.Pair::getFirst', {'refId': refId});
+  }
+
+  Future<S> get second {
+    return kMethodChannel
+        .invokeMethod('android.util.Pair::getSecond', {'refId': refId});
+  }
+}
+
 mixin android_os_Parcelable on java_lang_Object {}
 
 @Deprecated('使用PlatformFactoryAndroid代替')
