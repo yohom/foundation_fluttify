@@ -142,7 +142,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 if (pair.first.jsonable()) {
                     methodResult.success(pair.first)
                 } else {
-                    methodResult.success(pair.first.hashCode())
+                    methodResult.success(pair.first?.hashCode())
                 }
             }
             // android.util.Pair second
@@ -153,7 +153,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 if (pair.second.jsonable()) {
                     methodResult.success(pair.second)
                 } else {
-                    methodResult.success(pair.second.hashCode())
+                    methodResult.success(pair.second?.hashCode())
                 }
             }
             // android.graphics.Bitmap data
