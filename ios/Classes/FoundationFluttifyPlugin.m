@@ -264,6 +264,9 @@ BOOL enableLog;
       
     CGRect rect = [target frame];
     NSValue* dataValue = [NSValue value:&rect withObjCType:@encode(CGRect)];
+      
+    HEAP[@(dataValue.hash)] = dataValue;
+      
     methodResult(@(dataValue.hash));
   } else {
     methodResult(FlutterMethodNotImplemented);
