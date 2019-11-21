@@ -85,7 +85,22 @@ class android_graphics_Point extends java_lang_Object {}
 
 class android_graphics_PointF extends java_lang_Object {}
 
-class android_graphics_Bitmap extends java_lang_Object {}
+class android_graphics_Bitmap extends java_lang_Object {
+  Future<Uint8List> get data {
+    return kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::getData', {'refId': refId});
+  }
+
+  Future<void> recycle() {
+    return kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::recycle', {'refId': refId});
+  }
+
+  Future<bool> get isRecycled {
+    return kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::isRecycled', {'refId': refId});
+  }
+}
 
 class android_location_Location extends java_lang_Object {
   Future<double> get latitude {
@@ -110,6 +125,18 @@ class android_widget_TextView extends android_view_View {}
 class android_widget_LinearLayout extends android_view_ViewGroup {}
 
 class android_widget_RelativeLayout extends android_view_ViewGroup {}
+
+class android_util_Pair<F, S> extends java_lang_Object {
+  Future<F> get first {
+    return kMethodChannel
+        .invokeMethod('android.util.Pair::getFirst', {'refId': refId});
+  }
+
+  Future<S> get second {
+    return kMethodChannel
+        .invokeMethod('android.util.Pair::getSecond', {'refId': refId});
+  }
+}
 
 mixin android_os_Parcelable on java_lang_Object {}
 

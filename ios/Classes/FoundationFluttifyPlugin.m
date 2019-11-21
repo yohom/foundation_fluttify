@@ -247,6 +247,14 @@ BOOL enableLog;
     [target requestWhenInUseAuthorization];
 
     methodResult(@"success");
+  }
+  // UIImage::data
+  else if ([@"UIImage::getData" isEqualToString:methodCall.method]) {
+    NSNumber* refId = (NSNumber*) args[@"refId"];
+
+    UIImage* target = (UIImage*) HEAP[refId];
+    NSData *data = UIImageJPEGRepresentation(target, 100);
+    methodResult([FlutterStandardTypedData typedDataWithBytes:data]);
   } else {
     methodResult(FlutterMethodNotImplemented);
   }

@@ -1,5 +1,9 @@
 package me.yohom.foundation_fluttify
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import io.flutter.plugin.common.MethodCall
@@ -7,6 +11,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.io.ByteArrayOutputStream
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 val STACK = mutableMapOf<String, Any>()
@@ -24,6 +29,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
         }
     }
 
+    @SuppressLint("WrongThread")
     override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
         val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
         when (methodCall.method) {
@@ -47,7 +53,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
             // create bitmap object
             "PlatformFactory::createandroid_graphics_Bitmap" -> {
                 val bitmapBytes = args["bitmapBytes"] as ByteArray
-                val bitmap = android.graphics.BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
+                val bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
 
                 HEAP[bitmap.hashCode()] = bitmap
 
@@ -117,18 +123,74 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
             // android.location.Location latitude
             "android.location.Location::getLatitude" -> {
                 val refId = args["refId"] as Int
-                val location = HEAP[refId] as android.location.Location
+                val location = HEAP[refId] as Location
 
                 methodResult.success(location.latitude)
             }
             // android.location.Location longitude
             "android.location.Location::getLongitude" -> {
                 val refId = args["refId"] as Int
-                val location = HEAP[refId] as android.location.Location
+                val location = HEAP[refId] as Location
 
                 methodResult.success(location.longitude)
             }
+            // android.util.Pair first
+            "android.util.Pair::getFirst" -> {
+                val refId = args["refId"] as Int
+                val pair = HEAP[refId] as Pair<*, *>
+
+                if (pair.first.jsonable()) {
+                    methodResult.success(pair.first)
+                } else {
+                    methodResult.success(pair.first.hashCode())
+                }
+            }
+            // android.util.Pair second
+            "android.util.Pair::getSecond" -> {
+                val refId = args["refId"] as Int
+                val pair = HEAP[refId] as Pair<*, *>
+
+                if (pair.second.jsonable()) {
+                    methodResult.success(pair.second)
+                } else {
+                    methodResult.success(pair.second.hashCode())
+                }
+            }
+            // android.graphics.Bitmap data
+            "android.graphics.Bitmap::getData" -> {
+                val refId = args["refId"] as Int
+                val bitmap = HEAP[refId] as Bitmap
+
+                val outputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                methodResult.success(outputStream.toByteArray())
+            }
+            // android.graphics.Bitmap recycle
+            "android.graphics.Bitmap::recycle" -> {
+                val refId = args["refId"] as Int
+                val bitmap = HEAP[refId] as Bitmap
+
+                bitmap.recycle()
+                methodResult.success("success")
+            }
+            // android.graphics.Bitmap isRecycled
+            "android.graphics.Bitmap::isRecycled" -> {
+                val refId = args["refId"] as Int
+                val bitmap = HEAP[refId] as Bitmap
+
+                methodResult.success(bitmap.isRecycled)
+            }
             else -> methodResult.notImplemented()
+        }
+    }
+
+    private fun <T> T.jsonable(): Boolean {
+        return when (this) {
+            is Byte, is Short, is Int, is Long, is Float, is Double -> true
+            is String -> true
+            is List<*> -> true
+            is Map<*, *> -> true
+            else -> false
         }
     }
 }

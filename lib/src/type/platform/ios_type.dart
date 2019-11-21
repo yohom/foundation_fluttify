@@ -151,7 +151,11 @@ class UIView extends NSObject {}
 
 class UIControl extends NSObject {}
 
-class UIImage extends NSObject {}
+class UIImage extends NSObject {
+  Future<Uint8List> get data {
+    return kMethodChannel.invokeMethod('UIImage::getData', {'refId': refId});
+  }
+}
 
 class UIColor extends NSObject {}
 
