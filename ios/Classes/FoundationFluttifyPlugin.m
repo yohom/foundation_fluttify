@@ -248,13 +248,23 @@ BOOL enableLog;
 
     methodResult(@"success");
   }
-  // UIImage::data
+  // UIImage::getData
   else if ([@"UIImage::getData" isEqualToString:methodCall.method]) {
     NSNumber* refId = (NSNumber*) args[@"refId"];
 
     UIImage* target = (UIImage*) HEAP[refId];
     NSData *data = UIImageJPEGRepresentation(target, 100);
     methodResult([FlutterStandardTypedData typedDataWithBytes:data]);
+  }
+  // UIImage::getFrame
+  else if ([@"UIView::getFrame" isEqualToString:methodCall.method]) {
+    NSNumber* refId = (NSNumber*) args[@"refId"];
+
+    UIView* target = (UIView*) HEAP[refId];
+      
+    CGRect rect = [target frame];
+    NSValue* dataValue = [NSValue value:&rect withObjCType:@encode(CGRect)];
+    methodResult(@(dataValue.hash));
   } else {
     methodResult(FlutterMethodNotImplemented);
   }

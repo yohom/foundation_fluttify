@@ -147,7 +147,11 @@ mixin NSCoding on NSObject {}
 
 mixin NSCopying on NSObject {}
 
-class UIView extends NSObject {}
+class UIView extends NSObject {
+  Future<CGRect> get frame {
+    return kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});
+  }
+}
 
 class UIControl extends NSObject {}
 
