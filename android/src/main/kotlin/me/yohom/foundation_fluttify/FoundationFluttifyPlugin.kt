@@ -1,5 +1,7 @@
 package me.yohom.foundation_fluttify
 
+import android.annotation.SuppressLint
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
@@ -9,6 +11,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import java.io.ByteArrayOutputStream
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 val STACK = mutableMapOf<String, Any>()
@@ -26,6 +29,7 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
         }
     }
 
+    @SuppressLint("WrongThread")
     override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
         val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
         when (methodCall.method) {
@@ -151,6 +155,30 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 } else {
                     methodResult.success(pair.second.hashCode())
                 }
+            }
+            // android.graphics.Bitmap data
+            "android.graphics.Bitmap::getData" -> {
+                val refId = args["refId"] as Int
+                val bitmap = HEAP[refId] as Bitmap
+
+                val outputStream = ByteArrayOutputStream()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+                methodResult.success(outputStream.toByteArray())
+            }
+            // android.graphics.Bitmap recycle
+            "android.graphics.Bitmap::recycle" -> {
+                val refId = args["refId"] as Int
+                val bitmap = HEAP[refId] as Bitmap
+
+                bitmap.recycle()
+                methodResult.success("success")
+            }
+            // android.graphics.Bitmap isRecycled
+            "android.graphics.Bitmap::isRecycled" -> {
+                val refId = args["refId"] as Int
+                val bitmap = HEAP[refId] as Bitmap
+
+                methodResult.success(bitmap.isRecycled)
             }
             else -> methodResult.notImplemented()
         }

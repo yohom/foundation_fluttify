@@ -85,7 +85,22 @@ class android_graphics_Point extends java_lang_Object {}
 
 class android_graphics_PointF extends java_lang_Object {}
 
-class android_graphics_Bitmap extends java_lang_Object {}
+class android_graphics_Bitmap extends java_lang_Object {
+  Future<Uint8List> get data {
+    return kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::getData', {'refId': refId});
+  }
+
+  Future<void> recycle() {
+    return kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::recycle', {'refId': refId});
+  }
+
+  Future<bool> get isRecycled {
+    return kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::isRecycled', {'refId': refId});
+  }
+}
 
 class android_location_Location extends java_lang_Object {
   Future<double> get latitude {
