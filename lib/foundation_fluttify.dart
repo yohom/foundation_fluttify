@@ -6,6 +6,7 @@ export 'src/type/base/ref.dart';
 export 'src/type/platform/android_type/android/app/activity.dart';
 export 'src/type/platform/android_type/android/app/application.dart';
 export 'src/type/platform/android_type/android/content/context.dart';
+export 'src/type/platform/android_type/android/content/intent.dart';
 export 'src/type/platform/android_type/android/graphics/bitmap.dart';
 export 'src/type/platform/android_type/android/graphics/drawable/drawable.dart';
 export 'src/type/platform/android_type/android/graphics/point.dart';
