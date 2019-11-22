@@ -20,7 +20,8 @@ bool get fluttifyLogEnabled => _enableFluttifyLog;
 
 Future<void> performSelectorWithObject(
     Ref ref, String selector, Object object) {
-  return kMethodChannel.invokeMethod('Ref::performSelectorWithObject', {
+  return kMethodChannel
+      .invokeMethod('PlatformService::performSelectorWithObject', {
     'refId': ref.refId,
     'selector': selector,
     'object': object,
