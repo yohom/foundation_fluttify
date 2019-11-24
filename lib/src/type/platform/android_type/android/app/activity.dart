@@ -5,11 +5,11 @@ import '../../../../../constants.dart';
 
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 class android_app_Activity extends android_content_Context {
-  Future<android_content_Intent> get intent async{
-    final refId2 = await kMethodChannel
+  Future<android_content_Intent> get intent async {
+    final result = await kMethodChannel
         .invokeMethod('android.app.Activity::getIntent', {'refId': refId});
     return android_content_Intent()
-      ..refId = refId2
+      ..refId = result
       ..tag = 'platform';
   }
 }
