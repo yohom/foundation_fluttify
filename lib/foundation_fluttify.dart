@@ -37,6 +37,7 @@ export 'src/type/platform/ios_type/cl_location_manager.dart';
 export 'src/type/platform/ios_type/factory.ios.dart';
 export 'src/type/platform/ios_type/ns_coding.dart';
 export 'src/type/platform/ios_type/ns_copying.dart';
+export 'src/type/platform/ios_type/ns_data.dart';
 export 'src/type/platform/ios_type/ns_error.dart';
 export 'src/type/platform/ios_type/ns_object.dart';
 export 'src/type/platform/ios_type/ui_color.dart';

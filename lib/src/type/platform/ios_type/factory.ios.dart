@@ -6,6 +6,7 @@ import 'package:foundation_fluttify/src/type/base/ref.dart';
 
 import '../../../constants.dart';
 import 'cl_location_coordinate_2d.dart';
+import 'ns_data.dart';
 import 'ui_color.dart';
 import 'ui_image.dart';
 
@@ -33,6 +34,14 @@ class PlatformFactoryIOS {
     final refId = await kMethodChannel.invokeMethod(
         'PlatformFactory::createUIColor', {'colorValue': color.value});
     return UIColor()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  static Future<NSData> createNSDataWithUint8List(Uint8List data) async {
+    final refId = await kMethodChannel.invokeMethod(
+        'PlatformFactory::createNSDataWithUint8List', {'data': data});
+    return NSData()
       ..refId = refId
       ..tag = 'platform';
   }

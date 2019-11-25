@@ -69,6 +69,16 @@ extern BOOL enableLog;
 
       methodResult(@(color.hash));
     }
+    // 根据Uint8List创建NSData
+    else if ([@"PlatformFactory::createNSDataWithUint8List" isEqualToString:method]) {
+      FlutterStandardTypedData *data = (FlutterStandardTypedData *) args[@"data"];
+
+      NSData* target = data.data;
+
+      HEAP[@(target.hash)] = target;
+
+      methodResult(@(target.hash));
+    }
     // 释放一个对象
     else if ([@"PlatformFactory::release" isEqualToString:method]) {
       NSNumber *refId = (NSNumber *) args[@"refId"];
