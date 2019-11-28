@@ -1,6 +1,7 @@
 package me.yohom.foundation_fluttify
 
 import android.graphics.BitmapFactory
+import android.graphics.Point
 import android.os.Bundle
 import android.util.Log
 import io.flutter.plugin.common.MethodChannel
@@ -39,6 +40,16 @@ class PlatformFactory(
                 HEAP[bitmap.hashCode()] = bitmap
 
                 methodResult.success(bitmap.hashCode())
+            }
+            // create point
+            "PlatformFactory::createandroid_graphics_Point" -> {
+                val x = args["x"] as Int
+                val y = args["y"] as Int
+                val point = Point(x, y)
+
+                HEAP[point.hashCode()] = point
+
+                methodResult.success(point.hashCode())
             }
             // release an object
             "PlatformFactory::release" -> {
