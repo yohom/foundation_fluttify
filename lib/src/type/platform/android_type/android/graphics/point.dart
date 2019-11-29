@@ -5,12 +5,12 @@ import 'package:foundation_fluttify/src/constants.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_graphics_Point extends java_lang_Object {
-  Future<Uint8List> get x {
+  Future<int> get x {
     return kMethodChannel
         .invokeMethod('android.graphics.Point::getX', {'refId': refId});
   }
 
-  Future<Uint8List> get y {
+  Future<int> get y {
     return kMethodChannel
         .invokeMethod('android.graphics.Bitmap::getY', {'refId': refId});
   }
