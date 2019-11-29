@@ -1,3 +1,6 @@
+## 0.1.5
+- feat: 增加cgpoint的创建支持，获取x和y
+
 ## 0.1.4
 - feat: 增加android_graphics_Point的创建, getX, getY的支持
 
