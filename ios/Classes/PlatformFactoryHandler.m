@@ -21,7 +21,7 @@ extern BOOL enableLog;
       enableLog = [args[@"enable"] boolValue];
       methodResult(@"success");
     }
-    // 通过反射调用方法
+      // 通过反射调用方法
     else if ([@"PlatformService::performSelectorWithObject" isEqualToString:method]) {
       NSNumber *refId = (NSNumber *) args[@"refId"];
       NSString *selector = (NSString *) args[@"selector"];
@@ -33,7 +33,7 @@ extern BOOL enableLog;
 
       methodResult(@"success");
     }
-    // 创建CLLocationCoordinate2D
+      // 创建CLLocationCoordinate2D
     else if ([@"PlatformFactory::createCLLocationCoordinate2D" isEqualToString:method]) {
       CLLocationDegrees latitude = [args[@"latitude"] doubleValue];
       CLLocationDegrees longitude = [args[@"longitude"] doubleValue];
@@ -45,7 +45,7 @@ extern BOOL enableLog;
 
       methodResult(@(dataValue.hash));
     }
-    // 创建UIImage
+      // 创建UIImage
     else if ([@"PlatformFactory::createUIImage" isEqualToString:method]) {
       FlutterStandardTypedData *bitmapBytes = (FlutterStandardTypedData *) args[@"bitmapBytes"];
 
@@ -55,7 +55,7 @@ extern BOOL enableLog;
 
       methodResult(@(bitmap.hash));
     }
-    // 创建UIColor
+      // 创建UIColor
     else if ([@"PlatformFactory::createUIColor" isEqualToString:method]) {
       NSNumber *colorValue = (NSNumber *) args[@"colorValue"];
       CGFloat alpha = (0xff000000 & [colorValue integerValue]) >> 24;
@@ -69,17 +69,29 @@ extern BOOL enableLog;
 
       methodResult(@(color.hash));
     }
-    // 根据Uint8List创建NSData
+      // 根据Uint8List创建NSData
     else if ([@"PlatformFactory::createNSDataWithUint8List" isEqualToString:method]) {
       FlutterStandardTypedData *data = (FlutterStandardTypedData *) args[@"data"];
 
-      NSData* target = data.data;
+      NSData *target = data.data;
 
       HEAP[@(target.hash)] = target;
 
       methodResult(@(target.hash));
     }
-    // 释放一个对象
+      // 创建CGPoint
+    else if ([@"PlatformFactory::createCGPoint" isEqualToString:method]) {
+      NSNumber *x = (NSNumber *) args[@"x"];
+      NSNumber *y = (NSNumber *) args[@"y"];
+
+      CGPoint cgPoint = CGPointMake([x floatValue], [y floatValue]);
+      NSValue *valuePoint = [NSValue valueWithCGPoint:cgPoint];
+
+      HEAP[@(valuePoint.hash)] = valuePoint;
+
+      methodResult(@(valuePoint.hash));
+    }
+      // 释放一个对象
     else if ([@"PlatformFactory::release" isEqualToString:method]) {
       NSNumber *refId = (NSNumber *) args[@"refId"];
 
@@ -90,7 +102,7 @@ extern BOOL enableLog;
 
       if (enableLog) NSLog(@"HEAP: %@", HEAP);
     }
-    // 清空堆
+      // 清空堆
     else if ([@"PlatformFactory::clearHeap" isEqualToString:method]) {
       NSLog(@"PlatformFactory::清空堆");
 
@@ -99,7 +111,7 @@ extern BOOL enableLog;
 
       if (enableLog) NSLog(@"HEAP: %@", HEAP);
     }
-    // 压入栈
+      // 压入栈
     else if ([@"PlatformFactory::pushStack" isEqualToString:method]) {
       NSString *name = (NSString *) args[@"name"];
       NSNumber *refId = (NSNumber *) args[@"refId"];
@@ -112,7 +124,7 @@ extern BOOL enableLog;
 
       if (enableLog) NSLog(@"STACK: %@", STACK);
     }
-    // 压入栈 jsonable
+      // 压入栈 jsonable
     else if ([@"PlatformFactory::pushStackJsonable" isEqualToString:method]) {
       NSString *name = (NSString *) args[@"name"];
       NSObject *data = (NSObject *) args[@"data"];
@@ -125,7 +137,7 @@ extern BOOL enableLog;
 
       if (enableLog) NSLog(@"STACK: %@", STACK);
     }
-    // 清空栈
+      // 清空栈
     else if ([@"PlatformFactory::clearStack" isEqualToString:method]) {
       NSLog(@"PlatformFactory::清空栈");
 
