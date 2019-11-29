@@ -1,3 +1,6 @@
+## 0.1.4
+- feat: 增加android_graphics_Point的创建, getX, getY的支持
+
 ## 0.1.3
 feat: 增加NSData
 
