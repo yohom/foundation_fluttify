@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/base/ref.dart';
 
 import '../../../constants.dart';
@@ -42,6 +43,14 @@ class PlatformFactoryIOS {
     final refId = await kMethodChannel.invokeMethod(
         'PlatformFactory::createNSDataWithUint8List', {'data': data});
     return NSData()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  static Future<CGPoint> createCGPoint(double x, double y) async {
+    final refId = await kMethodChannel
+        .invokeMethod('PlatformFactory::createCGPoint', {'x': x, 'y': y});
+    return CGPoint()
       ..refId = refId
       ..tag = 'platform';
   }
