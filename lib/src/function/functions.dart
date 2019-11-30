@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:foundation_fluttify/src/constants.dart';
-import 'package:foundation_fluttify/src/type/platform/android_type/factory.android.dart';
-import 'package:foundation_fluttify/src/type/platform/ios_type/factory.ios.dart';
 
 import '../../foundation_fluttify.dart';
 
@@ -18,23 +16,15 @@ Future<void> enableFluttifyLog(bool enable) {
 
 bool get fluttifyLogEnabled => _enableFluttifyLog;
 
-Future<void> performSelectorWithObject(
-    Ref ref, String selector, Object object) {
-  return kMethodChannel
-      .invokeMethod('PlatformService::performSelectorWithObject', {
-    'refId': ref.refId,
-    'selector': selector,
-    'object': object,
-  });
-}
-
-Future<T> platform<T>(
-    {_FutureCallback<T> android, _FutureCallback<T> ios}) async {
+Future<T> platform<T>({
+  _FutureCallback<T> android,
+  _FutureCallback<T> ios,
+}) async {
   if (android != null && Platform.isAndroid) {
     final releasePool = <Ref>{};
     final result = await android(releasePool);
     releasePool
-      ..forEach((it) => PlatformFactoryAndroid.release(it))
+      ..forEach(release)
       ..clear();
     // remove all local object from global object pool
     kNativeObjectPool.removeAll(releasePool);
@@ -43,7 +33,7 @@ Future<T> platform<T>(
     final releasePool = <Ref>{};
     final result = await ios(releasePool);
     releasePool
-      ..forEach((it) => PlatformFactoryIOS.release(it))
+      ..forEach(release)
       ..clear();
     // remove all local object from global object pool
     kNativeObjectPool.removeAll(releasePool);
@@ -53,9 +43,38 @@ Future<T> platform<T>(
   }
 }
 
-Future release(Ref ref) {
-  return platform(
-    android: (pool) => PlatformFactoryAndroid.release(ref),
-    ios: (pool) => PlatformFactoryIOS.release(ref),
-  );
+Future<void> performSelectorWithObject(
+  Ref ref,
+  String selector,
+  Object object,
+) {
+  return kMethodChannel
+      .invokeMethod('PlatformService::performSelectorWithObject', {
+    'refId': ref.refId,
+    'selector': selector,
+    'object': object,
+  });
+}
+
+Future<void> release(Ref ref) async {
+  await kMethodChannel
+      .invokeMethod('PlatformFactory::release', {'refId': ref.refId});
+}
+
+Future<void> clearHeap() async {
+  await kMethodChannel.invokeMethod('PlatformFactory::clearHeap');
+}
+
+Future<void> pushStack(String name, Ref ref) async {
+  await kMethodChannel.invokeMethod(
+      'PlatformFactory::pushStack', {'name': name, 'refId': ref.refId});
+}
+
+Future<void> pushStackJsonable(String name, dynamic jsonable) async {
+  await kMethodChannel.invokeMethod(
+      'PlatformFactory::pushStackJsonable', {'name': name, 'data': jsonable});
+}
+
+Future<void> clearStack() async {
+  await kMethodChannel.invokeMethod('PlatformFactory::clearStack');
 }
