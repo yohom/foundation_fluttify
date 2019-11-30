@@ -7,6 +7,7 @@
 #import "UIImageHandler.h"
 #import "UIViewHandler.h"
 #import "CGPointHandler.h"
+#import "NSDataHandler.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 NSMutableDictionary<NSString *, NSObject *> *STACK;
@@ -56,6 +57,8 @@ BOOL enableLog;
     [[UIViewHandler alloc] initWith:methodCall.method :args :methodResult];
   } else if ([methodCall.method hasPrefix:@"CGPoint"]) {
     [[CGPointHandler alloc] initWith:methodCall.method :args :methodResult];
+  } else if ([methodCall.method hasPrefix:@"NSData"]) {
+    [[NSDataHandler alloc] initWith:methodCall.method :args :methodResult];
   } else if ([methodCall.method hasPrefix:@"Platform"]) {
     [[PlatformFactoryHandler alloc] initWith:methodCall.method :args :methodResult :self->_registrar];
   } else {
