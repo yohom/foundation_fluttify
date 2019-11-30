@@ -32,6 +32,7 @@ class BitmapHandler(method: String, args: Map<String, Any>, methodResult: Method
 
                 methodResult.success(bitmap.isRecycled)
             }
+            else -> methodResult.notImplemented()
         }
     }
 }

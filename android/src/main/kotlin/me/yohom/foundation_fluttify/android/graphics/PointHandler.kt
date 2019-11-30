@@ -19,6 +19,7 @@ class PointHandler(method: String, args: Map<String, Any>, methodResult: MethodC
 
                 methodResult.success(point.y)
             }
+            else -> methodResult.notImplemented()
         }
     }
 }

@@ -22,21 +22,33 @@ Future<T> platform<T>({
 }) async {
   if (android != null && Platform.isAndroid) {
     final releasePool = <Ref>{};
-    final result = await android(releasePool);
-    releasePool
-      ..forEach(release)
-      ..clear();
-    // remove all local object from global object pool
-    kNativeObjectPool.removeAll(releasePool);
+    T result;
+    try {
+      result = await android(releasePool);
+    } catch (e) {
+      return Future.error(e);
+    } finally {
+      releasePool
+        ..forEach(release)
+        ..clear();
+      // remove all local object from global object pool
+      kNativeObjectPool.removeAll(releasePool);
+    }
     return result;
   } else if (ios != null && Platform.isIOS) {
     final releasePool = <Ref>{};
-    final result = await ios(releasePool);
-    releasePool
-      ..forEach(release)
-      ..clear();
-    // remove all local object from global object pool
-    kNativeObjectPool.removeAll(releasePool);
+    T result;
+    try {
+      result = await ios(releasePool);
+    } catch (e) {
+      return Future.error(e);
+    } finally {
+      releasePool
+        ..forEach(release)
+        ..clear();
+      // remove all local object from global object pool
+      kNativeObjectPool.removeAll(releasePool);
+    }
     return result;
   } else {
     return Future.value();

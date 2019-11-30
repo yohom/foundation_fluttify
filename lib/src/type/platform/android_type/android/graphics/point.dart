@@ -12,6 +12,6 @@ class android_graphics_Point extends java_lang_Object {
 
   Future<int> get y {
     return kMethodChannel
-        .invokeMethod('android.graphics.Bitmap::getY', {'refId': refId});
+        .invokeMethod('android.graphics.Point::getY', {'refId': refId});
   }
 }
