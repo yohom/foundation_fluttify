@@ -8,7 +8,6 @@ import me.yohom.foundation_fluttify.jsonable
 class PairHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
     init {
         when (method) {
-            // android.util.Pair first
             "android.util.Pair::getFirst" -> {
                 val refId = args["refId"] as Int
                 val pair = HEAP[refId] as Pair<*, *>
@@ -19,7 +18,6 @@ class PairHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
                     methodResult.success(pair.first?.hashCode())
                 }
             }
-            // android.util.Pair second
             "android.util.Pair::getSecond" -> {
                 val refId = args["refId"] as Int
                 val pair = HEAP[refId] as Pair<*, *>
@@ -30,6 +28,7 @@ class PairHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
                     methodResult.success(pair.second?.hashCode())
                 }
             }
+            else -> methodResult.notImplemented()
         }
     }
 }

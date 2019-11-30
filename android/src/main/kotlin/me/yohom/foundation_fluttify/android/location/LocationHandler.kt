@@ -21,6 +21,7 @@ class LocationHandler(method: String, args: Map<String, Any>, methodResult: Meth
 
                 methodResult.success(location.longitude)
             }
+            else -> methodResult.notImplemented()
         }
     }
 }
