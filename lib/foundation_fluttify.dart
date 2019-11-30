@@ -1,5 +1,7 @@
 library foundation_fluttify;
 
+export 'src/function/factory.android.dart';
+export 'src/function/factory.ios.dart';
 export 'src/function/functions.dart';
 export 'src/object/obejcts.dart';
 export 'src/type/base/ref.dart';
@@ -23,7 +25,6 @@ export 'src/type/platform/android_type/android/widget/image_view.dart';
 export 'src/type/platform/android_type/android/widget/linear_layout.dart';
 export 'src/type/platform/android_type/android/widget/relative_layout.dart';
 export 'src/type/platform/android_type/android/widget/text_view.dart';
-export 'src/type/platform/android_type/factory.android.dart';
 export 'src/type/platform/android_type/java/lang/object.dart';
 export 'src/type/platform/ios_type/cg_point.dart';
 export 'src/type/platform/ios_type/cg_rect.dart';
@@ -34,7 +35,6 @@ export 'src/type/platform/ios_type/cl_heading.dart';
 export 'src/type/platform/ios_type/cl_location.dart';
 export 'src/type/platform/ios_type/cl_location_coordinate_2d.dart';
 export 'src/type/platform/ios_type/cl_location_manager.dart';
-export 'src/type/platform/ios_type/factory.ios.dart';
 export 'src/type/platform/ios_type/ns_coding.dart';
 export 'src/type/platform/ios_type/ns_copying.dart';
 export 'src/type/platform/ios_type/ns_data.dart';

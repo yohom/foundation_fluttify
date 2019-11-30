@@ -1,3 +1,6 @@
+## 0.2.0
+- [breaking change] 整理工厂方法
+
 ## 0.1.5
 - feat: 增加cgpoint的创建支持，获取x和y
 
