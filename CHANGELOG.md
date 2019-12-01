@@ -1,3 +1,6 @@
+## 0.2.1
+- fix: [objc] 每个.h文件都import <Flutter/Flutter.h>
+
 ## 0.2.0
 - [breaking change] 整理工厂方法
 
