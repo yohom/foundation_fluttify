@@ -27,6 +27,8 @@ extern BOOL enableLog;
       CGPoint cgPoint = value.CGPointValue;
 
       methodResult(@(cgPoint.y));
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
   return self;

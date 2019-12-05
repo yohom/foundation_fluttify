@@ -1,3 +1,6 @@
+## 0.2.2
+- feat: 实现UIEdgeInsets的属性
+
 ## 0.2.1
 - fix: [objc] 每个.h文件都import <Flutter/Flutter.h>
 

@@ -76,6 +76,8 @@ extern BOOL enableLog;
       HEAP[@(floor.hash)] = floor;
 
       methodResult(@(floor.hash));
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
   return self;

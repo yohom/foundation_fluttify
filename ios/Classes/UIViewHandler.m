@@ -25,6 +25,8 @@ extern BOOL enableLog;
       HEAP[@(dataValue.hash)] = dataValue;
 
       methodResult(@(dataValue.hash));
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
 
