@@ -32,6 +32,8 @@ extern BOOL enableLog;
       [target requestWhenInUseAuthorization];
 
       methodResult(@"success");
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
 

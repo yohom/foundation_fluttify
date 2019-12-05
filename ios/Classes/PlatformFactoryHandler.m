@@ -91,6 +91,21 @@ extern BOOL enableLog;
 
       methodResult(@(valuePoint.hash));
     }
+      // 创建UIEdgeInsets
+    else if ([@"PlatformFactory::createUIEdgeInsets" isEqualToString:method]) {
+      NSNumber *top = (NSNumber *) args[@"top"];
+      NSNumber *left = (NSNumber *) args[@"left"];
+      NSNumber *bottom = (NSNumber *) args[@"bottom"];
+      NSNumber *right = (NSNumber *) args[@"right"];
+
+      UIEdgeInsets insets = UIEdgeInsetsMake([top floatValue], [left floatValue], [bottom floatValue], [right floatValue]);
+
+      NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets]];
+
+      HEAP[@(valuePoint.hash)] = valuePoint;
+
+      methodResult(@(valuePoint.hash));
+    }
       // 释放一个对象
     else if ([@"PlatformFactory::release" isEqualToString:method]) {
       NSNumber *refId = (NSNumber *) args[@"refId"];
@@ -145,6 +160,8 @@ extern BOOL enableLog;
       methodResult(@"success");
 
       if (enableLog) NSLog(@"STACK: %@", STACK);
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
   return self;

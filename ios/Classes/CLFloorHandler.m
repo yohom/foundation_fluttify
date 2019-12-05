@@ -20,6 +20,8 @@ extern BOOL enableLog;
       CLFloor *floor = (CLFloor *) HEAP[refId];
 
       methodResult(@(floor.level));
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
   return self;

@@ -19,6 +19,8 @@ extern BOOL enableLog;
       UIImage *target = (UIImage *) HEAP[refId];
       NSData *data = UIImageJPEGRepresentation(target, 100);
       methodResult([FlutterStandardTypedData typedDataWithBytes:data]);
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
   return self;

@@ -35,6 +35,8 @@ extern BOOL enableLog;
       [dataValue getValue:&_structValue];
 
       methodResult(@(_structValue.longitude));
+    } else {
+      methodResult(FlutterMethodNotImplemented);
     }
   }
   return self;
