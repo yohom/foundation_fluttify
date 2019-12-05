@@ -53,3 +53,21 @@ Future<CGPoint> createCGPoint(double x, double y) async {
     ..refId = refId
     ..tag = 'platform';
 }
+
+Future<UIEdgeInsets> createUIEdgeInsets(
+  double top,
+  double left,
+  double bottom,
+  double right,
+) async {
+  final refId =
+      await kMethodChannel.invokeMethod('PlatformFactory::createUIEdgeInsets', {
+    'top': top,
+    'left': left,
+    'bottom': bottom,
+    'right': right,
+  });
+  return UIEdgeInsets()
+    ..refId = refId
+    ..tag = 'platform';
+}
