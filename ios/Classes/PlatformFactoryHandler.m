@@ -100,7 +100,7 @@ extern BOOL enableLog;
 
       UIEdgeInsets insets = UIEdgeInsetsMake([top floatValue], [left floatValue], [bottom floatValue], [right floatValue]);
 
-      NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets]];
+      NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets];
 
       HEAP[@(valuePoint.hash)] = valuePoint;
 
