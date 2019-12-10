@@ -1,3 +1,6 @@
+## 0.2.4
+- feat: android_location_Location增加bearing, altitude, accuracy, speed
+
 ## 0.2.3
 - feat: 增加android_content_ContentProvider
 
