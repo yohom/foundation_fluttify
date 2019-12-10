@@ -13,4 +13,24 @@ class android_location_Location extends java_lang_Object {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getLongitude', {'refId': refId});
   }
+
+  Future<double> get bearing {
+    return kMethodChannel.invokeMethod(
+        'android.location.Location::getBearing', {'refId': refId});
+  }
+
+  Future<double> get altitude {
+    return kMethodChannel.invokeMethod(
+        'android.location.Location::getAltitude', {'refId': refId});
+  }
+
+  Future<double> get accuracy {
+    return kMethodChannel.invokeMethod(
+        'android.location.Location::getAccuracy', {'refId': refId});
+  }
+
+  Future<double> get speed {
+    return kMethodChannel
+        .invokeMethod('android.location.Location::getSpeed', {'refId': refId});
+  }
 }
