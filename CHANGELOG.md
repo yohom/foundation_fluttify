@@ -1,3 +1,6 @@
+## 0.2.3
+- feat: 增加android_content_ContentProvider
+
 ## 0.2.2
 - feat: 实现UIEdgeInsets的属性
 
