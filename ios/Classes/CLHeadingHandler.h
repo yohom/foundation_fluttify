@@ -1,5 +1,8 @@
 //
-// Created by Yohom Bao on 2019/11/22.
+//  CLHeadingHandler.h
+//  foundation_fluttify
+//
+//  Created by Yohom Bao on 2019/12/11.
 //
 
 #import <Foundation/Foundation.h>
@@ -7,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewHandler : NSObject
+@interface CLHeadingHandler : NSObject
 - (instancetype)initWith:(NSString*) method :(NSDictionary*)args :(FlutterResult)methodResult;
 @end
 
