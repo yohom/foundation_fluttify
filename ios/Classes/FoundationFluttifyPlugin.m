@@ -9,6 +9,7 @@
 #import "CGPointHandler.h"
 #import "NSDataHandler.h"
 #import "UIEdgeInsetsHandler.h"
+#import "CLHeadingHandler.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 NSMutableDictionary<NSString *, NSObject *> *STACK;
@@ -62,6 +63,8 @@ BOOL enableLog;
     [[NSDataHandler alloc] initWith:methodCall.method :args :methodResult];
   } else if ([methodCall.method hasPrefix:@"UIEdgeInsets"]) {
     [[UIEdgeInsetsHandler alloc] initWith:methodCall.method :args :methodResult];
+  } else if ([methodCall.method hasPrefix:@"CLHeadingHandler"]) {
+    [[CLHeadingHandler alloc] initWith:methodCall.method :args :methodResult];
   } else if ([methodCall.method hasPrefix:@"Platform"]) {
     [[PlatformFactoryHandler alloc] initWith:methodCall.method :args :methodResult :self->_registrar];
   } else {

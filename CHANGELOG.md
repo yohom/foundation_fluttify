@@ -1,3 +1,6 @@
+## 0.2.5
+- feat: CLHeading实现magneticHeading，trueHeading，headingAccuracy
+
 ## 0.2.4
 - feat: android_location_Location增加bearing, altitude, accuracy, speed
 
