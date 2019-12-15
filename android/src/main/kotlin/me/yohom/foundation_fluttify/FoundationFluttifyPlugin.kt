@@ -7,6 +7,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import me.yohom.foundation_fluttify.android.app.ActivityHandler
+import me.yohom.foundation_fluttify.android.app.PendingIntentHandler
 import me.yohom.foundation_fluttify.android.content.IntentHandler
 import me.yohom.foundation_fluttify.android.graphics.BitmapHandler
 import me.yohom.foundation_fluttify.android.graphics.PointHandler
@@ -38,12 +39,13 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
         val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
         methodCall.method.run {
             when {
-                startsWith("android.location.Location") -> LocationHandler(methodCall.method, args, methodResult)
-                startsWith("android.util.Pair") -> PairHandler(methodCall.method, args, methodResult)
+                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, args, methodResult)
+                startsWith("android.app.PendingIntent") -> PendingIntentHandler(methodCall.method, args, methodResult)
+                startsWith("android.content.Intent") -> IntentHandler(methodCall.method, args, methodResult)
                 startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, args, methodResult)
                 startsWith("android.graphics.Point") -> PointHandler(methodCall.method, args, methodResult)
-                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, args, methodResult)
-                startsWith("android.content.Intent") -> IntentHandler(methodCall.method, args, methodResult)
+                startsWith("android.location.Location") -> LocationHandler(methodCall.method, args, methodResult)
+                startsWith("android.util.Pair") -> PairHandler(methodCall.method, args, methodResult)
                 startsWith("Platform") -> PlatformFactory(methodCall.method, args, methodResult, registrar)
                 else -> methodResult.notImplemented()
             }
