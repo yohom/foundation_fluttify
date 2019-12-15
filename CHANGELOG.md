@@ -1,3 +1,6 @@
+## 0.2.6
+- feat: android端增加BroadcastReceiver统一接收广播
+
 ## 0.2.5
 - feat: CLHeading实现magneticHeading，trueHeading，headingAccuracy
 
