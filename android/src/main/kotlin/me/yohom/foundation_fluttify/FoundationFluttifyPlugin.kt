@@ -1,5 +1,6 @@
 package me.yohom.foundation_fluttify
 
+import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -18,13 +19,18 @@ val STACK = mutableMapOf<String, Any>()
 val HEAP = mutableMapOf<Int, Any>()
 // whether enable log or not
 var enableLog: Boolean = true
+// channel for foundation
+lateinit var gMethodChannel: MethodChannel
+lateinit var gBroadcastEventChannel: EventChannel
 
 class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHandler {
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            val channel = MethodChannel(registrar.messenger(), "com.fluttify/foundation")
-            channel.setMethodCallHandler(FoundationFluttifyPlugin(registrar))
+            gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
+            gMethodChannel.setMethodCallHandler(FoundationFluttifyPlugin(registrar))
+
+            gBroadcastEventChannel = EventChannel(registrar.messenger(), "com.fluttify/foundation_broadcast_event")
         }
     }
 

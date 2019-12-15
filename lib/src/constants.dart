@@ -1,4 +1,7 @@
 import 'package:flutter/services.dart';
 
-const kChannelName = 'com.fluttify/foundation';
-const kMethodChannel = MethodChannel(kChannelName);
+const kMethodChannelName = 'com.fluttify/foundation_method';
+const kMethodChannel = MethodChannel(kMethodChannelName);
+
+const kBroadcastEventChannelName = 'com.fluttify/foundation_broadcast_event';
+const kBroadcastEventChannel = MethodChannel(kBroadcastEventChannelName);
