@@ -1,3 +1,6 @@
+## 0.2.7
+- feat: 增加pending_intent类
+
 ## 0.2.6
 - feat: android端增加BroadcastReceiver统一接收广播
 
