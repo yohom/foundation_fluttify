@@ -29,7 +29,7 @@ BOOL enableLog;
   HEAP = @{}.mutableCopy;
 
   FlutterMethodChannel *channel = [FlutterMethodChannel
-      methodChannelWithName:@"com.fluttify/foundation"
+      methodChannelWithName:@"com.fluttify/foundation_method"
             binaryMessenger:[registrar messenger]];
   FoundationFluttifyPlugin *instance = [[FoundationFluttifyPlugin alloc] initWithRegistrar:registrar];
   [registrar addMethodCallDelegate:instance channel:channel];
