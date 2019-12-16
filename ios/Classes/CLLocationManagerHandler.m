@@ -9,35 +9,27 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-@implementation CLLocationManagerHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
+void CLLocationManagerHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // CLLocationManager::requestAlwaysAuthorization
     if ([@"CLLocationManager::requestAlwaysAuthorization" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      CLLocationManager *target = (CLLocationManager *) HEAP[refId];
-
-      [target requestAlwaysAuthorization];
-
-      methodResult(@"success");
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        CLLocationManager *target = (CLLocationManager *) HEAP[refId];
+        
+        [target requestAlwaysAuthorization];
+        
+        methodResult(@"success");
     }
-      // CLLocationManager::requestAlwaysAuthorization
+    // CLLocationManager::requestAlwaysAuthorization
     else if ([@"CLLocationManager::requestWhenInUseAuthorization" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      CLLocationManager *target = (CLLocationManager *) HEAP[refId];
-
-      [target requestWhenInUseAuthorization];
-
-      methodResult(@"success");
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        CLLocationManager *target = (CLLocationManager *) HEAP[refId];
+        
+        [target requestWhenInUseAuthorization];
+        
+        methodResult(@"success");
     } else {
-      methodResult(FlutterMethodNotImplemented);
+        methodResult(FlutterMethodNotImplemented);
     }
-  }
-
-  return self;
 }
-
-@end

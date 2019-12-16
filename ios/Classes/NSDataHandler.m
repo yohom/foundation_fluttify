@@ -4,13 +4,6 @@
 
 #import "NSDataHandler.h"
 
-
-@implementation NSDataHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
-  }
-  return self;
+void NSDataHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+    
 }
-
-@end

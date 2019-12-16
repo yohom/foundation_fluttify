@@ -8,22 +8,15 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-@implementation UIImageHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
+void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // UIImage::getData
     if ([@"UIImage::getData" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      UIImage *target = (UIImage *) HEAP[refId];
-      NSData *data = UIImageJPEGRepresentation(target, 100);
-      methodResult([FlutterStandardTypedData typedDataWithBytes:data]);
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        UIImage *target = (UIImage *) HEAP[refId];
+        NSData *data = UIImageJPEGRepresentation(target, 100);
+        methodResult([FlutterStandardTypedData typedDataWithBytes:data]);
     } else {
-      methodResult(FlutterMethodNotImplemented);
+        methodResult(FlutterMethodNotImplemented);
     }
-  }
-  return self;
 }
-
-@end

@@ -9,22 +9,15 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-@implementation CLFloorHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
+void CLFloorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // CLFloor获取level
     if ([@"CLFloor::get_level" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      CLFloor *floor = (CLFloor *) HEAP[refId];
-
-      methodResult(@(floor.level));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        CLFloor *floor = (CLFloor *) HEAP[refId];
+        
+        methodResult(@(floor.level));
     } else {
-      methodResult(FlutterMethodNotImplemented);
+        methodResult(FlutterMethodNotImplemented);
     }
-  }
-  return self;
 }
-
-@end
