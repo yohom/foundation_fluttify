@@ -46,27 +46,27 @@ BOOL enableLog;
 - (void)handleMethodCall:(FlutterMethodCall *)methodCall result:(FlutterResult)methodResult {
   NSDictionary<NSString *, id> *args = (NSDictionary<NSString*, id> *) [methodCall arguments];
   if ([methodCall.method hasPrefix:@"CLLocationCoordinate2D"]) {
-    [[CLLocationCoordinate2DHandler alloc] initWith:methodCall.method :args :methodResult];
+    CLLocationCoordinate2DHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"CLLocation"]) {
-    [[CLLocationHandler alloc] initWith:methodCall.method :args :methodResult];
+    CLLocationHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"CLFloor"]) {
-    [[CLFloorHandler alloc] initWith:methodCall.method :args :methodResult];
+    CLFloorHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"CLLocationManager"]) {
-    [[CLLocationManagerHandler alloc] initWith:methodCall.method :args :methodResult];
+    CLLocationManagerHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"UIImage"]) {
-    [[UIImageHandler alloc] initWith:methodCall.method :args :methodResult];
+    UIImageHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"UIView"]) {
-    [[UIViewHandler alloc] initWith:methodCall.method :args :methodResult];
+    UIViewHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"CGPoint"]) {
-    [[CGPointHandler alloc] initWith:methodCall.method :args :methodResult];
+    CGPointHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"NSData"]) {
-    [[NSDataHandler alloc] initWith:methodCall.method :args :methodResult];
+    NSDataHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"UIEdgeInsets"]) {
-    [[UIEdgeInsetsHandler alloc] initWith:methodCall.method :args :methodResult];
+    UIEdgeInsetsHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"CLHeadingHandler"]) {
-    [[CLHeadingHandler alloc] initWith:methodCall.method :args :methodResult];
+    CLHeadingHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"Platform"]) {
-    [[PlatformFactoryHandler alloc] initWith:methodCall.method :args :methodResult :self->_registrar];
+    PlatformFactoryHandler(methodCall.method, args, methodResult, self->_registrar);
   } else {
     methodResult(FlutterMethodNotImplemented);
   }

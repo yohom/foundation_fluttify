@@ -8,42 +8,36 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-@implementation UIEdgeInsetsHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
+void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     if ([@"UIEdgeInsets::getTop" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      NSValue *target = (NSValue *) HEAP[refId];
-      UIEdgeInsets insets = [target UIEdgeInsetsValue];
-
-      methodResult(@(insets.top));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        NSValue *target = (NSValue *) HEAP[refId];
+        UIEdgeInsets insets = [target UIEdgeInsetsValue];
+        
+        methodResult(@(insets.top));
     } else if ([@"UIEdgeInsets::getLeft" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      NSValue *target = (NSValue *) HEAP[refId];
-      UIEdgeInsets insets = [target UIEdgeInsetsValue];
-
-      methodResult(@(insets.left));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        NSValue *target = (NSValue *) HEAP[refId];
+        UIEdgeInsets insets = [target UIEdgeInsetsValue];
+        
+        methodResult(@(insets.left));
     } else if ([@"UIEdgeInsets::getBottom" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      NSValue *target = (NSValue *) HEAP[refId];
-      UIEdgeInsets insets = [target UIEdgeInsetsValue];
-
-      methodResult(@(insets.bottom));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        NSValue *target = (NSValue *) HEAP[refId];
+        UIEdgeInsets insets = [target UIEdgeInsetsValue];
+        
+        methodResult(@(insets.bottom));
     } else if ([@"UIEdgeInsets::getRight" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      NSValue *target = (NSValue *) HEAP[refId];
-      UIEdgeInsets insets = [target UIEdgeInsetsValue];
-
-      methodResult(@(insets.right));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        NSValue *target = (NSValue *) HEAP[refId];
+        UIEdgeInsets insets = [target UIEdgeInsetsValue];
+        
+        methodResult(@(insets.right));
     } else {
-      methodResult(FlutterMethodNotImplemented);
+        methodResult(FlutterMethodNotImplemented);
     }
-  }
-  return self;
 }
-@end

@@ -10,8 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CLHeadingHandler : NSObject
-- (instancetype)initWith:(NSString*) method :(NSDictionary*)args :(FlutterResult)methodResult;
-@end
+void CLHeadingHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

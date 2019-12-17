@@ -9,28 +9,20 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-@implementation UIViewHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
+void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // UIImage::getFrame
     if ([@"UIView::getFrame" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      UIView *target = (UIView *) HEAP[refId];
-
-      CGRect rect = [target frame];
-      NSValue *dataValue = [NSValue value:&rect withObjCType:@encode(CGRect)];
-
-      HEAP[@(dataValue.hash)] = dataValue;
-
-      methodResult(@(dataValue.hash));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        UIView *target = (UIView *) HEAP[refId];
+        
+        CGRect rect = [target frame];
+        NSValue *dataValue = [NSValue value:&rect withObjCType:@encode(CGRect)];
+        
+        HEAP[@(dataValue.hash)] = dataValue;
+        
+        methodResult(@(dataValue.hash));
     } else {
-      methodResult(FlutterMethodNotImplemented);
+        methodResult(FlutterMethodNotImplemented);
     }
-  }
-
-  return self;
 }
-
-@end

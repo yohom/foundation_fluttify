@@ -10,8 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlatformFactoryHandler: NSObject
-- (instancetype)initWith:(NSString*) method :(NSDictionary*)args :(FlutterResult)methodResult :(NSObject<FlutterPluginRegistrar>*) registrar;
-@end
+void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar);
 
 NS_ASSUME_NONNULL_END

@@ -1,11 +1,11 @@
 name: foundation_fluttify
 description: Foundation for `Fluttify`.
-version: 0.2.7+1
+version: 0.3.0
 author: yohom <382146139@qq.com>
 homepage: https://github.com/fluttify-project/foundation_fluttify
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 
 dependencies:
   flutter:

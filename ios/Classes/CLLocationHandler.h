@@ -8,8 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CLLocationHandler : NSObject
-- (instancetype)initWith:(NSString*) method :(NSDictionary*)args :(FlutterResult)methodResult;
-@end
+void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

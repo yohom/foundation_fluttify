@@ -7,8 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIEdgeInsetsHandler : NSObject
-- (instancetype)initWith:(NSString*) method :(NSDictionary*)args :(FlutterResult)methodResult;
-@end
+void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

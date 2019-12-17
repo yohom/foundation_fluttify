@@ -12,38 +12,32 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-@implementation CLHeadingHandler
-- (instancetype)initWith:(NSString *)method :(NSDictionary *)args :(FlutterResult)methodResult {
-  self = [super init];
-  if (self) {
+void CLHeadingHandler(NSString* method, NSDictionary* args, FlutterResult methodResult){
     if ([@"CLHeading::getMagneticHeading" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      CLHeading *target = (CLHeading *) HEAP[refId];
-
-      CLLocationDirection magneticHeading = [target magneticHeading];
-
-      methodResult(@(magneticHeading));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        CLHeading *target = (CLHeading *) HEAP[refId];
+        
+        CLLocationDirection magneticHeading = [target magneticHeading];
+        
+        methodResult(@(magneticHeading));
     } if ([@"CLHeading::getTrueHeading" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      CLHeading *target = (CLHeading *) HEAP[refId];
-
-      CLLocationDirection trueHeading = [target trueHeading];
-
-      methodResult(@(trueHeading));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        CLHeading *target = (CLHeading *) HEAP[refId];
+        
+        CLLocationDirection trueHeading = [target trueHeading];
+        
+        methodResult(@(trueHeading));
     } if ([@"CLHeading::getHeadingAccuracy" isEqualToString:method]) {
-      NSNumber *refId = (NSNumber *) args[@"refId"];
-
-      CLHeading *target = (CLHeading *) HEAP[refId];
-
-      CLLocationDirection headingAccuracy = [target headingAccuracy];
-
-      methodResult(@(headingAccuracy));
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        CLHeading *target = (CLHeading *) HEAP[refId];
+        
+        CLLocationDirection headingAccuracy = [target headingAccuracy];
+        
+        methodResult(@(headingAccuracy));
     } else {
-      methodResult(FlutterMethodNotImplemented);
+        methodResult(FlutterMethodNotImplemented);
     }
-  }
-  return self;
 }
-@end

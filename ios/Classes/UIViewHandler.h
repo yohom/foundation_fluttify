@@ -7,8 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewHandler : NSObject
-- (instancetype)initWith:(NSString*) method :(NSDictionary*)args :(FlutterResult)methodResult;
-@end
+void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END
