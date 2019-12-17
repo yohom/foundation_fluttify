@@ -1,3 +1,7 @@
+## 0.3.0
+- refactor: 函数代替类
+- chore: 提升gradle相关版本
+
 ## 0.2.7
 - feat: 增加pending_intent类
 
