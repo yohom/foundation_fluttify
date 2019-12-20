@@ -1,6 +1,6 @@
 name: foundation_fluttify
 description: Foundation for `Fluttify`.
-version: 0.3.0
+version: 0.4.0
 author: yohom <382146139@qq.com>
 homepage: https://github.com/fluttify-project/foundation_fluttify
 
@@ -17,5 +17,9 @@ dev_dependencies:
 
 flutter:
   plugin:
-    androidPackage: me.yohom.foundation_fluttify
-    pluginClass: FoundationFluttifyPlugin
+    platforms:
+      android:
+        package: me.yohom.foundation_fluttify
+        pluginClass: FoundationFluttifyPlugin
+      ios:
+        pluginClass: FoundationFluttifyPlugin

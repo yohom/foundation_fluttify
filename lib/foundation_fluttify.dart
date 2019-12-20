@@ -1,7 +1,5 @@
 library foundation_fluttify;
 
-export 'src/function/factory.android.dart';
-export 'src/function/factory.ios.dart';
 export 'src/function/functions.dart';
 export 'src/object/obejcts.dart';
 export 'src/type/base/ref.dart';

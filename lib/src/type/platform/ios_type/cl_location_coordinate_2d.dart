@@ -3,6 +3,18 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import '../../../constants.dart';
 
 class CLLocationCoordinate2D extends Ref {
+  static Future<CLLocationCoordinate2D> create(
+    double latitude,
+    double longitude,
+  ) async {
+    final int refId = await kMethodChannel.invokeMethod(
+        'PlatformFactory::createCLLocationCoordinate2D',
+        {'latitude': latitude, 'longitude': longitude});
+    return CLLocationCoordinate2D()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
   Future<double> get latitude {
     return kMethodChannel
         .invokeMethod('CLLocationCoordinate2D::get_latitude', {'refId': refId});
