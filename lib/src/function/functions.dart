@@ -68,6 +68,7 @@ Future<void> performSelectorWithObject(
   });
 }
 
+@Deprecated('使用Ref::release代替')
 Future<void> release(Ref ref) async {
   await kMethodChannel
       .invokeMethod('PlatformFactory::release', {'refId': ref.refId});

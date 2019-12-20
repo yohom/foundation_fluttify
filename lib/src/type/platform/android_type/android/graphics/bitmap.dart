@@ -6,6 +6,15 @@ import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/obj
 import '../../../../../constants.dart';
 
 class android_graphics_Bitmap extends java_lang_Object {
+  static Future<android_graphics_Bitmap> create(Uint8List bitmapBytes) async {
+    final refId = await kMethodChannel.invokeMethod(
+        'PlatformFactory::createandroid_graphics_Bitmap',
+        {'bitmapBytes': bitmapBytes});
+    return android_graphics_Bitmap()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
   Future<Uint8List> get data {
     return kMethodChannel
         .invokeMethod('android.graphics.Bitmap::getData', {'refId': refId});
