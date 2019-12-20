@@ -13,6 +13,16 @@ class Ref {
         .invokeMethod('PlatformFactory::release', {'refId': refId});
   }
 
+  /// 通过反射调用方法
+  Future<void> performSelectorWithObject(String selector, Object object) {
+    return kMethodChannel
+        .invokeMethod('PlatformService::performSelectorWithObject', {
+      'refId': refId,
+      'selector': selector,
+      'object': object,
+    });
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

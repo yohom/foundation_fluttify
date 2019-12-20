@@ -29,7 +29,7 @@ Future<T> platform<T>({
       return Future.error(e);
     } finally {
       releasePool
-        ..forEach(release)
+        ..forEach((it) => it.release())
         ..clear();
       // remove all local object from global object pool
       kNativeObjectPool.removeAll(releasePool);
@@ -44,7 +44,7 @@ Future<T> platform<T>({
       return Future.error(e);
     } finally {
       releasePool
-        ..forEach(release)
+        ..forEach((it) => it.release())
         ..clear();
       // remove all local object from global object pool
       kNativeObjectPool.removeAll(releasePool);
@@ -53,25 +53,6 @@ Future<T> platform<T>({
   } else {
     return Future.value();
   }
-}
-
-Future<void> performSelectorWithObject(
-  Ref ref,
-  String selector,
-  Object object,
-) {
-  return kMethodChannel
-      .invokeMethod('PlatformService::performSelectorWithObject', {
-    'refId': ref.refId,
-    'selector': selector,
-    'object': object,
-  });
-}
-
-@Deprecated('使用Ref::release代替')
-Future<void> release(Ref ref) async {
-  await kMethodChannel
-      .invokeMethod('PlatformFactory::release', {'refId': ref.refId});
 }
 
 Future<void> clearHeap() async {
