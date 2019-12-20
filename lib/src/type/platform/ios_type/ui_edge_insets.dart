@@ -2,8 +2,6 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/constants.dart';
 
 class UIEdgeInsets extends Ref {
-  UIEdgeInsets._();
-
   static Future<UIEdgeInsets> create(
     double top,
     double left,
@@ -17,7 +15,7 @@ class UIEdgeInsets extends Ref {
       'bottom': bottom,
       'right': right,
     });
-    return UIEdgeInsets._()
+    return UIEdgeInsets()
       ..refId = refId
       ..tag = 'platform';
   }

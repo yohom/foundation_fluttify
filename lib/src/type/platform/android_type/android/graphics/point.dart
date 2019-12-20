@@ -5,12 +5,10 @@ import 'package:foundation_fluttify/src/constants.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_graphics_Point extends java_lang_Object {
-  android_graphics_Point._();
-
   static Future<android_graphics_Point> create(int x, int y) async {
     final refId = await kMethodChannel.invokeMethod(
         'PlatformFactory::createandroid_graphics_Point', {'x': x, 'y': y});
-    return android_graphics_Point._()
+    return android_graphics_Point()
       ..refId = refId
       ..tag = 'platform';
   }
