@@ -14,6 +14,7 @@ export 'src/type/platform/android_type/android/graphics/drawable/drawable.dart';
 export 'src/type/platform/android_type/android/graphics/point.dart';
 export 'src/type/platform/android_type/android/graphics/point_f.dart';
 export 'src/type/platform/android_type/android/location/location.dart';
+export 'src/type/platform/android_type/android/os/binder.dart';
 export 'src/type/platform/android_type/android/os/bundle.dart';
 export 'src/type/platform/android_type/android/os/parcelable.dart';
 export 'src/type/platform/android_type/android/util/pair.dart';
