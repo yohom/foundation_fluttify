@@ -1,3 +1,6 @@
+## 0.4.1
+- feat: 增加android_os_Binder
+
 ## 0.4.0
 - refactor: 可以放进类的静态方法替换全局函数
 
