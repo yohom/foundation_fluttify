@@ -1,3 +1,6 @@
+## 0.4.2
+- feat: 增加java_io_Serializable
+
 ## 0.4.1
 - feat: 增加android_os_Binder
 
