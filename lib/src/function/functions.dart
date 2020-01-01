@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:foundation_fluttify/src/constants.dart';
-
 import '../../foundation_fluttify.dart';
 
 typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);

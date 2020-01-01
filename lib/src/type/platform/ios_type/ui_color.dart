@@ -1,6 +1,7 @@
 import 'dart:ui';
 
-import '../../../constants.dart';
+import 'package:foundation_fluttify/src/object/obejcts.dart';
+
 import 'ns_object.dart';
 
 class UIColor extends NSObject {

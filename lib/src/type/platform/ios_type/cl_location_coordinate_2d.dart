@@ -1,6 +1,5 @@
 import 'package:foundation_fluttify/foundation_fluttify.dart';
-
-import '../../../constants.dart';
+import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class CLLocationCoordinate2D extends Ref {
   static Future<CLLocationCoordinate2D> create(

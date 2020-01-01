@@ -1,5 +1,5 @@
 import 'package:foundation_fluttify/foundation_fluttify.dart';
-import 'package:foundation_fluttify/src/constants.dart';
+import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class UIEdgeInsets extends Ref {
   static Future<UIEdgeInsets> create(
