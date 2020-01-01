@@ -70,3 +70,7 @@ Future<void> pushStackJsonable(String name, dynamic jsonable) async {
 Future<void> clearStack() async {
   await kMethodChannel.invokeMethod('PlatformFactory::clearStack');
 }
+
+Future<void> setupOrientationSensor() async {
+  await kMethodChannel.invokeMethod('PlatformService::setupOrientationSensor');
+}
