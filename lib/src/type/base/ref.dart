@@ -23,6 +23,48 @@ class Ref {
     });
   }
 
+  /// 为类型添加属性
+  Future<void> addProperty(int propertyKey, Ref property) async {
+    assert(property is Ref);
+    return kMethodChannel.invokeMethod('PlatformService::addProperty', {
+      'refId': refId,
+      'propertyKey': propertyKey,
+      'property': property.refId,
+    });
+  }
+
+  /// 获取添加字段的值
+  Future<Ref> getProperty(int propertyKey) async {
+    final result =
+        await kMethodChannel.invokeMethod('PlatformService::getProperty', {
+      'refId': refId,
+      'propertyKey': propertyKey,
+    });
+    return Ref()..refId = result;
+  }
+
+  /// 为类型添加jsonable属性
+  Future<void> addJsonableProperty(int propertyKey, Object property) async {
+    assert(property is String ||
+        property is int ||
+        property is double ||
+        property is Map ||
+        property is List);
+    return kMethodChannel.invokeMethod('PlatformService::addJsonableProperty', {
+      'refId': refId,
+      'propertyKey': propertyKey,
+      'property': property,
+    });
+  }
+
+  /// 获取添加字段的jsonable值
+  Future<Object> getJsonableProperty(int propertyKey) async {
+    return kMethodChannel.invokeMethod('PlatformService::getJsonableProperty', {
+      'refId': refId,
+      'propertyKey': propertyKey,
+    });
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
