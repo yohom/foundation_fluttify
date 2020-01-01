@@ -35,10 +35,11 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
     else if ([@"PlatformService::addProperty" isEqualToString:method]) {
         NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-        NSNumber *property = (NSNumber *) args[@"property"];
+        NSNumber *propertyRefId = (NSNumber *) args[@"property"];
         
         NSObject *target = HEAP[refId];
-                
+        NSObject *property = HEAP[propertyRefId];
+        
         objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         
         methodResult(@"success");
@@ -50,9 +51,9 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         
         NSObject *target = HEAP[refId];
                 
-        NSNumber *result = objc_getAssociatedObject(target, (const void *) propertyKey);
+        NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
         
-        methodResult(result);
+        methodResult(@(result.hash));
     }
     // 为对象添加jsonable字段
     else if ([@"PlatformService::addJsonableProperty" isEqualToString:method]) {

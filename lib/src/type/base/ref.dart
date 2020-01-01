@@ -49,7 +49,8 @@ class Ref {
         property is int ||
         property is double ||
         property is Map ||
-        property is List);
+        property is List ||
+        property is bool);
     return kMethodChannel.invokeMethod('PlatformService::addJsonableProperty', {
       'refId': refId,
       'propertyKey': propertyKey,
