@@ -1,3 +1,6 @@
+## 0.4.3
+- feat: 增加为对象动态添加属性的方法(目前仅限ios端, android理论上可以再加全局Map实现，但是目前没有碰到此类需求)
+
 ## 0.4.2
 - feat: 增加java_io_Serializable
 
