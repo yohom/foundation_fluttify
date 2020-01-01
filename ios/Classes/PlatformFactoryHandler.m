@@ -7,6 +7,7 @@
 
 #import "PlatformFactoryHandler.h"
 #import <CoreLocation/CoreLocation.h>
+#import <objc/runtime.h>
 
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
@@ -29,6 +30,50 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         [target performSelector:NSSelectorFromString(selector) withObject:object];
         
         methodResult(@"success");
+    }
+    // 为对象添加字段
+    else if ([@"PlatformService::addProperty" isEqualToString:method]) {
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        NSNumber *property = (NSNumber *) args[@"property"];
+        
+        NSObject *target = HEAP[refId];
+                
+        objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        methodResult(@"success");
+    }
+    // 获取添加字段的值
+    else if ([@"PlatformService::getProperty" isEqualToString:method]) {
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        
+        NSObject *target = HEAP[refId];
+                
+        NSNumber *result = objc_getAssociatedObject(target, (const void *) propertyKey);
+        
+        methodResult(result);
+    }
+    // 为对象添加jsonable字段
+    else if ([@"PlatformService::addJsonableProperty" isEqualToString:method]) {
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        NSObject *property = (NSObject *) args[@"property"];
+        
+        NSObject *target = HEAP[refId];
+                
+        objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        
+        methodResult(@"success");
+    }
+    // 获取添加字段的jsonable值
+    else if ([@"PlatformService::getJsonableProperty" isEqualToString:method]) {
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        
+        NSObject *target = HEAP[refId];
+                
+        methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
     }
     // 创建CLLocationCoordinate2D
     else if ([@"PlatformFactory::createCLLocationCoordinate2D" isEqualToString:method]) {
