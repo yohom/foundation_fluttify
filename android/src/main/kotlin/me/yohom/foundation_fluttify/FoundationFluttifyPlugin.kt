@@ -17,7 +17,6 @@ import me.yohom.foundation_fluttify.android.graphics.BitmapHandler
 import me.yohom.foundation_fluttify.android.graphics.PointHandler
 import me.yohom.foundation_fluttify.android.location.LocationHandler
 import me.yohom.foundation_fluttify.android.util.PairHandler
-import me.yohom.foundation_fluttify.java.lang.ObjectHandler
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 val STACK = mutableMapOf<String, Any>()
@@ -56,7 +55,6 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.graphics.Point") -> PointHandler(methodCall.method, args, methodResult)
                 startsWith("android.location.Location") -> LocationHandler(methodCall.method, args, methodResult)
                 startsWith("android.util.Pair") -> PairHandler(methodCall.method, args, methodResult)
-                startsWith("java.lang.Object") -> ObjectHandler(methodCall.method, args, methodResult)
                 startsWith("Platform") -> PlatformFactory(methodCall.method, args, methodResult, activity)
                 else -> methodResult.notImplemented()
             }
