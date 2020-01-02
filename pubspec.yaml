@@ -1,7 +1,7 @@
 name: foundation_fluttify
 description: Foundation for `Fluttify`.
-version: 0.4.3+1
-author: yohom <382146139@qq.com>
+version: 0.4.4
+author: yohom <yohombao@gmail.com>
 homepage: https://github.com/fluttify-project/foundation_fluttify
 
 environment:

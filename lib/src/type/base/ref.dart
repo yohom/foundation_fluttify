@@ -1,4 +1,4 @@
-import '../../constants.dart';
+import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class Ref {
   /// unique id of native side counterpart object

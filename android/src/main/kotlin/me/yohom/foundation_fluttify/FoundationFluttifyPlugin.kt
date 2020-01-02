@@ -1,5 +1,9 @@
 package me.yohom.foundation_fluttify
 
+import android.app.Activity
+import io.flutter.embedding.engine.plugins.FlutterPlugin
+import io.flutter.embedding.engine.plugins.activity.ActivityAware
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -24,12 +28,17 @@ var enableLog: Boolean = true
 lateinit var gMethodChannel: MethodChannel
 lateinit var gBroadcastEventChannel: EventChannel
 
-class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHandler {
+class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
+    private var activity: Activity? = null
+
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
+            val plugin = FoundationFluttifyPlugin()
+            plugin.activity = registrar.activity()
+
             gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
-            gMethodChannel.setMethodCallHandler(FoundationFluttifyPlugin(registrar))
+            gMethodChannel.setMethodCallHandler(plugin)
 
             gBroadcastEventChannel = EventChannel(registrar.messenger(), "com.fluttify/foundation_broadcast_event")
         }
@@ -46,10 +55,39 @@ class FoundationFluttifyPlugin(private val registrar: Registrar) : MethodCallHan
                 startsWith("android.graphics.Point") -> PointHandler(methodCall.method, args, methodResult)
                 startsWith("android.location.Location") -> LocationHandler(methodCall.method, args, methodResult)
                 startsWith("android.util.Pair") -> PairHandler(methodCall.method, args, methodResult)
-                startsWith("Platform") -> PlatformFactory(methodCall.method, args, methodResult, registrar)
+                startsWith("Platform") -> PlatformFactory(methodCall.method, args, methodResult, activity)
                 else -> methodResult.notImplemented()
             }
         }
+    }
+
+    override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        val plugin = FoundationFluttifyPlugin()
+
+        gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
+        gMethodChannel.setMethodCallHandler(plugin)
+
+        gBroadcastEventChannel = EventChannel(binding.binaryMessenger, "com.fluttify/foundation_broadcast_event")
+    }
+
+    override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        activity = null
+    }
+
+    override fun onDetachedFromActivity() {
+        activity = null
+    }
+
+    override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
+        activity = binding.activity
+    }
+
+    override fun onAttachedToActivity(binding: ActivityPluginBinding) {
+        activity = binding.activity
+    }
+
+    override fun onDetachedFromActivityForConfigChanges() {
+        activity = null
     }
 }
 
