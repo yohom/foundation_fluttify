@@ -95,5 +95,15 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
             // print current STACK
             if (enableLog) Log.d("PlatformFactory", "STACK: $STACK")
         }
+        "PlatformFactory::createjava_lang_Object" -> {
+            val content = args["content"] as Any
+
+            HEAP[content.hashCode()] = content
+
+            methodResult.success(content.hashCode())
+        }
+        else -> {
+            methodResult.notImplemented()
+        }
     }
 }
