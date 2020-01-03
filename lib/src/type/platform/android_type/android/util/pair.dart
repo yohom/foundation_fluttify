@@ -2,13 +2,13 @@
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
-class android_util_Pair<F, S> extends java_lang_Object {
-  Future<F> get first {
+class android_util_Pair extends java_lang_Object {
+  Future<Object> get first {
     return kMethodChannel
         .invokeMethod('android.util.Pair::getFirst', {'refId': refId});
   }
 
-  Future<S> get second {
+  Future<Object> get second {
     return kMethodChannel
         .invokeMethod('android.util.Pair::getSecond', {'refId': refId});
   }
