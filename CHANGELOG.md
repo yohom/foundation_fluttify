@@ -1,3 +1,7 @@
+## 0.4.5
+- fix: PlatformFactory的activity是可选类型;
+- enhance: android_util_Pair获取first和second都返回Object
+
 ## 0.4.4
 - enhance: 适配新版embedding
 - refactor: method channel放到objects文件里
