@@ -14,10 +14,10 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
             methodResult.success("success")
         }
         "PlatformFactory::getandroid_app_Application" -> {
-            methodResult.success(activity?.application?.apply { HEAP[hashCode()] = this }.hashCode())
+            methodResult.success(activity?.application?.apply { HEAP[hashCode()] = this }?.hashCode())
         }
         "PlatformFactory::getandroid_app_Activity" -> {
-            methodResult.success(activity?.apply { HEAP[hashCode()] = this }.hashCode())
+            methodResult.success(activity?.apply { HEAP[hashCode()] = this }?.hashCode())
         }
         "PlatformFactory::createandroid_os_Bundle" -> {
             methodResult.success(Bundle().apply { HEAP[hashCode()] = this }.hashCode())
