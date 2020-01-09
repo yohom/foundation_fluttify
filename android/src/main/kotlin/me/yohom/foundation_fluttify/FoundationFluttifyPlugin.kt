@@ -62,10 +62,8 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        val plugin = FoundationFluttifyPlugin()
-
         gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
-        gMethodChannel.setMethodCallHandler(plugin)
+        gMethodChannel.setMethodCallHandler(this)
 
         gBroadcastEventChannel = EventChannel(binding.binaryMessenger, "com.fluttify/foundation_broadcast_event")
     }

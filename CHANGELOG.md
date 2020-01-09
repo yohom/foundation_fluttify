@@ -1,3 +1,6 @@
+## 0.4.5+1
+- fix: onAttachedToEngine中的Plugin对象应该使用this
+
 ## 0.4.5
 - fix: PlatformFactory的activity是可选类型;
 - enhance: android_util_Pair获取first和second都返回Object
