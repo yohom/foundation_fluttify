@@ -1,3 +1,6 @@
+## 0.4.6
+- feat: 增加一些通用的typedef
+
 ## 0.4.5+1
 - fix: onAttachedToEngine中的Plugin对象应该使用this
 
