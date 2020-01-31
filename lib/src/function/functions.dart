@@ -54,21 +54,21 @@ Future<T> platform<T>({
 }
 
 Future<void> clearHeap() async {
-  await kMethodChannel.invokeMethod('PlatformFactory::clearHeap');
+  await kMethodChannel.invokeMethod('PlatformService::clearHeap');
 }
 
 Future<void> pushStack(String name, Ref ref) async {
   await kMethodChannel.invokeMethod(
-      'PlatformFactory::pushStack', {'name': name, 'refId': ref.refId});
+      'PlatformService::pushStack', {'name': name, 'refId': ref.refId});
 }
 
 Future<void> pushStackJsonable(String name, dynamic jsonable) async {
   await kMethodChannel.invokeMethod(
-      'PlatformFactory::pushStackJsonable', {'name': name, 'data': jsonable});
+      'PlatformService::pushStackJsonable', {'name': name, 'data': jsonable});
 }
 
 Future<void> clearStack() async {
-  await kMethodChannel.invokeMethod('PlatformFactory::clearStack');
+  await kMethodChannel.invokeMethod('PlatformService::clearStack');
 }
 
 Future<void> setupOrientationSensor() async {

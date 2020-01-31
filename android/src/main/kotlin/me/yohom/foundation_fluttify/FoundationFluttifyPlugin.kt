@@ -20,12 +20,17 @@ import me.yohom.foundation_fluttify.android.util.PairHandler
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 val STACK = mutableMapOf<String, Any>()
+
 // Container for Dart side random access objects
 val HEAP = mutableMapOf<Int, Any>()
+
 // whether enable log or not
 var enableLog: Boolean = true
-// channel for foundation
+
+// method channel for foundation
 lateinit var gMethodChannel: MethodChannel
+
+// broadcast event channel for foundation
 lateinit var gBroadcastEventChannel: EventChannel
 
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
@@ -55,7 +60,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.graphics.Point") -> PointHandler(methodCall.method, args, methodResult)
                 startsWith("android.location.Location") -> LocationHandler(methodCall.method, args, methodResult)
                 startsWith("android.util.Pair") -> PairHandler(methodCall.method, args, methodResult)
-                startsWith("Platform") -> PlatformFactory(methodCall.method, args, methodResult, activity)
+                startsWith("Platform") -> PlatformService(methodCall.method, args, methodResult, activity)
                 else -> methodResult.notImplemented()
             }
         }

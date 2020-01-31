@@ -5,7 +5,7 @@ import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/obj
 class android_os_Bundle extends java_lang_Object {
   static Future<android_os_Bundle> create() async {
     final refId = await kMethodChannel
-        .invokeMethod('PlatformFactory::createandroid_os_Bundle');
+        .invokeMethod('PlatformService::createandroid_os_Bundle');
     return android_os_Bundle()
       ..refId = refId
       ..tag = 'platform';
