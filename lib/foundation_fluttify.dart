@@ -43,6 +43,7 @@ export 'src/type/platform/ios_type/ns_copying.dart';
 export 'src/type/platform/ios_type/ns_data.dart';
 export 'src/type/platform/ios_type/ns_error.dart';
 export 'src/type/platform/ios_type/ns_object.dart';
+export 'src/type/platform/ios_type/ns_operation.dart';
 export 'src/type/platform/ios_type/ui_color.dart';
 export 'src/type/platform/ios_type/ui_control.dart';
 export 'src/type/platform/ios_type/ui_edge_insets.dart';
