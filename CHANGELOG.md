@@ -1,3 +1,7 @@
+## 0.4.7
+- refactor: PlatformFactory统一为PlatformService	efe240d	yohom <yohombao@gmail.com>	Jan 31, 2020 at 19:20
+- feat: 增加ns_operation类
+
 ## 0.4.6
 - feat: 增加一些通用的typedef
 
