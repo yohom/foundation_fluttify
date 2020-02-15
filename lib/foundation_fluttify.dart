@@ -2,8 +2,8 @@ library foundation_fluttify;
 
 export 'src/function/functions.dart';
 export 'src/object/obejcts.dart';
-export 'src/type/base/ref.dart';
-export 'src/type/base/typedefs.dart';
+export 'src/type/core/ref.dart';
+export 'src/type/core/typedefs.dart';
 export 'src/type/platform/android_type/android/app/activity.dart';
 export 'src/type/platform/android_type/android/app/application.dart';
 export 'src/type/platform/android_type/android/app/pending_intent.dart';
