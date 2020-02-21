@@ -5,7 +5,7 @@ import 'package:foundation_fluttify/src/type/platform/android_type/android/conte
 class android_app_Application extends android_content_Context {
   static Future<android_app_Application> get() async {
     final refId = await kMethodChannel
-        .invokeMethod('PlatformFactory::getandroid_app_Application');
+        .invokeMethod('PlatformService::getandroid_app_Application');
     return android_app_Application()
       ..refId = refId
       ..tag = 'platform';

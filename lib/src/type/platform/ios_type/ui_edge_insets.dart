@@ -9,7 +9,7 @@ class UIEdgeInsets extends Ref {
     double right,
   ) async {
     final refId = await kMethodChannel
-        .invokeMethod('PlatformFactory::createUIEdgeInsets', {
+        .invokeMethod('PlatformService::createUIEdgeInsets', {
       'top': top,
       'left': left,
       'bottom': bottom,

@@ -77,7 +77,7 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
     }
     // 创建CLLocationCoordinate2D
-    else if ([@"PlatformFactory::createCLLocationCoordinate2D" isEqualToString:method]) {
+    else if ([@"PlatformService::createCLLocationCoordinate2D" isEqualToString:method]) {
         CLLocationDegrees latitude = [args[@"latitude"] doubleValue];
         CLLocationDegrees longitude = [args[@"longitude"] doubleValue];
         
@@ -89,7 +89,7 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(@(dataValue.hash));
     }
     // 创建UIImage
-    else if ([@"PlatformFactory::createUIImage" isEqualToString:method]) {
+    else if ([@"PlatformService::createUIImage" isEqualToString:method]) {
         FlutterStandardTypedData *bitmapBytes = (FlutterStandardTypedData *) args[@"bitmapBytes"];
         
         UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
@@ -99,7 +99,7 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(@(bitmap.hash));
     }
     // 创建UIColor
-    else if ([@"PlatformFactory::createUIColor" isEqualToString:method]) {
+    else if ([@"PlatformService::createUIColor" isEqualToString:method]) {
         NSNumber *colorValue = (NSNumber *) args[@"colorValue"];
         CGFloat alpha = (0xff000000 & [colorValue integerValue]) >> 24;
         CGFloat red = (0x00ff0000 & [colorValue integerValue]) >> 16;
@@ -113,7 +113,7 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(@(color.hash));
     }
     // 根据Uint8List创建NSData
-    else if ([@"PlatformFactory::createNSDataWithUint8List" isEqualToString:method]) {
+    else if ([@"PlatformService::createNSDataWithUint8List" isEqualToString:method]) {
         FlutterStandardTypedData *data = (FlutterStandardTypedData *) args[@"data"];
         
         NSData *target = data.data;
@@ -123,7 +123,7 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(@(target.hash));
     }
     // 创建CGPoint
-    else if ([@"PlatformFactory::createCGPoint" isEqualToString:method]) {
+    else if ([@"PlatformService::createCGPoint" isEqualToString:method]) {
         NSNumber *x = (NSNumber *) args[@"x"];
         NSNumber *y = (NSNumber *) args[@"y"];
         
@@ -135,7 +135,7 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(@(valuePoint.hash));
     }
     // 创建UIEdgeInsets
-    else if ([@"PlatformFactory::createUIEdgeInsets" isEqualToString:method]) {
+    else if ([@"PlatformService::createUIEdgeInsets" isEqualToString:method]) {
         NSNumber *top = (NSNumber *) args[@"top"];
         NSNumber *left = (NSNumber *) args[@"left"];
         NSNumber *bottom = (NSNumber *) args[@"bottom"];
@@ -150,10 +150,10 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         methodResult(@(valuePoint.hash));
     }
     // 释放一个对象
-    else if ([@"PlatformFactory::release" isEqualToString:method]) {
+    else if ([@"PlatformService::release" isEqualToString:method]) {
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
-        if (enableLog) NSLog(@"PlatformFactory::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
+        if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
         
         [HEAP removeObjectForKey:refId];
         methodResult(@"success");
@@ -161,8 +161,8 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         if (enableLog) NSLog(@"HEAP: %@", HEAP);
     }
     // 清空堆
-    else if ([@"PlatformFactory::clearHeap" isEqualToString:method]) {
-        NSLog(@"PlatformFactory::清空堆");
+    else if ([@"PlatformService::clearHeap" isEqualToString:method]) {
+        NSLog(@"PlatformService::清空堆");
         
         [HEAP removeAllObjects];
         methodResult(@"success");
@@ -170,11 +170,11 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         if (enableLog) NSLog(@"HEAP: %@", HEAP);
     }
     // 压入栈
-    else if ([@"PlatformFactory::pushStack" isEqualToString:method]) {
+    else if ([@"PlatformService::pushStack" isEqualToString:method]) {
         NSString *name = (NSString *) args[@"name"];
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
-        if (enableLog) NSLog(@"PlatformFactory::压入栈 %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
+        if (enableLog) NSLog(@"PlatformService::压入栈 %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
         
         STACK[name] = HEAP[refId];
         
@@ -183,11 +183,11 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         if (enableLog) NSLog(@"STACK: %@", STACK);
     }
     // 压入栈 jsonable
-    else if ([@"PlatformFactory::pushStackJsonable" isEqualToString:method]) {
+    else if ([@"PlatformService::pushStackJsonable" isEqualToString:method]) {
         NSString *name = (NSString *) args[@"name"];
         NSObject *data = (NSObject *) args[@"data"];
         
-        if (enableLog) NSLog(@"PlatformFactory::压入栈 %@", data);
+        if (enableLog) NSLog(@"PlatformService::压入栈 %@", data);
         
         STACK[name] = data;
         
@@ -196,8 +196,8 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         if (enableLog) NSLog(@"STACK: %@", STACK);
     }
     // 清空栈
-    else if ([@"PlatformFactory::clearStack" isEqualToString:method]) {
-        NSLog(@"PlatformFactory::清空栈");
+    else if ([@"PlatformService::clearStack" isEqualToString:method]) {
+        NSLog(@"PlatformService::清空栈");
         
         [STACK removeAllObjects];
         methodResult(@"success");

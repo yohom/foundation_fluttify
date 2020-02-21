@@ -7,7 +7,7 @@ import 'ns_object.dart';
 class UIImage extends NSObject {
   static Future<UIImage> create(Uint8List bitmapBytes) async {
     final refId = await kMethodChannel.invokeMethod(
-        'PlatformFactory::createUIImage', {'bitmapBytes': bitmapBytes});
+        'PlatformService::createUIImage', {'bitmapBytes': bitmapBytes});
     return UIImage()
       ..refId = refId
       ..tag = 'platform';

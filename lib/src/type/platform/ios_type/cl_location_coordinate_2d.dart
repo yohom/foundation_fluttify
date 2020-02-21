@@ -7,7 +7,7 @@ class CLLocationCoordinate2D extends Ref {
     double longitude,
   ) async {
     final int refId = await kMethodChannel.invokeMethod(
-        'PlatformFactory::createCLLocationCoordinate2D',
+        'PlatformService::createCLLocationCoordinate2D',
         {'latitude': latitude, 'longitude': longitude});
     return CLLocationCoordinate2D()
       ..refId = refId

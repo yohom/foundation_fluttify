@@ -10,7 +10,7 @@ class Ref {
   /// 释放当前引用对象
   Future<void> release() async {
     await kMethodChannel
-        .invokeMethod('PlatformFactory::release', {'refId': refId});
+        .invokeMethod('PlatformService::release', {'refId': refId});
   }
 
   /// 通过反射调用方法

@@ -7,22 +7,22 @@ import android.os.Bundle
 import android.util.Log
 import io.flutter.plugin.common.MethodChannel
 
-fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activity: Activity?) {
+fun PlatformService(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activity: Activity?) {
     when (method) {
         "PlatformService::enableLog" -> {
             enableLog = args["enable"] as Boolean
             methodResult.success("success")
         }
-        "PlatformFactory::getandroid_app_Application" -> {
+        "PlatformService::getandroid_app_Application" -> {
             methodResult.success(activity?.application?.apply { HEAP[hashCode()] = this }?.hashCode())
         }
-        "PlatformFactory::getandroid_app_Activity" -> {
+        "PlatformService::getandroid_app_Activity" -> {
             methodResult.success(activity?.apply { HEAP[hashCode()] = this }?.hashCode())
         }
-        "PlatformFactory::createandroid_os_Bundle" -> {
+        "PlatformService::createandroid_os_Bundle" -> {
             methodResult.success(Bundle().apply { HEAP[hashCode()] = this }.hashCode())
         }
-        "PlatformFactory::createandroid_graphics_Bitmap" -> {
+        "PlatformService::createandroid_graphics_Bitmap" -> {
             val bitmapBytes = args["bitmapBytes"] as ByteArray
             val bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
 
@@ -30,7 +30,7 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
 
             methodResult.success(bitmap.hashCode())
         }
-        "PlatformFactory::createandroid_graphics_Point" -> {
+        "PlatformService::createandroid_graphics_Point" -> {
             val x = args["x"] as Int
             val y = args["y"] as Int
             val point = Point(x, y)
@@ -39,7 +39,7 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
 
             methodResult.success(point.hashCode())
         }
-        "PlatformFactory::release" -> {
+        "PlatformService::release" -> {
             if (enableLog)
                 Log.d("PlatformFactory", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
 
@@ -50,7 +50,7 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
             // print current HEAP
             if (enableLog) Log.d("PlatformFactory", "HEAP: $HEAP")
         }
-        "PlatformFactory::clearHeap" -> {
+        "PlatformService::clearHeap" -> {
             if (enableLog)
                 Log.d("PlatformFactory", "CLEAR HEAP")
 
@@ -61,7 +61,7 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
             if (enableLog)
                 Log.d("PlatformFactory", "HEAP: $HEAP")
         }
-        "PlatformFactory::pushStack" -> {
+        "PlatformService::pushStack" -> {
             val name = args["name"] as String
             val refId = args["refId"] as Int
 
@@ -74,7 +74,7 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
             // print current STACK
             if (enableLog) Log.d("PlatformFactory", "STACK: $STACK")
         }
-        "PlatformFactory::pushStackJsonable" -> {
+        "PlatformService::pushStackJsonable" -> {
             val name = args["name"] as String
             val data = args["data"]
 
@@ -87,7 +87,7 @@ fun PlatformFactory(method: String, args: Map<String, Any>, methodResult: Method
             // 打印当前STACK
             if (enableLog) Log.d("PlatformFactory", "STACK: $STACK")
         }
-        "PlatformFactory::clearStack" -> {
+        "PlatformService::clearStack" -> {
             STACK.clear()
 
             methodResult.success("success")
