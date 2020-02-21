@@ -30,6 +30,18 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
 
             methodResult.success(bitmap.hashCode())
         }
+        "PlatformService::create_batchandroid_graphics_Bitmap" -> {
+            val typedArgs = args as List<Map<String, ByteArray>>
+            val bitmapBytesBatch = typedArgs.map { it["bitmapBytes"] as ByteArray }
+
+            val resultBatch = bitmapBytesBatch
+                    .map { BitmapFactory.decodeByteArray(it, 0, it.size) }
+                    .map { it.hashCode() }
+
+            resultBatch.forEach { HEAP[it.hashCode()] = it }
+
+            methodResult.success(resultBatch)
+        }
         "PlatformService::createandroid_graphics_Point" -> {
             val x = args["x"] as Int
             val y = args["y"] as Int
