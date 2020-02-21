@@ -14,6 +14,22 @@ class android_graphics_Bitmap extends java_lang_Object {
       ..tag = 'platform';
   }
 
+  static Future<List<android_graphics_Bitmap>> create_batch(
+    List<Uint8List> bitmapBytesBatch,
+  ) async {
+    final List resultBatch = await kMethodChannel.invokeMethod(
+      'PlatformService::create_batchandroid_graphics_Bitmap',
+      [
+        for (final bitmapBytes in bitmapBytesBatch) {'bitmapBytes': bitmapBytes}
+      ],
+    );
+    return resultBatch
+        .map((refId) => android_graphics_Bitmap()
+          ..refId = refId
+          ..tag = 'platform')
+        .toList();
+  }
+
   Future<Uint8List> get data {
     return kMethodChannel
         .invokeMethod('android.graphics.Bitmap::getData', {'refId': refId});

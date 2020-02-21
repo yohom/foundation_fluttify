@@ -8,3 +8,4 @@
 build/
 
 *.iml
+!/example/.flutter-plugins-dependencies
