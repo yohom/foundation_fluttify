@@ -1,3 +1,6 @@
+## 0.4.9
+- feat: 增加android_view_View_OnApplyWindowInsetsListener类
+
 ## 0.4.8
 - feat: Bitmap增加批量创建方法
 
