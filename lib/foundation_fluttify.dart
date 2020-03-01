@@ -29,6 +29,7 @@ export 'src/type/platform/android_type/android/widget/relative_layout.dart';
 export 'src/type/platform/android_type/android/widget/text_view.dart';
 export 'src/type/platform/android_type/java/io/serializable.dart';
 export 'src/type/platform/android_type/java/lang/object.dart';
+export 'src/type/platform/android_type/org/json/json_object.dart';
 export 'src/type/platform/ios_type/cg_point.dart';
 export 'src/type/platform/ios_type/cg_rect.dart';
 export 'src/type/platform/ios_type/cg_size.dart';
