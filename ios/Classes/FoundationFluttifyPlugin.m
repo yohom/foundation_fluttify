@@ -13,8 +13,10 @@
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 NSMutableDictionary<NSString *, NSObject *> *STACK;
+
 // Container for Dart side random access objects
 NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
+
 // whether enable log or not
 BOOL enableLog;
 
