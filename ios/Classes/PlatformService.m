@@ -164,6 +164,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     else if ([@"PlatformService::release_batch" isEqualToString:method]) {
         NSArray<NSNumber*>* refBatch = (NSArray<NSNumber*>*) args[@"refId_batch"];
         
+        if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", refBatch);
+        
         for (NSNumber* refId in refBatch) {
             [HEAP removeObjectForKey:refId];
         }
