@@ -13,6 +13,7 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
+// TODO 跟具体类有关联的都放到对应类下面去, 不要放到PlatformService里
 void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
     // toggle log
     if ([@"PlatformService::enableLog" isEqualToString:method]) {
@@ -75,28 +76,6 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         NSObject *target = HEAP[refId];
                 
         methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
-    }
-    // 创建CLLocationCoordinate2D
-    else if ([@"PlatformService::createCLLocationCoordinate2D" isEqualToString:method]) {
-        CLLocationDegrees latitude = [args[@"latitude"] doubleValue];
-        CLLocationDegrees longitude = [args[@"longitude"] doubleValue];
-        
-        CLLocationCoordinate2D data = CLLocationCoordinate2DMake(latitude, longitude);
-        
-        NSValue *dataValue = [NSValue value:&data withObjCType:@encode(CLLocationCoordinate2D)];
-        HEAP[@(dataValue.hash)] = dataValue;
-        
-        methodResult(@(dataValue.hash));
-    }
-    // 创建UIImage
-    else if ([@"PlatformService::createUIImage" isEqualToString:method]) {
-        FlutterStandardTypedData *bitmapBytes = (FlutterStandardTypedData *) args[@"bitmapBytes"];
-        
-        UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
-        
-        HEAP[@(bitmap.hash)] = bitmap;
-        
-        methodResult(@(bitmap.hash));
     }
     // 创建UIColor
     else if ([@"PlatformService::createUIColor" isEqualToString:method]) {
@@ -163,6 +142,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     // 释放一批对象
     else if ([@"PlatformService::release_batch" isEqualToString:method]) {
         NSArray<NSNumber*>* refBatch = (NSArray<NSNumber*>*) args[@"refId_batch"];
+        
+        if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", refBatch);
         
         for (NSNumber* refId in refBatch) {
             [HEAP removeObjectForKey:refId];

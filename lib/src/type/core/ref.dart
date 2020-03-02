@@ -80,7 +80,7 @@ class Ref {
   }
 }
 
-extension Ref_batch on Iterable<Ref> {
+extension Ref_Batch on Iterable<Ref> {
   // ignore: non_constant_identifier_names
   Future<void> release_batch() async {
     return kMethodChannel.invokeMethod(
