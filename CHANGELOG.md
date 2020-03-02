@@ -1,3 +1,6 @@
+## 0.4.14
+- enhance: CLLocationCoordinate2D增加批量创建方法
+
 ## 0.4.13
 - enhance: 优化批量释放日志
 - feat: UIView增加hidden和setHidden
