@@ -1,3 +1,7 @@
+## 0.4.13
+- enhance: 优化批量释放日志
+- feat: UIView增加hidden和setHidden
+
 ## 0.4.12
 - enhance: 优化platform方法里的释放逻辑
 
