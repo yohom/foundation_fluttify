@@ -1,3 +1,6 @@
+## 0.4.12
+- enhance: 优化platform方法里的释放逻辑
+
 ## 0.4.11
 - enhance: Ref增加批处理释放对象方法
 
