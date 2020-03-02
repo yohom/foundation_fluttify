@@ -2,7 +2,7 @@ import 'dart:io';
 
 import '../../foundation_fluttify.dart';
 
-typedef Future<T> _FutureCallback<T>(List<Ref> releasePool);
+typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);
 
 bool _enableFluttifyLog = true;
 Future<void> enableFluttifyLog(bool enable) {
@@ -19,7 +19,7 @@ Future<T> platform<T>({
   _FutureCallback<T> ios,
 }) async {
   if (android != null && Platform.isAndroid) {
-    final releasePool = <Ref>[];
+    final releasePool = <Ref>{};
     T result;
     try {
       result = await android(releasePool);
@@ -33,7 +33,7 @@ Future<T> platform<T>({
     }
     return result;
   } else if (ios != null && Platform.isIOS) {
-    final releasePool = <Ref>[];
+    final releasePool = <Ref>{};
     T result;
     try {
       result = await ios(releasePool);
