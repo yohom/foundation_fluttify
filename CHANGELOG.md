@@ -1,3 +1,6 @@
+## 0.4.11
+- enhance: Ref增加批处理释放对象方法
+
 ## 0.4.10
 - feat: 增加org_json_JSONObject类
 
