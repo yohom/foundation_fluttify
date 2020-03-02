@@ -2,7 +2,7 @@ import 'dart:io';
 
 import '../../foundation_fluttify.dart';
 
-typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);
+typedef Future<T> _FutureCallback<T>(List<Ref> releasePool);
 
 bool _enableFluttifyLog = true;
 Future<void> enableFluttifyLog(bool enable) {
@@ -19,31 +19,29 @@ Future<T> platform<T>({
   _FutureCallback<T> ios,
 }) async {
   if (android != null && Platform.isAndroid) {
-    final releasePool = <Ref>{};
+    final releasePool = <Ref>[];
     T result;
     try {
       result = await android(releasePool);
     } catch (e) {
       return Future.error(e);
     } finally {
-      releasePool
-        ..forEach((it) => it.release())
-        ..clear();
+      await releasePool.release_batch();
+      releasePool.clear();
       // remove all local object from global object pool
       kNativeObjectPool.removeAll(releasePool);
     }
     return result;
   } else if (ios != null && Platform.isIOS) {
-    final releasePool = <Ref>{};
+    final releasePool = <Ref>[];
     T result;
     try {
       result = await ios(releasePool);
     } catch (e) {
       return Future.error(e);
     } finally {
-      releasePool
-        ..forEach((it) => it.release())
-        ..clear();
+      await releasePool.release_batch();
+      releasePool.clear();
       // remove all local object from global object pool
       kNativeObjectPool.removeAll(releasePool);
     }
