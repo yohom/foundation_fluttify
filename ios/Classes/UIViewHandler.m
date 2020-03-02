@@ -22,6 +22,21 @@ void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodRes
         HEAP[@(dataValue.hash)] = dataValue;
         
         methodResult(@(dataValue.hash));
+    } else if ([@"UIView::getHidden" isEqualToString:method]) {
+        NSNumber *refId = (NSNumber *) args[@"refId"];
+        
+        UIView *target = (UIView *) HEAP[refId];
+        
+        methodResult(@(target.isHidden));
+    } else if ([@"UIView::setHidden" isEqualToString:method]) {
+        NSNumber* refId = (NSNumber*) args[@"refId"];
+        NSNumber* hidden = (NSNumber*) args[@"hidden"];
+        
+        UIView *target = (UIView *) HEAP[refId];
+        
+        target.hidden = [hidden boolValue];
+        
+        methodResult(@"success");
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
