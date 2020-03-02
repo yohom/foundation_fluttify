@@ -15,18 +15,21 @@ class CLLocationCoordinate2D extends Ref {
   }
 
   // ignore: non_constant_identifier_names
-  static Future<CLLocationCoordinate2D> create_batch(
+  static Future<List<CLLocationCoordinate2D>> create_batch(
     List<double> latitudeBatch,
     List<double> longitudeBatch,
   ) async {
-    final int refId = await kMethodChannel.invokeMethod(
+    final List resultBatch = await kMethodChannel.invokeMethod(
         'CLLocationCoordinate2D::create_batchCLLocationCoordinate2D', {
       'latitude_batch': latitudeBatch,
       'longitude_batch': longitudeBatch,
     });
-    return CLLocationCoordinate2D()
-      ..refId = refId
-      ..tag = 'platform';
+    return resultBatch
+        .cast<int>()
+        .map((refId) => CLLocationCoordinate2D()
+          ..refId = refId
+          ..tag = 'platform')
+        .toList();
   }
 
   Future<double> get latitude {
