@@ -1,5 +1,5 @@
 #import "FoundationFluttifyPlugin.h"
-#import "PlatformFactoryHandler.h"
+#import "PlatformService.h"
 #import "CLLocationCoordinate2DHandler.h"
 #import "CLLocationHandler.h"
 #import "CLFloorHandler.h"
@@ -68,7 +68,7 @@ BOOL enableLog;
   } else if ([methodCall.method hasPrefix:@"CLHeadingHandler"]) {
     CLHeadingHandler(methodCall.method, args, methodResult);
   } else if ([methodCall.method hasPrefix:@"Platform"]) {
-    PlatformFactoryHandler(methodCall.method, args, methodResult, self->_registrar);
+    PlatformService(methodCall.method, args, methodResult, self->_registrar);
   } else {
     methodResult(FlutterMethodNotImplemented);
   }

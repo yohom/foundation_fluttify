@@ -5,7 +5,7 @@
 //  Created by Yohom Bao on 2019/11/22.
 //
 
-#import "PlatformFactoryHandler.h"
+#import "PlatformService.h"
 #import <CoreLocation/CoreLocation.h>
 #import <objc/runtime.h>
 
@@ -13,7 +13,7 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
+void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
     // toggle log
     if ([@"PlatformService::enableLog" isEqualToString:method]) {
         enableLog = [args[@"enable"] boolValue];
@@ -156,6 +156,17 @@ void PlatformFactoryHandler(NSString* method, NSDictionary* args, FlutterResult 
         if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
         
         [HEAP removeObjectForKey:refId];
+        methodResult(@"success");
+        
+        if (enableLog) NSLog(@"HEAP: %@", HEAP);
+    }
+    // 释放一批对象
+    else if ([@"PlatformService::release_batch" isEqualToString:method]) {
+        NSArray<NSNumber*>* refBatch = (NSArray<NSNumber*>*) args[@"refId_batch"];
+        
+        for (NSNumber* refId in refBatch) {
+            [HEAP removeObjectForKey:refId];
+        }
         methodResult(@"success");
         
         if (enableLog) NSLog(@"HEAP: %@", HEAP);

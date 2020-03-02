@@ -79,3 +79,13 @@ class Ref {
     return '$runtimeType{refId: $refId}';
   }
 }
+
+extension Ref_batch on List<Ref> {
+  // ignore: non_constant_identifier_names
+  Future<void> release_batch() async {
+    return kMethodChannel.invokeMethod(
+      'PlatformService::release_batch',
+      {'refId_batch': map((e) => e.refId).toList()},
+    );
+  }
+}
