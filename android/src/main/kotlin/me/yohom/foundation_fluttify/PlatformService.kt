@@ -52,10 +52,19 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             methodResult.success(point.hashCode())
         }
         "PlatformService::release" -> {
-            if (enableLog)
+            if (enableLog) {
                 Log.d("PlatformFactory", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
+            }
 
             HEAP.remove(args["refId"] as Int)
+
+            methodResult.success("success")
+
+            // print current HEAP
+            if (enableLog) Log.d("PlatformFactory", "HEAP: $HEAP")
+        }
+        "PlatformService::release_batch" -> {
+            (args["refId_batch"] as List<Int>).forEach { HEAP.remove(it) }
 
             methodResult.success("success")
 
