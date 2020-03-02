@@ -16,6 +16,16 @@ void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         UIImage *target = (UIImage *) HEAP[refId];
         NSData *data = UIImageJPEGRepresentation(target, 100);
         methodResult([FlutterStandardTypedData typedDataWithBytes:data]);
+    }
+    // 创建UIImage
+    else if ([@"UIImage::createUIImage" isEqualToString:method]) {
+        FlutterStandardTypedData *bitmapBytes = (FlutterStandardTypedData *) args[@"bitmapBytes"];
+        
+        UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
+        
+        HEAP[@(bitmap.hash)] = bitmap;
+        
+        methodResult(@(bitmap.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

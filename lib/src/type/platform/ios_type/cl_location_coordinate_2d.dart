@@ -7,8 +7,23 @@ class CLLocationCoordinate2D extends Ref {
     double longitude,
   ) async {
     final int refId = await kMethodChannel.invokeMethod(
-        'PlatformService::createCLLocationCoordinate2D',
+        'CLLocationCoordinate2D::createCLLocationCoordinate2D',
         {'latitude': latitude, 'longitude': longitude});
+    return CLLocationCoordinate2D()
+      ..refId = refId
+      ..tag = 'platform';
+  }
+
+  // ignore: non_constant_identifier_names
+  static Future<CLLocationCoordinate2D> create_batch(
+    List<double> latitudeBatch,
+    List<double> longitudeBatch,
+  ) async {
+    final int refId = await kMethodChannel.invokeMethod(
+        'CLLocationCoordinate2D::create_batchCLLocationCoordinate2D', {
+      'latitude_batch': latitudeBatch,
+      'longitude_batch': longitudeBatch,
+    });
     return CLLocationCoordinate2D()
       ..refId = refId
       ..tag = 'platform';
