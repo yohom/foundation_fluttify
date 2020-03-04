@@ -4,6 +4,11 @@ import 'cg_rect.dart';
 import 'ns_object.dart';
 
 class UIView extends NSObject {
+  static Future<UIView> create() async {
+    final result = await kMethodChannel.invokeMethod('UIView::create');
+    return UIView()..refId = result;
+  }
+
   Future<CGRect> get frame async {
     final result =
         await kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});
