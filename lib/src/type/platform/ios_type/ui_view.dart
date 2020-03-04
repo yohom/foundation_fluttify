@@ -9,6 +9,14 @@ class UIView extends NSObject {
     return UIView()..refId = result;
   }
 
+  Future<void> rotate(double angle) async {
+    assert(angle != null);
+    await kMethodChannel.invokeMethod('UIView::rotate', {
+      'refId': refId,
+      'angle': angle,
+    });
+  }
+
   Future<CGRect> get frame async {
     final result =
         await kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});

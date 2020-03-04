@@ -28,6 +28,14 @@ void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodRes
         UIView *target = (UIView *) HEAP[refId];
         
         methodResult(@(target.isHidden));
+    } else if ([@"UIView::rotate" isEqualToString:method]) {
+        NSNumber* refId = (NSNumber *) args[@"refId"];
+        NSNumber* angle = (NSNumber*) args[@"angle"];
+
+        UIView *target = (UIView *) HEAP[refId];
+        target.transform = CGAffineTransformMakeRotation([angle doubleValue] / 180.0 * M_PI);
+        
+        methodResult(@"success");
     } else if ([@"UIView::create" isEqualToString:method]) {
         UIView* result = [UIView init];
         methodResult(@(result.hash));
