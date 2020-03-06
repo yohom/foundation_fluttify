@@ -18,36 +18,24 @@ Future<T> platform<T>({
   _FutureCallback<T> android,
   _FutureCallback<T> ios,
 }) async {
-  if (android != null && Platform.isAndroid) {
-    final releasePool = <Ref>{};
-    T result;
-    try {
-      result = await android(releasePool);
-    } catch (e) {
-      return Future.error(e);
-    } finally {
+  final releasePool = <Ref>{};
+  try {
+    if (android != null && Platform.isAndroid) {
+      return await android(releasePool);
+    } else if (ios != null && Platform.isIOS) {
+      return await ios(releasePool);
+    } else {
+      return Future.value();
+    }
+  } catch (e) {
+    return Future.error(e);
+  } finally {
+    if (releasePool.isNotEmpty) {
       await releasePool.release_batch();
       releasePool.clear();
       // remove all local object from global object pool
       kNativeObjectPool.removeAll(releasePool);
     }
-    return result;
-  } else if (ios != null && Platform.isIOS) {
-    final releasePool = <Ref>{};
-    T result;
-    try {
-      result = await ios(releasePool);
-    } catch (e) {
-      return Future.error(e);
-    } finally {
-      await releasePool.release_batch();
-      releasePool.clear();
-      // remove all local object from global object pool
-      kNativeObjectPool.removeAll(releasePool);
-    }
-    return result;
-  } else {
-    return Future.value();
   }
 }
 
