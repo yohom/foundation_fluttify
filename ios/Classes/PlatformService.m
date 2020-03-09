@@ -154,7 +154,7 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 清空堆
     else if ([@"PlatformService::clearHeap" isEqualToString:method]) {
-        NSLog(@"PlatformService::清空堆");
+        if (enableLog) NSLog(@"PlatformService::清空堆");
         
         [HEAP removeAllObjects];
         methodResult(@"success");
@@ -189,7 +189,7 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 清空栈
     else if ([@"PlatformService::clearStack" isEqualToString:method]) {
-        NSLog(@"PlatformService::清空栈");
+        if (enableLog) NSLog(@"PlatformService::清空栈");
         
         [STACK removeAllObjects];
         methodResult(@"success");
