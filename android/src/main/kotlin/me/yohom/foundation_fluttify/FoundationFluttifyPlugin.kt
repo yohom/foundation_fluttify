@@ -16,6 +16,7 @@ import me.yohom.foundation_fluttify.android.content.IntentHandler
 import me.yohom.foundation_fluttify.android.graphics.BitmapHandler
 import me.yohom.foundation_fluttify.android.graphics.PointHandler
 import me.yohom.foundation_fluttify.android.location.LocationHandler
+import me.yohom.foundation_fluttify.android.os.BundleHandler
 import me.yohom.foundation_fluttify.android.util.PairHandler
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
@@ -55,6 +56,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             when {
                 startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, args, methodResult)
                 startsWith("android.app.PendingIntent") -> PendingIntentHandler(methodCall.method, args, methodResult)
+                startsWith("android.os.Bundle") -> BundleHandler(methodCall.method, args, methodResult)
                 startsWith("android.content.Intent") -> IntentHandler(methodCall.method, args, methodResult)
                 startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, args, methodResult)
                 startsWith("android.graphics.Point") -> PointHandler(methodCall.method, args, methodResult)

@@ -7,8 +7,7 @@ import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/obj
 class android_graphics_Bitmap extends java_lang_Object {
   static Future<android_graphics_Bitmap> create(Uint8List bitmapBytes) async {
     final refId = await kMethodChannel.invokeMethod(
-        'PlatformService::createandroid_graphics_Bitmap',
-        {'bitmapBytes': bitmapBytes});
+        'android.graphics.Bitmap::create', {'bitmapBytes': bitmapBytes});
     return android_graphics_Bitmap()
       ..refId = refId
       ..tag = 'platform';
@@ -18,7 +17,7 @@ class android_graphics_Bitmap extends java_lang_Object {
     List<Uint8List> bitmapBytesBatch,
   ) async {
     final List resultBatch = await kMethodChannel.invokeMethod(
-      'PlatformService::create_batchandroid_graphics_Bitmap',
+      'android.graphics.Bitmap::create_batch',
       [
         for (final bitmapBytes in bitmapBytesBatch) {'bitmapBytes': bitmapBytes}
       ],

@@ -6,6 +6,15 @@ import me.yohom.foundation_fluttify.HEAP
 
 fun PointHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
     when (method) {
+        "android.graphics.Point::create" -> {
+            val x = args["x"] as Int
+            val y = args["y"] as Int
+            val point = Point(x, y)
+
+            HEAP[point.hashCode()] = point
+
+            methodResult.success(point.hashCode())
+        }
         "android.graphics.Point::getX" -> {
             val refId = args["refId"] as Int
             val point = HEAP[refId] as Point

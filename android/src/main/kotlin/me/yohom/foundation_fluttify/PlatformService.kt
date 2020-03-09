@@ -1,9 +1,6 @@
 package me.yohom.foundation_fluttify
 
 import android.app.Activity
-import android.graphics.BitmapFactory
-import android.graphics.Point
-import android.os.Bundle
 import android.util.Log
 import io.flutter.plugin.common.MethodChannel
 
@@ -19,38 +16,6 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
         }
         "PlatformService::getandroid_app_Activity" -> {
             methodResult.success(activity?.apply { HEAP[hashCode()] = this }?.hashCode())
-        }
-        "PlatformService::createandroid_os_Bundle" -> {
-            methodResult.success(Bundle().apply { HEAP[hashCode()] = this }.hashCode())
-        }
-        "PlatformService::createandroid_graphics_Bitmap" -> {
-            val bitmapBytes = args["bitmapBytes"] as ByteArray
-            val bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
-
-            HEAP[bitmap.hashCode()] = bitmap
-
-            methodResult.success(bitmap.hashCode())
-        }
-        "PlatformService::create_batchandroid_graphics_Bitmap" -> {
-            val typedArgs = args as List<Map<String, ByteArray>>
-            val bitmapBytesBatch = typedArgs.map { it["bitmapBytes"] as ByteArray }
-
-            val resultBatch = bitmapBytesBatch
-                    .map { BitmapFactory.decodeByteArray(it, 0, it.size) }
-                    .map { it.hashCode() }
-
-            resultBatch.forEach { HEAP[it.hashCode()] = it }
-
-            methodResult.success(resultBatch)
-        }
-        "PlatformService::createandroid_graphics_Point" -> {
-            val x = args["x"] as Int
-            val y = args["y"] as Int
-            val point = Point(x, y)
-
-            HEAP[point.hashCode()] = point
-
-            methodResult.success(point.hashCode())
         }
         "PlatformService::release" -> {
             if (enableLog) {
