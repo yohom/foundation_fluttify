@@ -62,7 +62,9 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             methodResult.success("success")
 
             // print current HEAP
-            if (enableLog) Log.d("PlatformService", "HEAP: $HEAP")
+            if (enableLog) {
+                Log.d("PlatformService", "HEAP: $HEAP")
+            }
         }
         "PlatformService::release_batch" -> {
             if (enableLog) {
@@ -74,7 +76,9 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             methodResult.success("success")
 
             // print current HEAP
-            if (enableLog) Log.d("PlatformService", "HEAP: $HEAP")
+            if (enableLog) {
+                Log.d("PlatformService", "HEAP: $HEAP")
+            }
         }
         "PlatformService::clearHeap" -> {
             if (enableLog)
@@ -84,34 +88,43 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             methodResult.success("success")
 
             // print current HEAP
-            if (enableLog)
+            if (enableLog) {
                 Log.d("PlatformService", "HEAP: $HEAP")
+            }
         }
         "PlatformService::pushStack" -> {
             val name = args["name"] as String
             val refId = args["refId"] as Int
 
-            Log.d("PlatformService", "PUSH OBJECT: ${HEAP[refId]?.javaClass}@${refId}")
+            if (enableLog) {
+                Log.d("PlatformService", "PUSH OBJECT: ${HEAP[refId]?.javaClass}@${refId}")
+            }
 
             HEAP[refId]?.run { STACK[name] = this }
 
             methodResult.success("success")
 
             // print current STACK
-            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+            if (enableLog) {
+                Log.d("PlatformService", "STACK: $STACK")
+            }
         }
         "PlatformService::pushStackJsonable" -> {
             val name = args["name"] as String
             val data = args["data"]
 
-            Log.d("PlatformService", "压入jsonable: ${data?.javaClass}@${data}")
+            if (enableLog) {
+                Log.d("PlatformService", "压入jsonable: ${data?.javaClass}@${data}")
+            }
 
             STACK[name] = data!!
 
             methodResult.success("success")
 
             // 打印当前STACK
-            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+            if (enableLog) {
+                Log.d("PlatformService", "STACK: $STACK")
+            }
         }
         "PlatformService::clearStack" -> {
             STACK.clear()
@@ -119,7 +132,9 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             methodResult.success("success")
 
             // print current STACK
-            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+            if (enableLog) {
+                Log.d("PlatformService", "STACK: $STACK")
+            }
         }
     }
 }
