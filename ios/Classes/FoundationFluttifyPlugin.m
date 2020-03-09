@@ -10,6 +10,7 @@
 #import "NSDataHandler.h"
 #import "UIEdgeInsetsHandler.h"
 #import "CLHeadingHandler.h"
+#import "UIColorHandler.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 NSMutableDictionary<NSString *, NSObject *> *STACK;
@@ -70,6 +71,8 @@ NSString* _channelName = @"com.fluttify/foundation_method";
         UIEdgeInsetsHandler(methodCall.method, args, methodResult);
     } else if ([methodCall.method hasPrefix:@"CLHeadingHandler"]) {
         CLHeadingHandler(methodCall.method, args, methodResult);
+    } else if ([methodCall.method hasPrefix:@"UIColor"]) {
+        UIColorHandler(methodCall.method, args, methodResult);
     } else if ([methodCall.method hasPrefix:@"Platform"]) {
         PlatformService(methodCall.method, args, methodResult, self->_registrar);
     } else {

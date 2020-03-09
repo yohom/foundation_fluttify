@@ -37,6 +37,19 @@ void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult met
         UIEdgeInsets insets = [target UIEdgeInsetsValue];
         
         methodResult(@(insets.right));
+    } else if ([@"UIEdgeInsets::create" isEqualToString:method]) {
+        NSNumber *top = (NSNumber *) args[@"top"];
+        NSNumber *left = (NSNumber *) args[@"left"];
+        NSNumber *bottom = (NSNumber *) args[@"bottom"];
+        NSNumber *right = (NSNumber *) args[@"right"];
+        
+        UIEdgeInsets insets = UIEdgeInsetsMake([top floatValue], [left floatValue], [bottom floatValue], [right floatValue]);
+        
+        NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets];
+        
+        HEAP[@(valuePoint.hash)] = valuePoint;
+        
+        methodResult(@(valuePoint.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

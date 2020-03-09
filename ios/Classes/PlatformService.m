@@ -77,57 +77,6 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
                 
         methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
     }
-    // 创建UIColor
-    else if ([@"PlatformService::createUIColor" isEqualToString:method]) {
-        NSNumber *colorValue = (NSNumber *) args[@"colorValue"];
-        CGFloat alpha = (0xff000000 & [colorValue integerValue]) >> 24;
-        CGFloat red = (0x00ff0000 & [colorValue integerValue]) >> 16;
-        CGFloat green = (0x0000ff00 & [colorValue integerValue]) >> 8;
-        CGFloat blue = (0x000000ff & [colorValue integerValue]) >> 0;
-        
-        UIColor *color = [UIColor colorWithRed:red / 0xFF green:green / 0xFF blue:blue / 0xFF alpha:alpha / 0xFF];
-        
-        HEAP[@(color.hash)] = color;
-        
-        methodResult(@(color.hash));
-    }
-    // 根据Uint8List创建NSData
-    else if ([@"PlatformService::createNSDataWithUint8List" isEqualToString:method]) {
-        FlutterStandardTypedData *data = (FlutterStandardTypedData *) args[@"data"];
-        
-        NSData *target = data.data;
-        
-        HEAP[@(target.hash)] = target;
-        
-        methodResult(@(target.hash));
-    }
-    // 创建CGPoint
-    else if ([@"PlatformService::createCGPoint" isEqualToString:method]) {
-        NSNumber *x = (NSNumber *) args[@"x"];
-        NSNumber *y = (NSNumber *) args[@"y"];
-        
-        CGPoint cgPoint = CGPointMake([x floatValue], [y floatValue]);
-        NSValue *valuePoint = [NSValue valueWithCGPoint:cgPoint];
-        
-        HEAP[@(valuePoint.hash)] = valuePoint;
-        
-        methodResult(@(valuePoint.hash));
-    }
-    // 创建UIEdgeInsets
-    else if ([@"PlatformService::createUIEdgeInsets" isEqualToString:method]) {
-        NSNumber *top = (NSNumber *) args[@"top"];
-        NSNumber *left = (NSNumber *) args[@"left"];
-        NSNumber *bottom = (NSNumber *) args[@"bottom"];
-        NSNumber *right = (NSNumber *) args[@"right"];
-        
-        UIEdgeInsets insets = UIEdgeInsetsMake([top floatValue], [left floatValue], [bottom floatValue], [right floatValue]);
-        
-        NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets];
-        
-        HEAP[@(valuePoint.hash)] = valuePoint;
-        
-        methodResult(@(valuePoint.hash));
-    }
     // 释放一个对象
     else if ([@"PlatformService::release" isEqualToString:method]) {
         NSNumber *refId = (NSNumber *) args[@"refId"];

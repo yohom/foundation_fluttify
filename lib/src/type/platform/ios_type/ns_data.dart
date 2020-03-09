@@ -5,8 +5,8 @@ import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class NSData extends NSObject {
   static Future<NSData> createWithUint8List(Uint8List data) async {
-    final refId = await kMethodChannel.invokeMethod(
-        'PlatformService::createNSDataWithUint8List', {'data': data});
+    final refId = await kMethodChannel
+        .invokeMethod('NSData::createWithUint8List', {'data': data});
     return NSData()
       ..refId = refId
       ..tag = 'platform';

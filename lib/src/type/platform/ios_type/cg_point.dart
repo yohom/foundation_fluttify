@@ -3,8 +3,8 @@ import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class CGPoint extends Ref {
   static Future<CGPoint> create(double x, double y) async {
-    final refId = await kMethodChannel
-        .invokeMethod('PlatformService::createCGPoint', {'x': x, 'y': y});
+    final refId =
+        await kMethodChannel.invokeMethod('CGPoint::create', {'x': x, 'y': y});
     return CGPoint()
       ..refId = refId
       ..tag = 'platform';
