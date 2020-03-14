@@ -27,7 +27,7 @@
 - feat: Bitmap增加批量创建方法
 
 ## 0.4.7
-- refactor: PlatformFactory统一为PlatformService	efe240d	yohom <yohombao@gmail.com>	Jan 31, 2020 at 19:20
+- refactor: PlatformFactory统一为PlatformService
 - feat: 增加ns_operation类
 
 ## 0.4.6
