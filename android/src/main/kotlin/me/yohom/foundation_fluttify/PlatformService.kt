@@ -11,12 +11,6 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             enableLog = args["enable"] as Boolean
             methodResult.success("success")
         }
-        "PlatformService::getandroid_app_Application" -> {
-            methodResult.success(activity?.application?.apply { HEAP[hashCode()] = this }?.hashCode())
-        }
-        "PlatformService::getandroid_app_Activity" -> {
-            methodResult.success(activity?.apply { HEAP[hashCode()] = this }?.hashCode())
-        }
         "PlatformService::release" -> {
             if (enableLog) {
                 Log.d("PlatformService", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")

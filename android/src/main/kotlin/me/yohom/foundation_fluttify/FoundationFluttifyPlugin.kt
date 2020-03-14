@@ -11,6 +11,8 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import me.yohom.foundation_fluttify.android.app.ActivityHandler
+import me.yohom.foundation_fluttify.android.app.ApplicationHandler
+import me.yohom.foundation_fluttify.android.app.NotificationHandler
 import me.yohom.foundation_fluttify.android.app.PendingIntentHandler
 import me.yohom.foundation_fluttify.android.content.IntentHandler
 import me.yohom.foundation_fluttify.android.graphics.BitmapHandler
@@ -54,8 +56,10 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
         methodCall.method.run {
             when {
-                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, args, methodResult)
+                startsWith("android.app.Application") -> ApplicationHandler(methodCall.method, args, methodResult, activity)
+                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, args, methodResult, activity)
                 startsWith("android.app.PendingIntent") -> PendingIntentHandler(methodCall.method, args, methodResult)
+                startsWith("android.app.Notification") -> NotificationHandler(methodCall.method, args, methodResult, activity)
                 startsWith("android.os.Bundle") -> BundleHandler(methodCall.method, args, methodResult)
                 startsWith("android.content.Intent") -> IntentHandler(methodCall.method, args, methodResult)
                 startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, args, methodResult)
