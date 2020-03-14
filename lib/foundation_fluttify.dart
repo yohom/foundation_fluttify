@@ -48,6 +48,7 @@ export 'src/type/platform/ios_type/ns_object.dart';
 export 'src/type/platform/ios_type/ns_operation.dart';
 export 'src/type/platform/ios_type/ns_url.dart';
 export 'src/type/platform/ios_type/ns_user_activity.dart';
+export 'src/type/platform/ios_type/ns_value.dart';
 export 'src/type/platform/ios_type/ui_application.dart';
 export 'src/type/platform/ios_type/ui_application_shortcut_item.dart';
 export 'src/type/platform/ios_type/ui_color.dart';
