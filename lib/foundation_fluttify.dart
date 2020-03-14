@@ -6,6 +6,7 @@ export 'src/type/core/ref.dart';
 export 'src/type/core/typedefs.dart';
 export 'src/type/platform/android_type/android/app/activity.dart';
 export 'src/type/platform/android_type/android/app/application.dart';
+export 'src/type/platform/android_type/android/app/notification.dart';
 export 'src/type/platform/android_type/android/app/pending_intent.dart';
 export 'src/type/platform/android_type/android/content/content_provider.dart';
 export 'src/type/platform/android_type/android/content/context.dart';
