@@ -6,8 +6,8 @@ import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/obj
 
 class android_graphics_Point extends java_lang_Object {
   static Future<android_graphics_Point> create(int x, int y) async {
-    final refId = await kMethodChannel.invokeMethod(
-        'PlatformService::createandroid_graphics_Point', {'x': x, 'y': y});
+    final refId = await kMethodChannel
+        .invokeMethod('android.graphics.Point::create', {'x': x, 'y': y});
     return android_graphics_Point()
       ..refId = refId
       ..tag = 'platform';

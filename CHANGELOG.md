@@ -1,3 +1,9 @@
+## 0.4.15
+- enhance: 简化platform方法
+- enhance: 补上漏掉的log开关
+- enhance: 迁移创建方法到对应类的handler里去
+- feat: 增加android.app.Notification类
+
 ## 0.4.14
 - enhance: CLLocationCoordinate2D增加批量创建方法
 

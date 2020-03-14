@@ -24,6 +24,16 @@ void CGPointHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         CGPoint cgPoint = value.CGPointValue;
         
         methodResult(@(cgPoint.y));
+    } else if ([@"CGPoint::create" isEqualToString:method]) {
+        NSNumber *x = (NSNumber *) args[@"x"];
+        NSNumber *y = (NSNumber *) args[@"y"];
+        
+        CGPoint cgPoint = CGPointMake([x floatValue], [y floatValue]);
+        NSValue *valuePoint = [NSValue valueWithCGPoint:cgPoint];
+        
+        HEAP[@(valuePoint.hash)] = valuePoint;
+        
+        methodResult(@(valuePoint.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
