@@ -1,3 +1,6 @@
+## 0.4.16
+- feat: 增加NSValue类
+
 ## 0.4.15
 - enhance: 简化platform方法
 - enhance: 补上漏掉的log开关
