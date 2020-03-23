@@ -8,6 +8,7 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
+extern int getFluttifySequence(void);
 
 void CLLocationManagerHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // CLLocationManager::requestAlwaysAuthorization

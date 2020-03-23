@@ -11,6 +11,7 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
+extern int getFluttifySequence(void);
 
 void CLHeadingHandler(NSString* method, NSDictionary* args, FlutterResult methodResult){
     if ([@"CLHeading::getMagneticHeading" isEqualToString:method]) {

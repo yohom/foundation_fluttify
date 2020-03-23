@@ -12,6 +12,7 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
+extern int getFluttifySequence(void);
 
 // TODO 跟具体类有关联的都放到对应类下面去, 不要放到PlatformService里
 void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
@@ -53,8 +54,10 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         NSObject *target = HEAP[refId];
                 
         NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
-        
-        methodResult(@(result.hash));
+       
+        int64_t seqNumber = getFluttifySequence();
+        HEAP[@(seqNumber)] = result;
+        methodResult(@(seqNumber));
     }
     // 为对象添加jsonable字段
     else if ([@"PlatformService::addJsonableProperty" isEqualToString:method]) {

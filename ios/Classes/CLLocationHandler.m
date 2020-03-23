@@ -8,6 +8,7 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
+extern int getFluttifySequence(void);
 
 void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult methodResult){    
     // CLLocation获取coordinate
@@ -19,9 +20,10 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
         CLLocationCoordinate2D data = location.coordinate;
         
         NSValue *dataValue = [NSValue value:&data withObjCType:@encode(CLLocationCoordinate2D)];
-        HEAP[@(dataValue.hash)] = dataValue;
+        int64_t seqNumber = getFluttifySequence();
+        HEAP[@(seqNumber)] = dataValue;
         
-        methodResult(@(dataValue.hash));
+        methodResult(@(seqNumber));
     }
     // CLLocation获取altitude
     else if ([@"CLLocation::get_altitude" isEqualToString:method]) {
