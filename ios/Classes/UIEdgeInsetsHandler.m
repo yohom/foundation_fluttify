@@ -7,7 +7,6 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
-extern int getFluttifySequence(void);
 
 void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     if ([@"UIEdgeInsets::getTop" isEqualToString:method]) {
@@ -48,10 +47,9 @@ void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult met
         
         NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets];
         
-        int64_t seqNumber = getFluttifySequence();
-        HEAP[@(seqNumber)] = valuePoint;
+        HEAP[@(valuePoint.hash)] = valuePoint;
         
-        methodResult(@(seqNumber));
+        methodResult(@(valuePoint.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

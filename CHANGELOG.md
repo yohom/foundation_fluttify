@@ -1,5 +1,5 @@
 ## 0.4.17
-- feat: 使用自增id代替hashcode
+- feat: 使用System.identityHashCode代替hashCode方法
 
 ## 0.4.16
 - feat: 增加NSValue类

@@ -8,7 +8,6 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
-extern int getFluttifySequence(void);
 
 void CGPointHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     if ([@"CGPoint::getX" isEqualToString:method]) {
@@ -32,10 +31,9 @@ void CGPointHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         CGPoint cgPoint = CGPointMake([x floatValue], [y floatValue]);
         NSValue *valuePoint = [NSValue valueWithCGPoint:cgPoint];
         
-        int64_t seqNumber = getFluttifySequence();
-        HEAP[@(seqNumber)] = valuePoint;
+        HEAP[@(valuePoint.hash)] = valuePoint;
         
-        methodResult(@(seqNumber));
+        methodResult(@(valuePoint.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
