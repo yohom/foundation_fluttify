@@ -87,7 +87,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationDidFinishLaunchingWithOptions"
                 arguments:@{@"application": @(application.hash), @"launchOptions": launchOptions == nil ? @{} : launchOptions}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -102,7 +102,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationWillFinishLaunchingWithOptions"
                 arguments:@{@"application": @(application.hash), @"launchOptions": launchOptions == nil ? @{} : launchOptions}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -207,7 +207,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationDidReceiveRemoteNotificationFetchCompletionHandler"
                 arguments:@{@"application": @(application.hash), @"userInfo": @([userInfo hash])}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -224,7 +224,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationOpenURLOptions"
                 arguments:@{@"application": @(application.hash), @"url": @([url hash]), @"options": options == nil ? @{} : options}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -239,7 +239,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationHandleOpenURL"
                 arguments:@{@"application": @(application.hash), @"url": @([url hash])}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -257,7 +257,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationOpenURLSourceApplicationAnnotation"
                 arguments:@{@"application": @(application.hash), @"url": @([url hash]), @"sourceApplication": sourceApplication, @"annotation": @(((NSObject*) annotation).hash)}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -275,7 +275,7 @@ API_AVAILABLE(ios(9.0)) {
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationPerformActionForShortcutItemCompletionHandler"
                 arguments:@{@"application": @(application.hash), @"shortcutItem": @([shortcutItem hash])}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -292,7 +292,7 @@ handleEventsForBackgroundURLSession:(nonnull NSString*)identifier
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationHandleEventsForBackgroundURLSessionCompletionHandler"
                 arguments:@{@"application": @([application hash]), @"identifier": identifier}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -308,7 +308,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))comp
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationPerformFetchWithCompletionHandler"
                 arguments:@{@"application": @([application hash])}];
-    return YES;
+    return NO;
 }
 
 /**
@@ -325,7 +325,7 @@ continueUserActivity:(NSUserActivity*)userActivity
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationContinueUserActivityRestorationHandler"
                 arguments:@{@"application": @([application hash]), @"userActivity": @([userActivity hash])}];
-    return YES;
+    return NO;
 }
 
 @end
