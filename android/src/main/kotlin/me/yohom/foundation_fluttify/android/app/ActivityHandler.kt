@@ -16,7 +16,7 @@ fun ActivityHandler(method: String, args: Map<String, Any>, methodResult: Method
         }
         "android.app.Activity::get" -> {
             val hash = System.identityHashCode(context)
-            HEAP[hash] = context
+            HEAP[hash] = context!!
             methodResult.success(hash)
         }
         else -> methodResult.notImplemented()
