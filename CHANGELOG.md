@@ -1,3 +1,6 @@
+## 0.4.17
+- feat: 使用自增id代替hashcode
+
 ## 0.4.16
 - feat: 增加NSValue类
 
