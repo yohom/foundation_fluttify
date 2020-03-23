@@ -14,8 +14,10 @@ class FluttifyBroadcastReceiver : BroadcastReceiver(), EventChannel.StreamHandle
 
     override fun onReceive(context: Context?, intent: Intent?) {
         intent?.run {
-            HEAP[hashCode()] = this
-            events?.success(hashCode())
+            val seqNumber = fluttifySequence
+            HEAP[seqNumber] = this
+
+            events?.success(seqNumber)
         }
     }
 

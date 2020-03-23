@@ -13,10 +13,16 @@
 #import "UIColorHandler.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
-NSMutableDictionary<NSString *, NSObject *> *STACK;
+NSMutableDictionary<NSString *, NSObject *> *STACK __deprecated_msg("使用associate_object就行");
 
 // Container for Dart side random access objects
 NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
+
+// Object sequence number generator
+int fluttifySequence = 0;
+int getFluttifySequence() {
+    return fluttifySequence++;
+}
 
 // whether enable log or not
 BOOL enableLog;

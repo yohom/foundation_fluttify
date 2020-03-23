@@ -3,6 +3,7 @@ package me.yohom.foundation_fluttify.android.util
 import android.util.Pair
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.fluttifySequence
 import me.yohom.foundation_fluttify.jsonable
 
 fun PairHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
@@ -14,7 +15,9 @@ fun PairHandler(method: String, args: Map<String, Any>, methodResult: MethodChan
             if (pair.first.jsonable()) {
                 methodResult.success(pair.first)
             } else {
-                methodResult.success(pair.first?.hashCode())
+                val seqNumber = fluttifySequence
+                HEAP[seqNumber] = pair.first
+                methodResult.success(seqNumber)
             }
         }
         "android.util.Pair::getSecond" -> {
@@ -24,7 +27,9 @@ fun PairHandler(method: String, args: Map<String, Any>, methodResult: MethodChan
             if (pair.second.jsonable()) {
                 methodResult.success(pair.second)
             } else {
-                methodResult.success(pair.second?.hashCode())
+                val seqNumber = fluttifySequence
+                HEAP[seqNumber] = pair.second
+                methodResult.success(seqNumber)
             }
         }
         else -> methodResult.notImplemented()

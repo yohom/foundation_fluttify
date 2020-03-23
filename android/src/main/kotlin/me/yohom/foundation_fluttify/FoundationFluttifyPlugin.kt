@@ -27,6 +27,10 @@ val STACK = mutableMapOf<String, Any>()
 // Container for Dart side random access objects
 val HEAP = mutableMapOf<Int, Any>()
 
+// Object sequence number generator
+var fluttifySequence: Int = 0
+    get() = field++
+
 // whether enable log or not
 var enableLog: Boolean = true
 

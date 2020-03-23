@@ -8,6 +8,7 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
+extern int getFluttifySequence(void);
 
 void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // CLLocationCoordinate2D获取latitude
@@ -40,9 +41,10 @@ void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, Flutter
         CLLocationCoordinate2D data = CLLocationCoordinate2DMake(latitude, longitude);
         
         NSValue *dataValue = [NSValue value:&data withObjCType:@encode(CLLocationCoordinate2D)];
-        HEAP[@(dataValue.hash)] = dataValue;
+        int64_t seqNumber = getFluttifySequence();
+        HEAP[@(seqNumber)] = dataValue;
         
-        methodResult(@(dataValue.hash));
+        methodResult(@(seqNumber));
     }
     // 批量创建CLLocationCoordinate2D
     else if ([@"CLLocationCoordinate2D::create_batchCLLocationCoordinate2D" isEqualToString:method]) {
@@ -57,8 +59,9 @@ void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, Flutter
             CLLocationCoordinate2D data = CLLocationCoordinate2DMake(latitude, longitude);
 
             NSValue *dataValue = [NSValue value:&data withObjCType:@encode(CLLocationCoordinate2D)];
-            [resultBatch addObject:@(dataValue.hash)];
-            HEAP[@(dataValue.hash)] = dataValue;
+            int64_t seqNumber = getFluttifySequence();
+            [resultBatch addObject:@(seqNumber)];
+            HEAP[@(seqNumber)] = dataValue;
         }
         
         methodResult(resultBatch);

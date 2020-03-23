@@ -3,6 +3,7 @@ package me.yohom.foundation_fluttify.android.graphics
 import android.graphics.Point
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.fluttifySequence
 
 fun PointHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
     when (method) {
@@ -11,9 +12,10 @@ fun PointHandler(method: String, args: Map<String, Any>, methodResult: MethodCha
             val y = args["y"] as Int
             val point = Point(x, y)
 
-            HEAP[point.hashCode()] = point
+            val seqNumber = fluttifySequence
+            HEAP[seqNumber] = point
 
-            methodResult.success(point.hashCode())
+            methodResult.success(seqNumber)
         }
         "android.graphics.Point::getX" -> {
             val refId = args["refId"] as Int

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.util.Log
 import io.flutter.plugin.common.MethodChannel
 
-// TODO 跟具体类有关联的都放到对应类下面去, 不要放到PlatformService里
 fun PlatformService(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activity: Activity?) {
     when (method) {
         "PlatformService::enableLog" -> {

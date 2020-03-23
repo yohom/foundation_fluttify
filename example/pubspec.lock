@@ -84,14 +84,14 @@ packages:
       name: decorated_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.0+1"
+    version: "0.12.0+1"
   dio:
     dependency: transitive
     description:
       name: dio
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.8"
+    version: "3.0.9"
   encrypt:
     dependency: transitive
     description:
@@ -99,13 +99,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
-  flushbar:
-    dependency: transitive
-    description:
-      name: flushbar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.9.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -129,7 +122,7 @@ packages:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.17.2"
+    version: "0.17.3+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -141,7 +134,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.4.16"
+    version: "0.4.17-alpha.1"
   http:
     dependency: transitive
     description:
@@ -314,7 +307,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.11"
+    version: "0.2.15"
   typed_data:
     dependency: transitive
     description:

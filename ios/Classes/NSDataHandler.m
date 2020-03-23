@@ -7,6 +7,7 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
+extern int getFluttifySequence(void);
 
 void NSDataHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     if ([@"NSData::createWithUint8List" isEqualToString:method]) {
@@ -14,9 +15,10 @@ void NSDataHandler(NSString* method, NSDictionary* args, FlutterResult methodRes
         
         NSData *target = data.data;
         
-        HEAP[@(target.hash)] = target;
+        int64_t seqNumber = getFluttifySequence();
+        HEAP[@(seqNumber)] = target;
         
-        methodResult(@(target.hash));
+        methodResult(@(seqNumber));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

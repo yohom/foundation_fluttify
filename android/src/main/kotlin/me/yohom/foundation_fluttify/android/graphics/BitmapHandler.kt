@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.fluttifySequence
 import java.io.ByteArrayOutputStream
 
 fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
@@ -12,9 +13,10 @@ fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
             val bitmapBytes = args["bitmapBytes"] as ByteArray
             val bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
 
-            HEAP[bitmap.hashCode()] = bitmap
+            val seqNumber = fluttifySequence
+            HEAP[seqNumber] = bitmap
 
-            methodResult.success(bitmap.hashCode())
+            methodResult.success(seqNumber)
         }
         "android.graphics.Bitmap::create_batch" -> {
             val typedArgs = args as List<Map<String, ByteArray>>
@@ -22,9 +24,8 @@ fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
 
             val resultBatch = bitmapBytesBatch
                     .map { BitmapFactory.decodeByteArray(it, 0, it.size) }
-                    .map { it.hashCode() }
 
-            resultBatch.forEach { HEAP[it.hashCode()] = it }
+            resultBatch.forEach { HEAP[fluttifySequence] = it }
 
             methodResult.success(resultBatch)
         }
