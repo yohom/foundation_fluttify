@@ -8,7 +8,6 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
-extern int getFluttifySequence(void);
 
 void CLFloorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // CLFloor获取level

@@ -18,12 +18,6 @@ NSMutableDictionary<NSString *, NSObject *> *STACK __deprecated_msg("使用assoc
 // Container for Dart side random access objects
 NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 
-// Object sequence number generator
-int fluttifySequence = 0;
-int getFluttifySequence() {
-    return fluttifySequence++;
-}
-
 // whether enable log or not
 BOOL enableLog;
 

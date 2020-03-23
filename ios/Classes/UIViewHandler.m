@@ -8,7 +8,6 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
-extern int getFluttifySequence(void);
 
 void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // UIImage::getFrame
@@ -20,10 +19,9 @@ void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodRes
         CGRect rect = [target frame];
         NSValue *dataValue = [NSValue value:&rect withObjCType:@encode(CGRect)];
         
-        int64_t seqNumber = getFluttifySequence();
-        HEAP[@(seqNumber)] = dataValue;
+        HEAP[@(dataValue.hash)] = dataValue;
         
-        methodResult(@(seqNumber));
+        methodResult(@(dataValue.hash));
     } else if ([@"UIView::getHidden" isEqualToString:method]) {
         NSNumber *refId = (NSNumber *) args[@"refId"];
         

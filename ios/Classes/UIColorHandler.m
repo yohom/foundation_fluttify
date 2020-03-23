@@ -10,7 +10,6 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
-extern int getFluttifySequence(void);
 
 void UIColorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     if ([@"UIColor::create" isEqualToString:method]) {
@@ -22,10 +21,9 @@ void UIColorHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         
         UIColor *color = [UIColor colorWithRed:red / 0xFF green:green / 0xFF blue:blue / 0xFF alpha:alpha / 0xFF];
         
-        int64_t seqNumber = getFluttifySequence();
-        HEAP[@(seqNumber)] = color;
+        HEAP[@(color.hash)] = color;
         
-        methodResult(@(seqNumber));
+        methodResult(@(color.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

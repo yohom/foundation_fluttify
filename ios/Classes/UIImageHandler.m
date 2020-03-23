@@ -7,7 +7,6 @@
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
-extern int getFluttifySequence(void);
 
 void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
     // UIImage::getData
@@ -24,10 +23,9 @@ void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         
         UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
         
-        int64_t seqNumber = getFluttifySequence();
-        HEAP[@(seqNumber)] = bitmap;
+        HEAP[@(bitmap.hash)] = bitmap;
         
-        methodResult(@(seqNumber));
+        methodResult(@(bitmap.hash));
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

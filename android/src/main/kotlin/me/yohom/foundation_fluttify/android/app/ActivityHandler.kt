@@ -3,7 +3,6 @@ package me.yohom.foundation_fluttify.android.app
 import android.app.Activity
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
-import me.yohom.foundation_fluttify.fluttifySequence
 
 fun ActivityHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, context: Activity?) {
     when (method) {
@@ -11,16 +10,14 @@ fun ActivityHandler(method: String, args: Map<String, Any>, methodResult: Method
             val refId = args["refId"] as Int
             val targetActivity = HEAP[refId] as Activity
 
-            val seqNumber = fluttifySequence
-            HEAP[seqNumber] = targetActivity.intent
-
-            methodResult.success(seqNumber)
+            val hash = System.identityHashCode(targetActivity.intent)
+            HEAP[hash] = targetActivity.intent
+            methodResult.success(hash)
         }
         "android.app.Activity::get" -> {
-            val seqNumber = fluttifySequence
-            HEAP[seqNumber] = context!!
-
-            methodResult.success(seqNumber)
+            val hash = System.identityHashCode(context)
+            HEAP[hash] = context
+            methodResult.success(hash)
         }
         else -> methodResult.notImplemented()
     }
