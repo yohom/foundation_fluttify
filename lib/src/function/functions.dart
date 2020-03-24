@@ -90,3 +90,14 @@ Future<void> clearStack() async {
 Future<void> setupOrientationSensor() async {
   await kMethodChannel.invokeMethod('PlatformService::setupOrientationSensor');
 }
+
+Future<void> startActivity(
+  String activityClass, {
+  Map<String, dynamic> extras = const {},
+}) async {
+  assert(activityClass != null && activityClass.isNotEmpty);
+  await kMethodChannel.invokeMethod(
+    'PlatformService::startActivity',
+    {'activityClass': activityClass, 'extras': extras},
+  );
+}
