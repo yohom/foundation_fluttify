@@ -101,3 +101,17 @@ Future<void> startActivity(
     {'activityClass': activityClass, 'extras': extras},
   );
 }
+
+Future<void> presentViewController(
+  String viewControllerClass, {
+  bool withNavigationController = false,
+}) async {
+  assert(viewControllerClass != null && viewControllerClass.isNotEmpty);
+  await kMethodChannel.invokeMethod(
+    'PlatformService::presentViewController',
+    {
+      'viewControllerClass': viewControllerClass,
+      'withNavigationController': withNavigationController,
+    },
+  );
+}

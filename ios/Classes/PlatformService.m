@@ -145,6 +145,23 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         methodResult(@"success");
         
         if (enableLog) NSLog(@"STACK: %@", STACK);
+    }
+    // 打开一个ViewController
+    else if ([@"PlatformService::presentViewController" isEqualToString:method]) {
+        if (enableLog) NSLog(@"PlatformService::打开一个ViewController");
+        NSString* viewControllerClass = (NSString*) args[@"viewControllerClass"];
+        BOOL withNavigationController = [(NSNumber*) args[@"withNavigationController"] boolValue];
+
+        UIViewController *controller = [[NSClassFromString(viewControllerClass) alloc] init];
+        if (withNavigationController) {
+//            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+//            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:nil action:@selector(dismiss)];
+//            [[controller navigationItem] setLeftBarButtonItem:item];
+//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviController animated:YES completion:nil];
+        } else {
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
+        }
+        methodResult(@"success");
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
