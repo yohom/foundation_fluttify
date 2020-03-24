@@ -1,6 +1,8 @@
 package me.yohom.foundation_fluttify
 
 import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import io.flutter.plugin.common.MethodChannel
 
@@ -93,6 +95,29 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             if (enableLog) {
                 Log.d("PlatformService", "STACK: $STACK")
             }
+        }
+        "PlatformService::startActivity" -> {
+            val activityClass = args["activityClass"] as String
+            val extras = args["extras"] as Map<String, Any>
+
+            if (activity != null) {
+                val intent = Intent(activity, Class.forName(activityClass))
+                extras.forEach {
+                    when (it.value) {
+                        is String -> intent.putExtra(it.key, it.value as String)
+                        is Int -> intent.putExtra(it.key, it.value as Int)
+                        is Long -> intent.putExtra(it.key, it.value as Long)
+                        is Double -> intent.putExtra(it.key, it.value as Double)
+                    }
+                }
+                activity.startActivity(intent)
+            } else {
+                if (enableLog) {
+                    Log.w("PlatformService", "当前Activity为null!")
+                }
+            }
+
+            methodResult.success("success")
         }
     }
 }

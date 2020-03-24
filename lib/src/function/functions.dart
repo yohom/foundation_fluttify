@@ -90,3 +90,28 @@ Future<void> clearStack() async {
 Future<void> setupOrientationSensor() async {
   await kMethodChannel.invokeMethod('PlatformService::setupOrientationSensor');
 }
+
+Future<void> startActivity(
+  String activityClass, {
+  Map<String, dynamic> extras = const {},
+}) async {
+  assert(activityClass != null && activityClass.isNotEmpty);
+  await kMethodChannel.invokeMethod(
+    'PlatformService::startActivity',
+    {'activityClass': activityClass, 'extras': extras},
+  );
+}
+
+Future<void> presentViewController(
+  String viewControllerClass, {
+  bool withNavigationController = false,
+}) async {
+  assert(viewControllerClass != null && viewControllerClass.isNotEmpty);
+  await kMethodChannel.invokeMethod(
+    'PlatformService::presentViewController',
+    {
+      'viewControllerClass': viewControllerClass,
+      'withNavigationController': withNavigationController,
+    },
+  );
+}
