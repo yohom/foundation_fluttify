@@ -1,3 +1,6 @@
+## 0.5.0
+- enhance: [breaking change] tag -> tag__
+
 ## 0.4.18
 - feat: 增加UIViewController
 
