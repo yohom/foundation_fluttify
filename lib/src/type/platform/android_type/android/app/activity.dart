@@ -9,7 +9,7 @@ class android_app_Activity extends android_content_Context {
         await kMethodChannel.invokeMethod('android.app.Activity::get');
     return android_app_Activity()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   Future<android_content_Intent> get intent async {
@@ -17,6 +17,6 @@ class android_app_Activity extends android_content_Context {
         .invokeMethod('android.app.Activity::getIntent', {'refId': refId});
     return android_content_Intent()
       ..refId = result
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 }

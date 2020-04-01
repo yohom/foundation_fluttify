@@ -7,7 +7,7 @@ class CGPoint extends Ref {
         await kMethodChannel.invokeMethod('CGPoint::create', {'x': x, 'y': y});
     return CGPoint()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   Future<double> get x {

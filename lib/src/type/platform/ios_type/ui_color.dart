@@ -10,6 +10,6 @@ class UIColor extends NSObject {
         .invokeMethod('UIColor::create', {'colorValue': color.value});
     return UIColor()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 }
