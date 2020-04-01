@@ -11,7 +11,7 @@ class CLLocationCoordinate2D extends Ref {
         {'latitude': latitude, 'longitude': longitude});
     return CLLocationCoordinate2D()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   // ignore: non_constant_identifier_names
@@ -28,7 +28,7 @@ class CLLocationCoordinate2D extends Ref {
         .cast<int>()
         .map((refId) => CLLocationCoordinate2D()
           ..refId = refId
-          ..tag = 'platform')
+          ..tag__ = 'platform')
         .toList();
   }
 

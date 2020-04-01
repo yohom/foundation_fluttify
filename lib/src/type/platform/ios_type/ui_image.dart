@@ -10,7 +10,7 @@ class UIImage extends NSObject {
         .invokeMethod('UIImage::createUIImage', {'bitmapBytes': bitmapBytes});
     return UIImage()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   Future<Uint8List> get data {

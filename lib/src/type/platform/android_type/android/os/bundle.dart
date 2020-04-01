@@ -8,6 +8,6 @@ class android_os_Bundle extends java_lang_Object {
         await kMethodChannel.invokeMethod('android.os.Bundle::create');
     return android_os_Bundle()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 }

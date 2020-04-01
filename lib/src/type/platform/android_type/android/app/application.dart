@@ -8,6 +8,6 @@ class android_app_Application extends android_content_Context {
         await kMethodChannel.invokeMethod('android.app.Application::get');
     return android_app_Application()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 }

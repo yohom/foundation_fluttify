@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class Ref {
@@ -5,7 +6,7 @@ class Ref {
   int refId;
 
   /// custom tag
-  String tag;
+  String tag__;
 
   /// 释放当前引用对象
   Future<void> release() async {
@@ -81,7 +82,6 @@ class Ref {
 }
 
 extension Ref_Batch on Iterable<Ref> {
-  // ignore: non_constant_identifier_names
   Future<void> release_batch() async {
     return kMethodChannel.invokeMethod(
       'PlatformService::release_batch',

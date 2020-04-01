@@ -9,6 +9,6 @@ class NSData extends NSObject {
         .invokeMethod('NSData::createWithUint8List', {'data': data});
     return NSData()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 }

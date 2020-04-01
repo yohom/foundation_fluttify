@@ -27,6 +27,6 @@ class android_app_Notification extends java_lang_Object {
     });
     return android_app_Notification()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 }

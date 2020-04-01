@@ -10,7 +10,7 @@ class android_graphics_Bitmap extends java_lang_Object {
         'android.graphics.Bitmap::create', {'bitmapBytes': bitmapBytes});
     return android_graphics_Bitmap()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   static Future<List<android_graphics_Bitmap>> create_batch(
@@ -25,7 +25,7 @@ class android_graphics_Bitmap extends java_lang_Object {
     return resultBatch
         .map((refId) => android_graphics_Bitmap()
           ..refId = refId
-          ..tag = 'platform')
+          ..tag__ = 'platform')
         .toList();
   }
 

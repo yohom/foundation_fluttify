@@ -16,7 +16,7 @@ class UIEdgeInsets extends Ref {
     });
     return UIEdgeInsets()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   Future<double> get top {

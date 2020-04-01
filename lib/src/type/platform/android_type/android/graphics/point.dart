@@ -10,7 +10,7 @@ class android_graphics_Point extends java_lang_Object {
         .invokeMethod('android.graphics.Point::create', {'x': x, 'y': y});
     return android_graphics_Point()
       ..refId = refId
-      ..tag = 'platform';
+      ..tag__ = 'platform';
   }
 
   Future<int> get x {
