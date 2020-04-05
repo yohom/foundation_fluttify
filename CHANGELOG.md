@@ -1,3 +1,6 @@
+## 0.5.1
+- feat: NSError增加获取code和description的方法
+
 ## 0.5.0
 - enhance: [breaking change] tag -> tag__
 
