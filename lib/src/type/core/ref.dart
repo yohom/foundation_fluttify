@@ -9,13 +9,13 @@ class Ref {
   String tag__;
 
   /// 释放当前引用对象
-  Future<void> release() async {
+  Future<void> release__() async {
     await kMethodChannel
         .invokeMethod('PlatformService::release', {'refId': refId});
   }
 
   /// 通过反射调用方法
-  Future<void> performSelectorWithObject(String selector, Object object) {
+  Future<void> performSelectorWithObject__(String selector, Object object) {
     return kMethodChannel
         .invokeMethod('PlatformService::performSelectorWithObject', {
       'refId': refId,
@@ -25,7 +25,7 @@ class Ref {
   }
 
   /// 为类型添加属性
-  Future<void> addProperty(int propertyKey, Ref property) async {
+  Future<void> addProperty__(int propertyKey, Ref property) async {
     assert(property is Ref);
     return kMethodChannel.invokeMethod('PlatformService::addProperty', {
       'refId': refId,
@@ -35,7 +35,7 @@ class Ref {
   }
 
   /// 获取添加字段的值
-  Future<Ref> getProperty(int propertyKey) async {
+  Future<Ref> getProperty__(int propertyKey) async {
     final result =
         await kMethodChannel.invokeMethod('PlatformService::getProperty', {
       'refId': refId,
@@ -45,7 +45,7 @@ class Ref {
   }
 
   /// 为类型添加jsonable属性
-  Future<void> addJsonableProperty(int propertyKey, Object property) async {
+  Future<void> addJsonableProperty__(int propertyKey, Object property) async {
     assert(property is String ||
         property is int ||
         property is double ||
@@ -60,7 +60,7 @@ class Ref {
   }
 
   /// 获取添加字段的jsonable值
-  Future<Object> getJsonableProperty(int propertyKey) async {
+  Future<Object> getJsonableProperty__(int propertyKey) async {
     return kMethodChannel.invokeMethod('PlatformService::getJsonableProperty', {
       'refId': refId,
       'propertyKey': propertyKey,

@@ -1,3 +1,6 @@
+## 0.6.0
+- enhance: [breaking change] Ref类内的方法和属性都加上__后缀, 防止和子类冲突
+
 ## 0.5.1
 - feat: NSError增加获取code和description的方法
 
