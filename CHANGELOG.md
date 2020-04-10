@@ -1,5 +1,6 @@
 ## 0.6.1
 - enhance: android: *Handler的args参数使用Any类型, 内部再做转换
+- feat: 增加批处理方法
 
 ## 0.6.0
 - enhance: [breaking change] Ref类内的方法和属性都加上__后缀, 防止和子类冲突
