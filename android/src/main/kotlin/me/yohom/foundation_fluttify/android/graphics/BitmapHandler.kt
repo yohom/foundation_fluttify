@@ -6,9 +6,10 @@ import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
 import java.io.ByteArrayOutputStream
 
-fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
+fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.graphics.Bitmap::create" -> {
+            val args = rawArgs as Map<String, Any>
             val bitmapBytes = args["bitmapBytes"] as ByteArray
             val bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.size)
 
@@ -18,7 +19,7 @@ fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
             methodResult.success(hash)
         }
         "android.graphics.Bitmap::create_batch" -> {
-            val typedArgs = args as List<Map<String, ByteArray>>
+            val typedArgs = rawArgs as List<Map<String, ByteArray>>
             val bitmapBytesBatch = typedArgs.map { it["bitmapBytes"] as ByteArray }
 
             val resultBatch = bitmapBytesBatch
@@ -29,6 +30,8 @@ fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
             methodResult.success(resultBatch)
         }
         "android.graphics.Bitmap::getData" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val bitmap = HEAP[refId] as Bitmap
 
@@ -37,6 +40,8 @@ fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
             methodResult.success(outputStream.toByteArray())
         }
         "android.graphics.Bitmap::recycle" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val bitmap = HEAP[refId] as Bitmap
 
@@ -44,6 +49,8 @@ fun BitmapHandler(method: String, args: Map<String, Any>, methodResult: MethodCh
             methodResult.success("success")
         }
         "android.graphics.Bitmap::isRecycled" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val bitmap = HEAP[refId] as Bitmap
 
