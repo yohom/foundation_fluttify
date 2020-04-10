@@ -93,7 +93,7 @@ extension Ref_Batch on Iterable<Ref> {
 extension RefList_Batch on List<Ref> {
   /// 为类型添加属性
   Future<void> addProperty_batch(int propertyKey, List<Ref> property) async {
-    assert(property is Ref);
+    assert(property is List<Ref>);
     return kMethodChannel.invokeMethod(
       'PlatformService::addProperty_batch',
       [
@@ -131,12 +131,12 @@ extension RefList_Batch on List<Ref> {
     int propertyKey,
     List<Object> property,
   ) async {
-    assert(property is String ||
-        property is int ||
-        property is double ||
-        property is Map ||
-        property is List ||
-        property is bool);
+    assert(property is List<String> ||
+        property is List<int> ||
+        property is List<double> ||
+        property is List<Map> ||
+        property is List<List> ||
+        property is List<bool>);
     return kMethodChannel.invokeMethod(
       'PlatformService::addJsonableProperty_batch',
       [
