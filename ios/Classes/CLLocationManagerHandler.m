@@ -9,9 +9,11 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void CLLocationManagerHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void CLLocationManagerHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     // CLLocationManager::requestAlwaysAuthorization
     if ([@"CLLocationManager::requestAlwaysAuthorization" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocationManager *target = (CLLocationManager *) HEAP[refId];
@@ -22,6 +24,8 @@ void CLLocationManagerHandler(NSString* method, NSDictionary* args, FlutterResul
     }
     // CLLocationManager::requestAlwaysAuthorization
     else if ([@"CLLocationManager::requestWhenInUseAuthorization" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocationManager *target = (CLLocationManager *) HEAP[refId];

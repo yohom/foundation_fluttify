@@ -9,9 +9,11 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult methodResult){    
+void CLLocationHandler(NSString* method, id rawArgs, FlutterResult methodResult){    
     // CLLocation获取coordinate
     if ([@"CLLocation::get_coordinate" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];
@@ -25,6 +27,8 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
     }
     // CLLocation获取altitude
     else if ([@"CLLocation::get_altitude" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];
@@ -33,6 +37,8 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
     }
     // CLLocation获取horizontalAccuracy
     else if ([@"CLLocation::get_horizontalAccuracy" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];
@@ -41,6 +47,8 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
     }
     // CLLocation获取verticalAccuracy
     else if ([@"CLLocation::get_verticalAccuracy" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];
@@ -49,6 +57,8 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
     }
     // CLLocation获取course
     else if ([@"CLLocation::get_course" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];
@@ -57,6 +67,8 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
     }
     // CLLocation获取speed
     else if ([@"CLLocation::get_speed" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];
@@ -65,6 +77,8 @@ void CLLocationHandler(NSString* method, NSDictionary* args, FlutterResult metho
     }
     // CLLocation获取floor
     else if ([@"CLLocation::get_floor" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLLocation *location = (CLLocation *) HEAP[refId];

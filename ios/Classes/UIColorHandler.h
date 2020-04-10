@@ -10,6 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void UIColorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void UIColorHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

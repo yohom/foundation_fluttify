@@ -51,33 +51,33 @@ NSString* _channelName = @"com.fluttify/foundation_method";
 }
 
 - (void)handleMethodCall:(FlutterMethodCall *)methodCall result:(FlutterResult)methodResult {
-    NSDictionary<NSString *, id> *args = (NSDictionary<NSString*, id> *) [methodCall arguments];
+    id rawArgs = [methodCall arguments];
     if ([methodCall.method hasPrefix:@"CLLocationCoordinate2D"]) {
-        CLLocationCoordinate2DHandler(methodCall.method, args, methodResult);
+        CLLocationCoordinate2DHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CLLocation"]) {
-        CLLocationHandler(methodCall.method, args, methodResult);
+        CLLocationHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CLFloor"]) {
-        CLFloorHandler(methodCall.method, args, methodResult);
+        CLFloorHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CLLocationManager"]) {
-        CLLocationManagerHandler(methodCall.method, args, methodResult);
+        CLLocationManagerHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIImage"]) {
-        UIImageHandler(methodCall.method, args, methodResult);
+        UIImageHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIView"]) {
-        UIViewHandler(methodCall.method, args, methodResult);
+        UIViewHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CGPoint"]) {
-        CGPointHandler(methodCall.method, args, methodResult);
+        CGPointHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"NSData"]) {
-        NSDataHandler(methodCall.method, args, methodResult);
+        NSDataHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIEdgeInsets"]) {
-        UIEdgeInsetsHandler(methodCall.method, args, methodResult);
+        UIEdgeInsetsHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CLHeadingHandler"]) {
-        CLHeadingHandler(methodCall.method, args, methodResult);
+        CLHeadingHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIColor"]) {
-        UIColorHandler(methodCall.method, args, methodResult);
+        UIColorHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"NSError"]) {
-        NSErrorHandler(methodCall.method, args, methodResult);
+        NSErrorHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"Platform"]) {
-        PlatformService(methodCall.method, args, methodResult, self->_registrar);
+        PlatformService(methodCall.method, rawArgs, methodResult, self->_registrar);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

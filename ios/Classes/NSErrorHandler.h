@@ -10,6 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void NSErrorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void NSErrorHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

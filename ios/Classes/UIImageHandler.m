@@ -8,9 +8,11 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void UIImageHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     // UIImage::getData
     if ([@"UIImage::getData" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         UIImage *target = (UIImage *) HEAP[refId];
@@ -19,13 +21,35 @@ void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
     }
     // 创建UIImage
     else if ([@"UIImage::createUIImage" isEqualToString:method]) {
-        FlutterStandardTypedData *bitmapBytes = (FlutterStandardTypedData *) args[@"bitmapBytes"];
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        FlutterStandardTypedData* bitmapBytes = (FlutterStandardTypedData*) args[@"bitmapBytes"];
         
         UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
         
         HEAP[@(bitmap.hash)] = bitmap;
         
         methodResult(@(bitmap.hash));
+    }
+    // 批量创建UIImage
+    else if ([@"UIImage::createUIImage_batch" isEqualToString:method]) {
+        NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
+
+        NSMutableArray* resultList = [NSMutableArray array];
+        
+        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+
+            FlutterStandardTypedData* bitmapBytes = (FlutterStandardTypedData*) args[@"bitmapBytes"];
+            
+            UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
+            
+            HEAP[@(bitmap.hash)] = bitmap;
+        
+            [resultList addObject:@(bitmap.hash)];
+        }
+        
+        methodResult(resultList);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

@@ -13,15 +13,18 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-// TODO 跟具体类有关联的都放到对应类下面去, 不要放到PlatformService里
-void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
+void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
     // toggle log
     if ([@"PlatformService::enableLog" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         enableLog = [args[@"enable"] boolValue];
         methodResult(@"success");
     }
     // 通过反射调用方法
     else if ([@"PlatformService::performSelectorWithObject" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         NSString *selector = (NSString *) args[@"selector"];
         NSObject *object = (NSObject *) args[@"object"];
@@ -34,6 +37,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 为对象添加字段
     else if ([@"PlatformService::addProperty" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         NSNumber *propertyRefId = (NSNumber *) args[@"property"];
@@ -48,8 +53,33 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
     }
+    // 批量为对象添加字段
+    else if ([@"PlatformService::addProperty_batch" isEqualToString:method]) {
+        NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
+
+        NSMutableArray* resultList = [NSMutableArray array];
+        
+        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+
+            NSNumber *refId = (NSNumber *) args[@"refId"];
+            NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+            NSNumber *propertyRefId = (NSNumber *) args[@"property"];
+        
+            NSObject *target = HEAP[refId];
+            NSObject *property = HEAP[propertyRefId];
+            
+            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+            [resultList addObject:@"success"];
+        }
+        
+        methodResult(resultList);
+    }
     // 获取添加字段的值
     else if ([@"PlatformService::getProperty" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         
@@ -63,8 +93,32 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
     }
+    // 批量获取添加字段的值
+    else if ([@"PlatformService::getProperty_batch" isEqualToString:method]) {
+        NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
+
+        NSMutableArray* resultList = [NSMutableArray array];
+        
+        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+
+            NSNumber *refId = (NSNumber *) args[@"refId"];
+            NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        
+            NSObject *target = HEAP[refId];
+            
+            NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
+            HEAP[@(result.hash)] = result;
+            
+            [resultList addObject:@(result.hash)];
+        }
+        
+        methodResult(resultList);
+    }
     // 为对象添加jsonable字段
     else if ([@"PlatformService::addJsonableProperty" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         NSObject *property = (NSObject *) args[@"property"];
@@ -78,8 +132,31 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
     }
+    // 批量为对象添加jsonable字段
+    else if ([@"PlatformService::addJsonableProperty_batch" isEqualToString:method]) {
+        NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
+
+        NSMutableArray* resultList = [NSMutableArray array];
+        
+        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+
+            NSNumber *refId = (NSNumber *) args[@"refId"];
+            NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+            NSObject *property = (NSObject *) args[@"property"];
+        
+            NSObject *target = HEAP[refId];
+            
+            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            [resultList addObject:@"success"];
+        }
+        
+        methodResult(resultList);
+    }
     // 获取添加字段的jsonable值
     else if ([@"PlatformService::getJsonableProperty" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         
@@ -91,8 +168,31 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
     }
+    // 批量获取添加字段的jsonable值
+    else if ([@"PlatformService::getJsonableProperty_batch" isEqualToString:method]) {
+        NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
+
+        NSMutableArray* resultList = [NSMutableArray array];
+        
+        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+
+            NSNumber *refId = (NSNumber *) args[@"refId"];
+            NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        
+            NSObject *target = HEAP[refId];
+            
+            NSObject* result = objc_getAssociatedObject(target, (const void *) propertyKey);
+            
+            [resultList addObject:result];
+        }
+        
+        methodResult(resultList);
+    }
     // 释放一个对象
     else if ([@"PlatformService::release" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
@@ -104,6 +204,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 释放一批对象
     else if ([@"PlatformService::release_batch" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSArray<NSNumber*>* refBatch = (NSArray<NSNumber*>*) args[@"refId_batch"];
         
         if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", refBatch);
@@ -126,6 +228,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 压入栈
     else if ([@"PlatformService::pushStack" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSString *name = (NSString *) args[@"name"];
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
@@ -139,6 +243,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 压入栈 jsonable
     else if ([@"PlatformService::pushStackJsonable" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSString *name = (NSString *) args[@"name"];
         NSObject *data = (NSObject *) args[@"data"];
         
@@ -161,6 +267,8 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
     }
     // 打开一个ViewController
     else if ([@"PlatformService::presentViewController" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         if (enableLog) NSLog(@"PlatformService::打开一个ViewController");
         NSString* viewControllerClass = (NSString*) args[@"viewControllerClass"];
         BOOL withNavigationController = [(NSNumber*) args[@"withNavigationController"] boolValue];

@@ -7,6 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void NSDataHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void NSDataHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

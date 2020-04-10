@@ -7,6 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void CLLocationCoordinate2DHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

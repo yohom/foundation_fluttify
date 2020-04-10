@@ -9,9 +9,11 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void CLLocationCoordinate2DHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     // CLLocationCoordinate2D获取latitude
     if ([@"CLLocationCoordinate2D::get_latitude" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *dataValue = (NSValue *) HEAP[refId];
@@ -23,6 +25,8 @@ void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, Flutter
     }
     // CLLocationCoordinate2D获取longitude
     else if ([@"CLLocationCoordinate2D::get_longitude" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *dataValue = (NSValue *) HEAP[refId];
@@ -34,6 +38,8 @@ void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, Flutter
     }
     // 创建CLLocationCoordinate2D
     else if ([@"CLLocationCoordinate2D::createCLLocationCoordinate2D" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         CLLocationDegrees latitude = [args[@"latitude"] doubleValue];
         CLLocationDegrees longitude = [args[@"longitude"] doubleValue];
         
@@ -46,6 +52,8 @@ void CLLocationCoordinate2DHandler(NSString* method, NSDictionary* args, Flutter
     }
     // 批量创建CLLocationCoordinate2D
     else if ([@"CLLocationCoordinate2D::create_batchCLLocationCoordinate2D" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSArray<NSNumber*>* latitudeBatch = (NSArray<NSNumber*>*) args[@"latitude_batch"];
         NSArray<NSNumber*>* longitudeBatch = (NSArray<NSNumber*>*) args[@"longitude_batch"];
         
