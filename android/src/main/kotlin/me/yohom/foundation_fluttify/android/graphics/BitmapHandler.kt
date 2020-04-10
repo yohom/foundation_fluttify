@@ -27,7 +27,7 @@ fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Resu
 
             resultBatch.forEach { HEAP[System.identityHashCode(it)] = it }
 
-            methodResult.success(resultBatch)
+            methodResult.success(resultBatch.map { System.identityHashCode(it) })
         }
         "android.graphics.Bitmap::getData" -> {
             val args = rawArgs as Map<String, Any>
