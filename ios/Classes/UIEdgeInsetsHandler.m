@@ -8,8 +8,10 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void UIEdgeInsetsHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     if ([@"UIEdgeInsets::getTop" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *target = (NSValue *) HEAP[refId];
@@ -17,6 +19,8 @@ void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult met
         
         methodResult(@(insets.top));
     } else if ([@"UIEdgeInsets::getLeft" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *target = (NSValue *) HEAP[refId];
@@ -24,6 +28,8 @@ void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult met
         
         methodResult(@(insets.left));
     } else if ([@"UIEdgeInsets::getBottom" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *target = (NSValue *) HEAP[refId];
@@ -31,6 +37,8 @@ void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult met
         
         methodResult(@(insets.bottom));
     } else if ([@"UIEdgeInsets::getRight" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *target = (NSValue *) HEAP[refId];
@@ -38,6 +46,8 @@ void UIEdgeInsetsHandler(NSString* method, NSDictionary* args, FlutterResult met
         
         methodResult(@(insets.right));
     } else if ([@"UIEdgeInsets::create" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *top = (NSNumber *) args[@"top"];
         NSNumber *left = (NSNumber *) args[@"left"];
         NSNumber *bottom = (NSNumber *) args[@"bottom"];

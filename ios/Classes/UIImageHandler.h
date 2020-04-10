@@ -8,6 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void UIImageHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void UIImageHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

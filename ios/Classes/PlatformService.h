@@ -10,6 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar);
+void PlatformService(NSString* method, id args, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar);
 
 NS_ASSUME_NONNULL_END

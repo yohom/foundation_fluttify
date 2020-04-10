@@ -7,6 +7,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void UIViewHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

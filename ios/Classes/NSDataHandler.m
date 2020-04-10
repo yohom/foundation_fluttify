@@ -8,8 +8,10 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void NSDataHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void NSDataHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     if ([@"NSData::createWithUint8List" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         FlutterStandardTypedData *data = (FlutterStandardTypedData *) args[@"data"];
         
         NSData *target = data.data;

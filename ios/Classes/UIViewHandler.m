@@ -9,7 +9,7 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void UIViewHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
     // UIImage::getFrame
     if ([@"UIView::getFrame" isEqualToString:method]) {
         NSNumber *refId = (NSNumber *) args[@"refId"];

@@ -8,6 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void CLLocationManagerHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void CLLocationManagerHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

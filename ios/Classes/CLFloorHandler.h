@@ -8,6 +8,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-void CLFloorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult);
+void CLFloorHandler(NSString* method, id args, FlutterResult methodResult);
 
 NS_ASSUME_NONNULL_END

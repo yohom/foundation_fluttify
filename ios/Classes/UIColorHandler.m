@@ -11,8 +11,10 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void UIColorHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void UIColorHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     if ([@"UIColor::create" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *colorValue = (NSNumber *) args[@"colorValue"];
         CGFloat alpha = (0xff000000 & [colorValue integerValue]) >> 24;
         CGFloat red = (0x00ff0000 & [colorValue integerValue]) >> 16;

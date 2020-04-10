@@ -9,8 +9,10 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void CGPointHandler(NSString* method, NSDictionary* args, FlutterResult methodResult) {
+void CGPointHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     if ([@"CGPoint::getX" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *value = (NSValue *) HEAP[refId];
@@ -18,6 +20,8 @@ void CGPointHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         
         methodResult(@(cgPoint.x));
     } else if ([@"CGPoint::getY" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         NSValue *value = (NSValue *) HEAP[refId];
@@ -25,6 +29,8 @@ void CGPointHandler(NSString* method, NSDictionary* args, FlutterResult methodRe
         
         methodResult(@(cgPoint.y));
     } else if ([@"CGPoint::create" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *x = (NSNumber *) args[@"x"];
         NSNumber *y = (NSNumber *) args[@"y"];
         

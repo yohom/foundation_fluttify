@@ -12,8 +12,10 @@ extern NSMutableDictionary<NSString *, NSObject *> *STACK;
 extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
-void CLHeadingHandler(NSString* method, NSDictionary* args, FlutterResult methodResult){
+void CLHeadingHandler(NSString* method, id rawArgs, FlutterResult methodResult){
     if ([@"CLHeading::getMagneticHeading" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLHeading *target = (CLHeading *) HEAP[refId];
@@ -22,6 +24,8 @@ void CLHeadingHandler(NSString* method, NSDictionary* args, FlutterResult method
         
         methodResult(@(magneticHeading));
     } if ([@"CLHeading::getTrueHeading" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLHeading *target = (CLHeading *) HEAP[refId];
@@ -30,6 +34,8 @@ void CLHeadingHandler(NSString* method, NSDictionary* args, FlutterResult method
         
         methodResult(@(trueHeading));
     } if ([@"CLHeading::getHeadingAccuracy" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
         NSNumber *refId = (NSNumber *) args[@"refId"];
         
         CLHeading *target = (CLHeading *) HEAP[refId];
