@@ -53,7 +53,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     }
 
     override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
-        val rawArgs = methodCall.arguments
+        val rawArgs = methodCall.arguments ?: mapOf<String, Any>()
         methodCall.method.run {
             when {
                 startsWith("android.app.Application") -> ApplicationHandler(methodCall.method, rawArgs, methodResult, activity)
