@@ -10,9 +10,10 @@ import android.os.Build
 import io.flutter.plugin.common.MethodChannel
 
 // TODO 未实现
-fun NotificationHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activity: Activity?) {
+fun NotificationHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result, activity: Activity?) {
     when (method) {
         "android.app.Notification::create" -> {
+            val args = rawArgs as Map<String, Any>
             if (activity == null) {
                 methodResult.error("activity cannot be null", "activity cannot be null", "activity cannot be null")
             } else {

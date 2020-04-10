@@ -41,9 +41,12 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         NSObject *target = HEAP[refId];
         NSObject *property = HEAP[propertyRefId];
         
-        objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
-        methodResult(@"success");
+        if (target) {
+            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            methodResult(@"success");
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+        }
     }
     // 获取添加字段的值
     else if ([@"PlatformService::getProperty" isEqualToString:method]) {
@@ -52,10 +55,13 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         
         NSObject *target = HEAP[refId];
                 
-        NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
-       
-        HEAP[@(result.hash)] = result;
-        methodResult(@(result.hash));
+        if (target) {
+            NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
+            HEAP[@(result.hash)] = result;
+            methodResult(@(result.hash));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+        }
     }
     // 为对象添加jsonable字段
     else if ([@"PlatformService::addJsonableProperty" isEqualToString:method]) {
@@ -65,9 +71,12 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         
         NSObject *target = HEAP[refId];
                 
-        objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-        
-        methodResult(@"success");
+        if (target) {
+            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            methodResult(@"success");
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+        }
     }
     // 获取添加字段的jsonable值
     else if ([@"PlatformService::getJsonableProperty" isEqualToString:method]) {
@@ -76,7 +85,11 @@ void PlatformService(NSString* method, NSDictionary* args, FlutterResult methodR
         
         NSObject *target = HEAP[refId];
                 
-        methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
+        if (target) {
+            methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+        }
     }
     // 释放一个对象
     else if ([@"PlatformService::release" isEqualToString:method]) {

@@ -5,9 +5,11 @@ import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
 import me.yohom.foundation_fluttify.jsonable
 
-fun PairHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
+fun PairHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.util.Pair::getFirst" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val pair = HEAP[refId] as Pair<*, *>
 
@@ -20,6 +22,8 @@ fun PairHandler(method: String, args: Map<String, Any>, methodResult: MethodChan
             }
         }
         "android.util.Pair::getSecond" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val pair = HEAP[refId] as Pair<*, *>
 
