@@ -53,20 +53,20 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     }
 
     override fun onMethodCall(methodCall: MethodCall, methodResult: Result) {
-        val args = methodCall.arguments as? Map<String, Any> ?: mapOf()
+        val rawArgs = methodCall.arguments
         methodCall.method.run {
             when {
-                startsWith("android.app.Application") -> ApplicationHandler(methodCall.method, args, methodResult, activity)
-                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, args, methodResult, activity)
-                startsWith("android.app.PendingIntent") -> PendingIntentHandler(methodCall.method, args, methodResult)
-                startsWith("android.app.Notification") -> NotificationHandler(methodCall.method, args, methodResult, activity)
-                startsWith("android.os.Bundle") -> BundleHandler(methodCall.method, args, methodResult)
-                startsWith("android.content.Intent") -> IntentHandler(methodCall.method, args, methodResult)
-                startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, args, methodResult)
-                startsWith("android.graphics.Point") -> PointHandler(methodCall.method, args, methodResult)
-                startsWith("android.location.Location") -> LocationHandler(methodCall.method, args, methodResult)
-                startsWith("android.util.Pair") -> PairHandler(methodCall.method, args, methodResult)
-                startsWith("Platform") -> PlatformService(methodCall.method, args, methodResult, activity)
+                startsWith("android.app.Application") -> ApplicationHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.app.PendingIntent") -> PendingIntentHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.app.Notification") -> NotificationHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.os.Bundle") -> BundleHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.content.Intent") -> IntentHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.graphics.Point") -> PointHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.location.Location") -> LocationHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.util.Pair") -> PairHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("Platform") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activity)
                 else -> methodResult.notImplemented()
             }
         }

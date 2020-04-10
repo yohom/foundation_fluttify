@@ -4,9 +4,11 @@ import android.graphics.Point
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
 
-fun PointHandler(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result) {
+fun PointHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.graphics.Point::create" -> {
+            val args = rawArgs as Map<String, Any>
+
             val x = args["x"] as Int
             val y = args["y"] as Int
             val point = Point(x, y)
@@ -17,12 +19,16 @@ fun PointHandler(method: String, args: Map<String, Any>, methodResult: MethodCha
             methodResult.success(hash)
         }
         "android.graphics.Point::getX" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val point = HEAP[refId] as Point
 
             methodResult.success(point.x)
         }
         "android.graphics.Point::getY" -> {
+            val args = rawArgs as Map<String, Any>
+
             val refId = args["refId"] as Int
             val point = HEAP[refId] as Point
 
