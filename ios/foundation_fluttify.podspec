@@ -18,6 +18,6 @@ A new Flutter project.
 
   s.ios.deployment_target = '8.0'
   # 系统framework
-  s.frameworks = ["CoreLocation"]
+  s.frameworks = []
 end
 
