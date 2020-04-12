@@ -1,15 +1,10 @@
 #import "FoundationFluttifyPlugin.h"
 #import "PlatformService.h"
-#import "CLLocationCoordinate2DHandler.h"
-#import "CLLocationHandler.h"
-#import "CLFloorHandler.h"
-#import "CLLocationManagerHandler.h"
 #import "UIImageHandler.h"
 #import "UIViewHandler.h"
 #import "CGPointHandler.h"
 #import "NSDataHandler.h"
 #import "UIEdgeInsetsHandler.h"
-#import "CLHeadingHandler.h"
 #import "UIColorHandler.h"
 #import "NSErrorHandler.h"
 
@@ -52,15 +47,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
 
 - (void)handleMethodCall:(FlutterMethodCall *)methodCall result:(FlutterResult)methodResult {
     id rawArgs = [methodCall arguments];
-    if ([methodCall.method hasPrefix:@"CLLocationCoordinate2D"]) {
-        CLLocationCoordinate2DHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CLLocation"]) {
-        CLLocationHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CLFloor"]) {
-        CLFloorHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CLLocationManager"]) {
-        CLLocationManagerHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"UIImage"]) {
+    if ([methodCall.method hasPrefix:@"UIImage"]) {
         UIImageHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIView"]) {
         UIViewHandler(methodCall.method, rawArgs, methodResult);
@@ -70,8 +57,6 @@ NSString* _channelName = @"com.fluttify/foundation_method";
         NSDataHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIEdgeInsets"]) {
         UIEdgeInsetsHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CLHeadingHandler"]) {
-        CLHeadingHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIColor"]) {
         UIColorHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"NSError"]) {
