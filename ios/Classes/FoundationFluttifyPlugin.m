@@ -7,6 +7,7 @@
 #import "UIEdgeInsetsHandler.h"
 #import "UIColorHandler.h"
 #import "NSErrorHandler.h"
+#import "UIViewFactory.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 NSMutableDictionary<NSString *, NSObject *> *STACK __deprecated_msg("使用associate_object就行");
@@ -34,6 +35,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
                                      binaryMessenger:[registrar messenger]];
     FoundationFluttifyPlugin *instance = [[FoundationFluttifyPlugin alloc] initWithRegistrar:registrar];
     [registrar addMethodCallDelegate:instance channel:channel];
+    [registrar registerViewFactory: [[UIViewFactory alloc] initWithRegistrar:registrar] withId: @"'me.yohom/foundation_fluttify/UIView'"];
 }
 
 - (instancetype)initWithRegistrar:(NSObject <FlutterPluginRegistrar> *)registrar {

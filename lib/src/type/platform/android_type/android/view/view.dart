@@ -6,3 +6,5 @@ class android_view_View extends java_lang_Object {}
 mixin android_view_View_OnApplyWindowInsetsListener on java_lang_Object {}
 
 mixin android_view_View_OnClickListener on java_lang_Object {}
+
+mixin android_view_View_OnTouchListener on java_lang_Object {}

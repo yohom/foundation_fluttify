@@ -27,6 +27,7 @@ class Ref {
   /// 为类型添加属性
   Future<void> addProperty__(int propertyKey, Ref property) async {
     assert(property is Ref);
+    assert(propertyKey > 0);
     return kMethodChannel.invokeMethod('PlatformService::addProperty', {
       'refId': refId,
       'propertyKey': propertyKey,
@@ -36,6 +37,7 @@ class Ref {
 
   /// 获取添加字段的值
   Future<Ref> getProperty__(int propertyKey) async {
+    assert(propertyKey > 0);
     final result =
         await kMethodChannel.invokeMethod('PlatformService::getProperty', {
       'refId': refId,
@@ -46,6 +48,7 @@ class Ref {
 
   /// 为类型添加jsonable属性
   Future<void> addJsonableProperty__(int propertyKey, Object property) async {
+    assert(propertyKey > 0);
     assert(property is String ||
         property is int ||
         property is double ||
@@ -61,6 +64,7 @@ class Ref {
 
   /// 获取添加字段的jsonable值
   Future<dynamic> getJsonableProperty__(int propertyKey) async {
+    assert(propertyKey > 0);
     return kMethodChannel.invokeMethod('PlatformService::getJsonableProperty', {
       'refId': refId,
       'propertyKey': propertyKey,
