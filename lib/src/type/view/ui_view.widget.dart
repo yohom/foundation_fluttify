@@ -22,7 +22,7 @@ class UIViewWidget extends StatelessWidget {
           if (onUIViewCreated != null) {
             onUIViewCreated(
               UIView()
-                ..refId = viewId
+                ..refId = 2147483647 - viewId
                 ..tag__ = 'platform',
             );
           }
