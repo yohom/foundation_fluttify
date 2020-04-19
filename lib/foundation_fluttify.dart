@@ -53,3 +53,4 @@ export 'src/type/platform/ios_type/ui_image.dart';
 export 'src/type/platform/ios_type/ui_user_notification_settings.dart';
 export 'src/type/platform/ios_type/ui_view.dart';
 export 'src/type/platform/ios_type/ui_view_controller.dart';
+export 'src/type/view/ui_view.widget.dart';
