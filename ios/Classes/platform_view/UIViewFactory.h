@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewPlatformView : NSObject <FlutterPlatformView>
 
-- (instancetype)initWithViewId:(NSInteger)viewId registrar:(NSObject <FlutterPluginRegistrar> *)registrar;
+- (instancetype)initWithViewId:(NSInteger)viewId frame:(CGRect)frame registrar:(NSObject <FlutterPluginRegistrar> *)registrar;
 
 @property(nonatomic) NSObject<FlutterPluginRegistrar>* registrar;
 
