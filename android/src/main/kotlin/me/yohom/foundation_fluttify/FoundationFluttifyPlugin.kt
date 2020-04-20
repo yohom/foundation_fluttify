@@ -62,7 +62,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.app.Notification") -> NotificationHandler(methodCall.method, rawArgs, methodResult, activity)
                 startsWith("android.os.Bundle") -> BundleHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.content.Intent") -> IntentHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, rawArgs, methodResult, activity)
                 startsWith("android.graphics.Point") -> PointHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.location.Location") -> LocationHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.util.Pair") -> PairHandler(methodCall.method, rawArgs, methodResult)
