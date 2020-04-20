@@ -3,6 +3,7 @@
 - feat: 增加android_view_View_OnTouchListener类; 增加ui_view.widget
 - feat: 增加av_audio_session_category_options
 - feat: CGRect增加create方法
+- feat: android.graphics.Bitmap和UIImage各自增加从原生素材创建Image的方法
 
 ## 0.6.1
 - enhance: android: *Handler的args参数使用Any类型, 内部再做转换
