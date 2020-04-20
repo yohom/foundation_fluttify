@@ -1,12 +1,13 @@
 package me.yohom.foundation_fluttify.android.graphics
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import io.flutter.plugin.common.MethodChannel
 import me.yohom.foundation_fluttify.HEAP
 import java.io.ByteArrayOutputStream
 
-fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
+fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result, activity: Activity?) {
     when (method) {
         "android.graphics.Bitmap::create" -> {
             val args = rawArgs as Map<String, Any>
@@ -17,6 +18,18 @@ fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Resu
             HEAP[hash] = bitmap
 
             methodResult.success(hash)
+        }
+        "android.graphics.Bitmap::createWithDrawable" -> {
+            val args = rawArgs as Map<String, Any>
+            val drawableId = args["drawableId"] as Int
+            if (activity != null) {
+                val bitmap = BitmapFactory.decodeResource(activity.resources, drawableId)
+                val hash = System.identityHashCode(bitmap)
+                HEAP[hash] = bitmap
+                methodResult.success(hash)
+            } else {
+                methodResult.error("Activity不能为null", "Activity不能为null", "Activity不能为null")
+            }
         }
         "android.graphics.Bitmap::create_batch" -> {
             val typedArgs = rawArgs as List<Map<String, ByteArray>>
