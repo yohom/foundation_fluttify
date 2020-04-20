@@ -13,6 +13,18 @@ class android_graphics_Bitmap extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  static Future<android_graphics_Bitmap> createWithDrawable(
+    String drawableId,
+  ) async {
+    final refId = await kMethodChannel
+        .invokeMethod('android.graphics.Bitmap::createWithDrawable', {
+      'drawableId': drawableId,
+    });
+    return android_graphics_Bitmap()
+      ..refId = refId
+      ..tag__ = 'platform';
+  }
+
   static Future<List<android_graphics_Bitmap>> create_batch(
     List<Uint8List> bitmapBytesBatch,
   ) async {
