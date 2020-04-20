@@ -7,6 +7,7 @@
 #import "UIEdgeInsetsHandler.h"
 #import "UIColorHandler.h"
 #import "NSErrorHandler.h"
+#import "CGRectHandler.h"
 #import "platform_view/UIViewFactory.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
@@ -63,6 +64,8 @@ NSString* _channelName = @"com.fluttify/foundation_method";
         UIColorHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"NSError"]) {
         NSErrorHandler(methodCall.method, rawArgs, methodResult);
+    } else if ([methodCall.method hasPrefix:@"CGRect"]) {
+        CGRectHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"Platform"]) {
         PlatformService(methodCall.method, rawArgs, methodResult, self->_registrar);
     } else {
