@@ -14,6 +14,21 @@ class UIImage extends NSObject {
       ..tag__ = 'platform';
   }
 
+  static Future<UIImage> createWithPath(
+    String resource,
+    String type,
+    String fileName,
+  ) async {
+    final refId = await kMethodChannel.invokeMethod('UIImage::createWithPath', {
+      'resource': resource,
+      'type': type,
+      'fileName': fileName,
+    });
+    return UIImage()
+      ..refId = refId
+      ..tag__ = 'platform';
+  }
+
   static Future<List<UIImage>> create_batch(
     List<Uint8List> bitmapBytesBatch,
   ) async {

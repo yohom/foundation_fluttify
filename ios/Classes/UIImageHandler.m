@@ -31,6 +31,23 @@ void UIImageHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         
         methodResult(@(bitmap.hash));
     }
+    // 创建UIImage
+    else if ([@"UIImage::createWithPath" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        NSString* resource = (NSString*) args[@"resource"];
+        NSString* type = (NSString*) args[@"type"];
+        NSString* fileName = (NSString*) args[@"fileName"];
+        
+        NSString * path = [[NSBundle mainBundle] pathForResource:resource ofType:type];
+        path = [path stringByAppendingPathComponent:fileName];
+
+        UIImage* bitmap = [UIImage imageWithContentsOfFile:path];
+        
+        HEAP[@(bitmap.hash)] = bitmap;
+        
+        methodResult(@(bitmap.hash));
+    }
     // 批量创建UIImage
     else if ([@"UIImage::createUIImage_batch" isEqualToString:method]) {
         NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
