@@ -10,4 +10,19 @@ class android_os_Bundle extends java_lang_Object {
       ..refId = refId
       ..tag__ = 'platform';
   }
+
+  Future<void> putString(String key, String value) async {
+    await kMethodChannel.invokeMethod('android.os.Bundle::putString', {
+      'refId': refId,
+      'key': key,
+      'value': value,
+    });
+  }
+
+  Future<String> getString(String key) async {
+    await kMethodChannel.invokeMethod(
+      'android.os.Bundle::getString',
+      {'refId': refId, 'key': key},
+    );
+  }
 }
