@@ -1,3 +1,6 @@
+## 0.7.1
+- feat: Bundle增加getString和putString
+
 ## 0.7.0
 - enhance: [breaking change] 去除CoreLocation相关逻辑, 计划分离到core_location_fluttiy插件中去
 - feat: 增加android_view_View_OnTouchListener类; 增加ui_view.widget
