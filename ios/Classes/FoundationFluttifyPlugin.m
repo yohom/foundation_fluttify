@@ -80,7 +80,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationDidFinishLaunchingWithOptions"
                 arguments:@{@"application": @(application.hash), @"launchOptions": launchOptions == nil ? @{} : launchOptions}];
-    return NO;
+    return YES;
 }
 
 /**
@@ -95,7 +95,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationWillFinishLaunchingWithOptions"
                 arguments:@{@"application": @(application.hash), @"launchOptions": launchOptions == nil ? @{} : launchOptions}];
-    return NO;
+    return YES;
 }
 
 /**

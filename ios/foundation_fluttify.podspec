@@ -17,6 +17,7 @@ A new Flutter project.
   s.dependency 'Flutter'
 
   s.ios.deployment_target = '8.0'
+  s.static_framework = true
   # 系统framework
   s.frameworks = []
 end
