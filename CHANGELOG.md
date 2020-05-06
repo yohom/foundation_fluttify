@@ -1,5 +1,6 @@
 ## 0.7.1
 - feat: Bundle增加getString和putString
+- enhance: ios使用static_framework
 
 ## 0.7.0
 - enhance: [breaking change] 去除CoreLocation相关逻辑, 计划分离到core_location_fluttiy插件中去
