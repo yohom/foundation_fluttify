@@ -30,11 +30,12 @@ extern NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 @end
 
 @implementation UIViewPlatformView {
-    NSInteger _viewId;
+    int64_t _viewId;
     CGRect _frame;
+    UIView* _view;
 }
 
-- (instancetype)initWithViewId:(NSInteger)viewId frame:(CGRect)frame registrar:(NSObject <FlutterPluginRegistrar> *)registrar {
+- (instancetype)initWithViewId:(int64_t)viewId frame:(CGRect)frame registrar:(NSObject <FlutterPluginRegistrar> *)registrar {
     self = [super init];
     if (self) {
         _viewId = viewId;
@@ -46,10 +47,12 @@ extern NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
 }
 
 - (UIView *)view {
-    UIView *view = [[UIView alloc] initWithFrame:_frame];
+    if (_view == nil) {
+        _view = [[UIView alloc] initWithFrame:_frame];
+    }
     // 这里用一个magic number调整一下id
-    HEAP[@(2147483647 - _viewId)] = view;
-    return view;
+    HEAP[@(2147483647 - _viewId)] = _view;
+    return _view;
 }
 
 @end
