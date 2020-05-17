@@ -1,3 +1,6 @@
+## 0.7.2
+- feat: 增加java_io_Closeable
+
 ## 0.7.1
 - feat: Bundle增加getString和putString
 - enhance: ios使用static_framework
