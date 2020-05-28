@@ -8,8 +8,9 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import io.flutter.plugin.common.MethodChannel
+import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.enableLog
 
-// TODO 未实现
 fun NotificationHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result, activity: Activity?) {
     when (method) {
         "android.app.Notification::create" -> {
