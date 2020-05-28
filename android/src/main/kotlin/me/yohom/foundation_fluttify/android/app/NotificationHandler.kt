@@ -8,8 +8,9 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import io.flutter.plugin.common.MethodChannel
+import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.enableLog
 
-// TODO 未实现
 fun NotificationHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result, activity: Activity?) {
     when (method) {
         "android.app.Notification::create" -> {
@@ -24,6 +25,10 @@ fun NotificationHandler(method: String, rawArgs: Any, methodResult: MethodChanne
                 val channelName = args["channelName"] as String
                 val enableLights = args["enableLights"] as Boolean
                 val showBadge = args["showBadge"] as Boolean
+
+                if (enableLog) {
+                    android.util.Log.d("Notification create: ", "contentTitle: $contentTitle, contentText: $contentText, when: $`when`, channelId: $channelId, channelName: $channelName, enableLights: $enableLights, showBadge: $showBadge")
+                }
 
                 val notificationManager: NotificationManager = activity.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -43,12 +48,18 @@ fun NotificationHandler(method: String, rawArgs: Any, methodResult: MethodChanne
                     Notification.Builder(activity.applicationContext)
                 }
 
-                builder
+                // TODO: 从flutter传icon数据过来？
+                val iconId = activity.resources.getIdentifier("ic_launcher", "mipmap", activity.packageName)
+
+                builder.setSmallIcon(iconId)
                         .setContentTitle(contentTitle)
                         .setContentText(contentText)
                         .setWhen(`when`)
+                val notification = builder.build()
+                val hash = System.identityHashCode(notification)
+                HEAP[hash] = notification
 
-                methodResult.success(builder.build().hashCode())
+                methodResult.success(hash)
             }
         }
         else -> methodResult.notImplemented()

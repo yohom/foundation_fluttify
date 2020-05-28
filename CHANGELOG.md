@@ -1,3 +1,6 @@
+## 0.8.0
+- fix: UIImage scale问题处理
+
 ## 0.7.3
 - feat: 增加java.io.File
 
