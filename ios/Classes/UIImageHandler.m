@@ -25,7 +25,7 @@ void UIImageHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         
         FlutterStandardTypedData* bitmapBytes = (FlutterStandardTypedData*) args[@"bitmapBytes"];
         
-        UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
+        UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data scale:[UIScreen mainScreen].scale];
         
         HEAP[@(bitmap.hash)] = bitmap;
         
@@ -59,7 +59,7 @@ void UIImageHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
 
             FlutterStandardTypedData* bitmapBytes = (FlutterStandardTypedData*) args[@"bitmapBytes"];
             
-            UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data];
+            UIImage *bitmap = [UIImage imageWithData:bitmapBytes.data scale:[UIScreen mainScreen].scale];
             
             HEAP[@(bitmap.hash)] = bitmap;
         
