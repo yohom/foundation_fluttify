@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
+
 import '../../foundation_fluttify.dart';
 
 typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);
@@ -100,6 +102,27 @@ Future<void> startActivity(
     'PlatformService::startActivity',
     {'activityClass': activityClass, 'extras': extras},
   );
+}
+
+Future<android_content_Intent> startActivityForResult(
+  String activityClass, {
+  @required int requestCode,
+  Map<String, dynamic> extras = const {},
+}) async {
+  assert(
+    activityClass != null && activityClass.isNotEmpty && requestCode != null,
+  );
+  final result = await kMethodChannel.invokeMethod(
+    'PlatformService::startActivityForResult',
+    {
+      'activityClass': activityClass,
+      'extras': extras,
+      'requestCode': requestCode,
+    },
+  );
+  return android_content_Intent()
+    ..refId = result
+    ..tag__ = 'platform';
 }
 
 Future<void> presentViewController(

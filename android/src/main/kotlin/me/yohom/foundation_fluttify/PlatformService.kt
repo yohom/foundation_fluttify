@@ -2,11 +2,11 @@ package me.yohom.foundation_fluttify
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodChannel
 
-fun PlatformService(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activity: Activity?) {
+fun PlatformService(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activityPluginBinding: ActivityPluginBinding?) {
     when (method) {
         "PlatformService::enableLog" -> {
             enableLog = args["enable"] as Boolean
@@ -97,10 +97,12 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             }
         }
         "PlatformService::startActivity" -> {
-            val activityClass = args["activityClass"] as String
-            val extras = args["extras"] as Map<String, Any>
+            val activity = activityPluginBinding?.activity
 
             if (activity != null) {
+                val activityClass = args["activityClass"] as String
+                val extras = args["extras"] as Map<String, Any>
+
                 val intent = Intent(activity, Class.forName(activityClass))
                 extras.forEach {
                     when (it.value) {
@@ -111,13 +113,48 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
                     }
                 }
                 activity.startActivity(intent)
-            } else {
-                if (enableLog) {
-                    Log.w("PlatformService", "当前Activity为null!")
-                }
-            }
 
-            methodResult.success("success")
+                methodResult.success("success")
+            } else {
+                methodResult.error("当前Activity为null", "当前Activity为null", "当前Activity为null")
+            }
+        }
+        "PlatformService::startActivityForResult" -> {
+            val activity = activityPluginBinding?.activity
+
+            if (activity != null) {
+                val activityClass = args["activityClass"] as String
+                val requestCode = args["requestCode"] as Int
+                val extras = args["extras"] as Map<String, Any>
+
+                val intent = Intent(activity, Class.forName(activityClass))
+                extras.forEach {
+                    when (it.value) {
+                        is String -> intent.putExtra(it.key, it.value as String)
+                        is Int -> intent.putExtra(it.key, it.value as Int)
+                        is Long -> intent.putExtra(it.key, it.value as Long)
+                        is Double -> intent.putExtra(it.key, it.value as Double)
+                    }
+                }
+                activity.startActivityForResult(intent, requestCode)
+                activityPluginBinding.addActivityResultListener { reqCode, resultCode, data ->
+                    if (reqCode == requestCode) {
+                        if (resultCode == Activity.RESULT_OK) {
+                            HEAP[System.identityHashCode(data)] = data
+                            methodResult.success(System.identityHashCode(data))
+                        } else {
+                            methodResult.error("获取Activity结果失败", "获取Activity结果失败", "获取Activity结果失败")
+                        }
+                    } else {
+                        methodResult.error("非当前请求的响应", "非当前请求的响应", "非当前请求的响应")
+                    }
+                    true
+                }
+
+                methodResult.success("success")
+            } else {
+                methodResult.error("当前Activity为null", "当前Activity为null", "当前Activity为null")
+            }
         }
     }
 }
