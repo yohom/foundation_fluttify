@@ -65,6 +65,77 @@ fun LocationHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Re
 
             methodResult.success(location.speed)
         }
+        "android.location.Location::setLatitude" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val refId = args["refId"] as Int
+            val latitude = args["latitude"] as Double
+
+            val location = HEAP[refId] as Location
+            location.latitude = latitude
+
+            methodResult.success("success")
+        }
+        "android.location.Location::setLongitude" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val refId = args["refId"] as Int
+            val longitude = args["longitude"] as Double
+
+            val location = HEAP[refId] as Location
+
+            location.longitude = longitude
+
+            methodResult.success("success")
+        }
+        "android.location.Location::setBearing" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val refId = args["refId"] as Int
+            val bearing = args["bearing"] as Double
+
+            val location = HEAP[refId] as Location
+
+            location.bearing = bearing.toFloat()
+
+            methodResult.success("success")
+        }
+        "android.location.Location::setAltitude" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val refId = args["refId"] as Int
+            val altitude = args["altitude"] as Double
+
+            val location = HEAP[refId] as Location
+
+            location.altitude = altitude
+
+            methodResult.success("success")
+        }
+        "android.location.Location::setAccuracy" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val refId = args["refId"] as Int
+            val accuracy = args["accuracy"] as Double
+
+            val location = HEAP[refId] as Location
+
+            location.accuracy = accuracy.toFloat()
+
+            methodResult.success("success")
+        }
+        "android.location.Location::setSpeed" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val refId = args["refId"] as Int
+            val speed = args["speed"] as Double
+
+            val location = HEAP[refId] as Location
+
+            location.speed = speed.toFloat()
+
+            methodResult.success("success")
+        }
         else -> methodResult.notImplemented()
     }
 }
