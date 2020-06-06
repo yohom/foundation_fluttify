@@ -1,3 +1,9 @@
+## 0.8.1
+- feat: 增加startActivityForResult方法
+- feat: 增加uri2ImageData
+- feat: UIViewController::get
+- feat: android_location_Location增加创建方法
+
 ## 0.8.0
 - fix: UIImage scale问题处理
 
