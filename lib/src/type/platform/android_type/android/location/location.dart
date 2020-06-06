@@ -3,6 +3,15 @@ import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_location_Location extends java_lang_Object {
+  static Future<android_location_Location> create(String provider) async {
+    assert(provider != null);
+    final refId = await kMethodChannel.invokeMethod(
+        'android.location.Location::create', {'provider': provider});
+    return android_location_Location()
+      ..refId = refId
+      ..tag__ = 'platform';
+  }
+
   Future<double> get latitude {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getLatitude', {'refId': refId});

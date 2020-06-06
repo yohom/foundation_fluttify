@@ -6,6 +6,17 @@ import me.yohom.foundation_fluttify.HEAP
 
 fun LocationHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
+        "android.location.Location::create" -> {
+            val args = rawArgs as Map<String, Any>
+
+            val provider = args["provider"] as String
+
+            val location = Location(provider)
+
+            HEAP[System.identityHashCode(location)] = location
+
+            methodResult.success(System.identityHashCode(location))
+        }
         "android.location.Location::getLatitude" -> {
             val args = rawArgs as Map<String, Any>
 

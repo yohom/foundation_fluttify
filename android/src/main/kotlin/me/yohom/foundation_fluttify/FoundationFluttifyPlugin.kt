@@ -39,6 +39,7 @@ lateinit var gBroadcastEventChannel: EventChannel
 
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var activity: Activity? = null
+    private var activityBinding: ActivityPluginBinding? = null
 
     companion object {
         @JvmStatic
@@ -68,7 +69,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.location.Location") -> LocationHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.util.Pair") -> PairHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("java.io.File") -> FileHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("Platform") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activity)
+                startsWith("Platform") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding)
                 else -> methodResult.notImplemented()
             }
         }
@@ -83,22 +84,27 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         activity = null
+        activityBinding = null
     }
 
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
+        activityBinding = binding
     }
 
     override fun onDetachedFromActivity() {
         activity = null
+        activityBinding = null
     }
 
     override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
         activity = binding.activity
+        activityBinding = binding
     }
 
     override fun onDetachedFromActivityForConfigChanges() {
         activity = null
+        activityBinding = null
     }
 }
 

@@ -8,6 +8,7 @@
 #import "UIColorHandler.h"
 #import "NSErrorHandler.h"
 #import "CGRectHandler.h"
+#import "UIViewControllerHandler.h"
 #import "platform_view/UIViewFactory.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
@@ -52,6 +53,8 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     id rawArgs = [methodCall arguments];
     if ([methodCall.method hasPrefix:@"UIImage"]) {
         UIImageHandler(methodCall.method, rawArgs, methodResult);
+    } else if ([methodCall.method hasPrefix:@"UIViewController"]) {
+        UIViewControllerHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"UIView"]) {
         UIViewHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CGPoint"]) {
