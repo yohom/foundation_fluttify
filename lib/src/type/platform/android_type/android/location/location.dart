@@ -41,4 +41,46 @@ class android_location_Location extends java_lang_Object {
     return kMethodChannel
         .invokeMethod('android.location.Location::getSpeed', {'refId': refId});
   }
+
+  Future<void> setLatitude(double latitude) async {
+    return kMethodChannel.invokeMethod(
+      'android.location.Location::setLatitude',
+      {'refId': refId, 'latitude': latitude},
+    );
+  }
+
+  Future<void> setLongitude(double longitude) async {
+    return kMethodChannel.invokeMethod(
+      'android.location.Location::setLongitude',
+      {'refId': refId, 'longitude': longitude},
+    );
+  }
+
+  Future<void> setBearing(double bearing) async {
+    return kMethodChannel.invokeMethod(
+      'android.location.Location::setBearing',
+      {'refId': refId, 'bearing': bearing},
+    );
+  }
+
+  Future<void> setAltitude(double altitude) async {
+    return kMethodChannel.invokeMethod(
+      'android.location.Location::setAltitude',
+      {'refId': refId, 'altitude': altitude},
+    );
+  }
+
+  Future<void> setAccuracy(double accuracy) async {
+    return kMethodChannel.invokeMethod(
+      'android.location.Location::setAccuracy',
+      {'refId': refId, 'accuracy': accuracy},
+    );
+  }
+
+  Future<void> setSpeed(double speed) async {
+    return kMethodChannel.invokeMethod(
+      'android.location.Location::setSpeed',
+      {'refId': refId, 'speed': speed},
+    );
+  }
 }

@@ -1,3 +1,6 @@
+## 0.8.2
+- feat: android_location_Location增加setter
+
 ## 0.8.1
 - feat: 增加startActivityForResult方法
 - feat: 增加uri2ImageData
