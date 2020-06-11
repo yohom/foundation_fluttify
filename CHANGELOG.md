@@ -1,3 +1,6 @@
+## 0.8.3
+- enhance: 增加android_view_SurfaceView
+
 ## 0.8.2
 - feat: android_location_Location增加setter
 
