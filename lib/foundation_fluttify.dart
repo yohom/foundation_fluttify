@@ -21,6 +21,7 @@ export 'src/type/platform/android_type/android/os/bundle.dart';
 export 'src/type/platform/android_type/android/os/parcelable.dart';
 export 'src/type/platform/android_type/android/util/pair.dart';
 export 'src/type/platform/android_type/android/view/motion_event.dart';
+export 'src/type/platform/android_type/android/view/surface_view.dart';
 export 'src/type/platform/android_type/android/view/view.dart';
 export 'src/type/platform/android_type/android/view/view_group.dart';
 export 'src/type/platform/android_type/android/widget/frame_layout.dart';
