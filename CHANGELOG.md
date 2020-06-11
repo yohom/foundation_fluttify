@@ -1,3 +1,6 @@
+## 0.8.4
+- enhance: 增加android_view_SurfaceHolder_Callback
+
 ## 0.8.3
 - enhance: 增加android_view_SurfaceView
 
