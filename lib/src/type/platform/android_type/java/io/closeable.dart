@@ -1,4 +1,4 @@
-import 'package:foundation_fluttify/src/type/core/ref.dart';
+import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 class _java_io_Closeable_SUB extends java_lang_Object with java_io_Closeable {}

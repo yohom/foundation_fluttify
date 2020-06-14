@@ -1,3 +1,6 @@
+## 0.8.5
+- enhance: 接口类增加sbInstance方法
+
 ## 0.8.4
 - enhance: 增加android_view_SurfaceHolder_Callback
 
