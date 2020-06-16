@@ -4,8 +4,27 @@ import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/obj
 
 class android_view_View extends java_lang_Object {}
 
-mixin android_view_View_OnApplyWindowInsetsListener on java_lang_Object {}
+class _android_view_View_OnApplyWindowInsetsListener_SUB
+    extends java_lang_Object
+    with android_view_View_OnApplyWindowInsetsListener {}
 
-mixin android_view_View_OnClickListener on java_lang_Object {}
+mixin android_view_View_OnApplyWindowInsetsListener on java_lang_Object {
+  static android_view_View_OnApplyWindowInsetsListener subInstance() =>
+      _android_view_View_OnApplyWindowInsetsListener_SUB();
+}
 
-mixin android_view_View_OnTouchListener on java_lang_Object {}
+class _android_view_View_OnClickListener_SUB extends java_lang_Object
+    with android_view_View_OnClickListener {}
+
+mixin android_view_View_OnClickListener on java_lang_Object {
+  static android_view_View_OnClickListener subInstance() =>
+      _android_view_View_OnClickListener_SUB();
+}
+
+class _android_view_View_OnTouchListener_SUB extends java_lang_Object
+    with android_view_View_OnTouchListener {}
+
+mixin android_view_View_OnTouchListener on java_lang_Object {
+  static android_view_View_OnTouchListener subInstance() =>
+      _android_view_View_OnTouchListener_SUB();
+}
