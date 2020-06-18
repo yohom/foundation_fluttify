@@ -33,6 +33,7 @@ export 'src/type/platform/android_type/java/io/closeable.dart';
 export 'src/type/platform/android_type/java/io/file.dart';
 export 'src/type/platform/android_type/java/io/serializable.dart';
 export 'src/type/platform/android_type/java/lang/object.dart';
+export 'src/type/platform/android_type/java/lang/throwable.dart';
 export 'src/type/platform/android_type/org/json/json_object.dart';
 export 'src/type/platform/ios_type/av_audio_session_category_options.dart';
 export 'src/type/platform/ios_type/cg_point.dart';
