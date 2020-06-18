@@ -1,3 +1,6 @@
+## 0.8.6
+- enhance: 增加java_lang_Throwable
+
 ## 0.8.5
 - enhance: 接口类增加sbInstance方法
 
