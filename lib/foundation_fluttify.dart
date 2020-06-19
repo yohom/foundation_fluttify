@@ -1,5 +1,6 @@
 library foundation_fluttify;
 
+export 'src/extension/image_provider.x.dart';
 export 'src/function/functions.dart';
 export 'src/object/obejcts.dart';
 export 'src/type/core/ref.dart';
