@@ -1,3 +1,6 @@
+## 0.8.7
+- enhance: 增加ImageProviderX
+
 ## 0.8.6
 - enhance: 增加java_lang_Throwable
 
