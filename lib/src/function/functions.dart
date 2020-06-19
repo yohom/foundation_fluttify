@@ -145,6 +145,7 @@ Future<void> presentViewController(
 
 Map<String, Uint8List> _cache = {};
 
+@Deprecated('使用ImageProviderX.toImageData代替')
 Future<Uint8List> uri2ImageData(
   ImageConfiguration config,
   Uri iconUri, {
