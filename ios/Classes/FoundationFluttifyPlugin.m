@@ -8,6 +8,7 @@
 #import "UIColorHandler.h"
 #import "NSErrorHandler.h"
 #import "CGRectHandler.h"
+#import "CGSizeHandler.h"
 #import "UIViewControllerHandler.h"
 #import "platform_view/UIViewFactory.h"
 
@@ -69,6 +70,8 @@ NSString* _channelName = @"com.fluttify/foundation_method";
         NSErrorHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"CGRect"]) {
         CGRectHandler(methodCall.method, rawArgs, methodResult);
+    } else if ([methodCall.method hasPrefix:@"CGSize"]) {
+        CGSizeHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"Platform"]) {
         PlatformService(methodCall.method, rawArgs, methodResult, self->_registrar);
     } else {

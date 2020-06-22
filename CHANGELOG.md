@@ -1,3 +1,6 @@
+## 0.8.8
+- enhance: CGSize增加width和height
+
 ## 0.8.7
 - enhance: 增加ImageProviderX
 
