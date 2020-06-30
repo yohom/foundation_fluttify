@@ -9,7 +9,7 @@ Map<String, Uint8List> _cache = {};
 extension ImageProviderX on ImageProvider {
   Future<Uint8List> toImageData(ImageConfiguration config) async {
     final completer = Completer<Uint8List>();
-    final key = this.obtainKey(config);
+    final key = await this.obtainKey(config);
     if (_cache.containsKey(key.toString())) {
       debugPrint('命中缓存');
       completer.complete(_cache[key.toString()]);
