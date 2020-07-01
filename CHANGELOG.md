@@ -1,3 +1,6 @@
+## 0.8.9
+- fix: objc application的回调不再传输NSDictionary类型的参数, 防止崩溃
+
 ## 0.8.8
 - enhance: CGSize增加width和height
 
