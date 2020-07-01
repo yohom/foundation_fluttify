@@ -85,7 +85,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     }
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationDidFinishLaunchingWithOptions"
-                arguments:@{@"application": @(application.hash), @"launchOptions": launchOptions == nil ? @{} : launchOptions}];
+                arguments:@{@"application": @(application.hash), @"launchOptions": @{}}]; // 由于无法预知NSDictionary里的类型, 这里不传输了
     return YES;
 }
 
@@ -100,7 +100,7 @@ NSString* _channelName = @"com.fluttify/foundation_method";
     }
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationWillFinishLaunchingWithOptions"
-                arguments:@{@"application": @(application.hash), @"launchOptions": launchOptions == nil ? @{} : launchOptions}];
+                arguments:@{@"application": @(application.hash), @"launchOptions": @{}}];
     return YES;
 }
 
@@ -222,7 +222,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandl
     }
     FlutterMethodChannel* channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
     [channel invokeMethod:@"applicationOpenURLOptions"
-                arguments:@{@"application": @(application.hash), @"url": @([url hash]), @"options": options == nil ? @{} : options}];
+                arguments:@{@"application": @(application.hash), @"url": @([url hash]), @"options": @{}}];
     return NO;
 }
 
