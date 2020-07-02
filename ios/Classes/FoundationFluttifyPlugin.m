@@ -10,10 +10,11 @@
 #import "CGRectHandler.h"
 #import "CGSizeHandler.h"
 #import "UIViewControllerHandler.h"
+#import "UIImageViewHandler.h"
 #import "platform_view/UIViewFactory.h"
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
-NSMutableDictionary<NSString *, NSObject *> *STACK __deprecated_msg("使用associate_object就行");
+NSMutableDictionary<NSString *, NSObject *> *STACK;
 
 // Container for Dart side random access objects
 NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
@@ -52,26 +53,28 @@ NSString* _channelName = @"com.fluttify/foundation_method";
 
 - (void)handleMethodCall:(FlutterMethodCall *)methodCall result:(FlutterResult)methodResult {
     id rawArgs = [methodCall arguments];
-    if ([methodCall.method hasPrefix:@"UIImage"]) {
+    if ([methodCall.method hasPrefix:@"UIImage::"]) {
         UIImageHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"UIViewController"]) {
+    } else if ([methodCall.method hasPrefix:@"UIViewController::"]) {
         UIViewControllerHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"UIView"]) {
+    } else if ([methodCall.method hasPrefix:@"UIView::"]) {
         UIViewHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CGPoint"]) {
+    } else if ([methodCall.method hasPrefix:@"CGPoint::"]) {
         CGPointHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"NSData"]) {
+    } else if ([methodCall.method hasPrefix:@"NSData::"]) {
         NSDataHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"UIEdgeInsets"]) {
+    } else if ([methodCall.method hasPrefix:@"UIEdgeInsets::"]) {
         UIEdgeInsetsHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"UIColor"]) {
+    } else if ([methodCall.method hasPrefix:@"UIColor::"]) {
         UIColorHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"NSError"]) {
+    } else if ([methodCall.method hasPrefix:@"NSError::"]) {
         NSErrorHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CGRect"]) {
+    } else if ([methodCall.method hasPrefix:@"CGRect::"]) {
         CGRectHandler(methodCall.method, rawArgs, methodResult);
-    } else if ([methodCall.method hasPrefix:@"CGSize"]) {
+    } else if ([methodCall.method hasPrefix:@"CGSize::"]) {
         CGSizeHandler(methodCall.method, rawArgs, methodResult);
+    } else if ([methodCall.method hasPrefix:@"UIImageView::"]) {
+        UIImageViewHandler(methodCall.method, rawArgs, methodResult);
     } else if ([methodCall.method hasPrefix:@"Platform"]) {
         PlatformService(methodCall.method, rawArgs, methodResult, self->_registrar);
     } else {

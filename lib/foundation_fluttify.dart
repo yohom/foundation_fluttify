@@ -56,6 +56,7 @@ export 'src/type/platform/ios_type/ui_color.dart';
 export 'src/type/platform/ios_type/ui_control.dart';
 export 'src/type/platform/ios_type/ui_edge_insets.dart';
 export 'src/type/platform/ios_type/ui_image.dart';
+export 'src/type/platform/ios_type/ui_image_view.dart';
 export 'src/type/platform/ios_type/ui_status_bar_style.dart';
 export 'src/type/platform/ios_type/ui_user_notification_settings.dart';
 export 'src/type/platform/ios_type/ui_view.dart';
