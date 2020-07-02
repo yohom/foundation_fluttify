@@ -36,4 +36,13 @@ class UIView extends NSObject {
       'hidden': hidden,
     });
   }
+
+  Future<void> setAnchorPoint(double anchorU, double anchorV) async {
+    assert(hidden != null);
+    await kMethodChannel.invokeMethod('UIView::setAnchorPoint', {
+      'refId': refId,
+      'anchorU': anchorU,
+      'anchorV': anchorV,
+    });
+  }
 }

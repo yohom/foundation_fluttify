@@ -48,6 +48,16 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         target.hidden = [hidden boolValue];
         
         methodResult(@"success");
+    } else if ([@"UIView::setAnchorPoint" isEqualToString:method]) {
+        NSNumber* refId = (NSNumber*) args[@"refId"];
+        NSNumber* anchorU = (NSNumber*) args[@"anchorU"];
+        NSNumber* anchorV = (NSNumber*) args[@"anchorV"];
+        
+        UIView *target = (UIView *) HEAP[refId];
+        
+        target.layer.anchorPoint = CGPointMake([anchorU doubleValue], [anchorV doubleValue]);
+        
+        methodResult(@"success");
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
