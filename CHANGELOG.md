@@ -1,6 +1,7 @@
 ## 0.8.10
 - feat: 增加UIImageView的创建
 - enhance: UIView增加setAnchorPoint
+- enhance: CGRect增加属性获取方法
 
 ## 0.8.9
 - fix: objc application的回调不再传输NSDictionary类型的参数, 防止崩溃
