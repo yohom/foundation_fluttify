@@ -3,10 +3,17 @@ package me.yohom.foundation_fluttify
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
+import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodChannel
+import io.flutter.plugin.common.PluginRegistry
 
-fun PlatformService(method: String, args: Map<String, Any>, methodResult: MethodChannel.Result, activityPluginBinding: ActivityPluginBinding?) {
+
+fun PlatformService(
+        method: String, args: Map<String, Any>, methodResult: MethodChannel.Result,
+        activityBinding: ActivityPluginBinding?,
+        pluginBinding: FlutterPlugin.FlutterPluginBinding?,
+        registrar: PluginRegistry.Registrar?) {
     when (method) {
         "PlatformService::enableLog" -> {
             enableLog = args["enable"] as Boolean
@@ -97,7 +104,7 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             }
         }
         "PlatformService::startActivity" -> {
-            val activity = activityPluginBinding?.activity
+            val activity = activityBinding?.activity
 
             if (activity != null) {
                 val activityClass = args["activityClass"] as String
@@ -120,7 +127,7 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
             }
         }
         "PlatformService::startActivityForResult" -> {
-            val activity = activityPluginBinding?.activity
+            val activity = activityBinding?.activity
 
             if (activity != null) {
                 val activityClass = args["activityClass"] as String
@@ -137,7 +144,7 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
                     }
                 }
                 activity.startActivityForResult(intent, requestCode)
-                activityPluginBinding.addActivityResultListener { reqCode, resultCode, data ->
+                activityBinding.addActivityResultListener { reqCode, resultCode, data ->
                     if (reqCode == requestCode) {
                         if (resultCode == Activity.RESULT_OK) {
                             HEAP[System.identityHashCode(data)] = data
@@ -156,5 +163,19 @@ fun PlatformService(method: String, args: Map<String, Any>, methodResult: Method
                 methodResult.error("当前Activity为null", "当前Activity为null", "当前Activity为null")
             }
         }
+        "PlatformService::getAssetPath" -> {
+            val activity = activityBinding?.activity
+
+            val flutterAssetPath = args["flutterAssetPath"] as String
+
+            if (activity != null) {
+                val path = registrar?.lookupKeyForAsset(flutterAssetPath)
+                        ?: pluginBinding?.flutterAssets?.getAssetFilePathByName(flutterAssetPath)
+                methodResult.success(path)
+            } else {
+                methodResult.error("非当前请求的响应", "非当前请求的响应", "非当前请求的响应")
+            }
+        }
+        else -> methodResult.notImplemented()
     }
 }
