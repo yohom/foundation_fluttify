@@ -195,3 +195,10 @@ Future<Uint8List> uri2ImageData(
   }
   return imageData.future;
 }
+
+Future<String> getAssetPath(String flutterAssetPath) async {
+  return kMethodChannel.invokeMethod(
+    'PlatformService::getAssetPath',
+    {'flutterAssetPath': flutterAssetPath},
+  );
+}

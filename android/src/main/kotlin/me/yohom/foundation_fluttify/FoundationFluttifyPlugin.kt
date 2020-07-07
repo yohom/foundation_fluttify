@@ -41,11 +41,14 @@ lateinit var gBroadcastEventChannel: EventChannel
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var activity: Activity? = null
     private var activityBinding: ActivityPluginBinding? = null
+    private var pluginBinding: FlutterPlugin.FlutterPluginBinding? = null
+    private var registrar: Registrar? = null
 
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val plugin = FoundationFluttifyPlugin()
+            plugin.registrar = registrar
             plugin.activity = registrar.activity()
 
             gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
@@ -59,25 +62,27 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         val rawArgs = methodCall.arguments ?: mapOf<String, Any>()
         methodCall.method.run {
             when {
-                startsWith("android.app.Application") -> ApplicationHandler(methodCall.method, rawArgs, methodResult, activity)
-                startsWith("android.app.Activity") -> ActivityHandler(methodCall.method, rawArgs, methodResult, activity)
-                startsWith("android.app.PendingIntent") -> PendingIntentHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.app.Notification") -> NotificationHandler(methodCall.method, rawArgs, methodResult, activity)
-                startsWith("android.os.Bundle") -> BundleHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.content.Intent") -> IntentHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.graphics.Bitmap") -> BitmapHandler(methodCall.method, rawArgs, methodResult, activity)
-                startsWith("android.graphics.Point") -> PointHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.location.Location") -> LocationHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.util.Pair") -> PairHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.view.View") -> ViewHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("java.io.File") -> FileHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("Platform") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding)
+                startsWith("android.app.Application::") -> ApplicationHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.app.Activity::") -> ActivityHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.app.PendingIntent::") -> PendingIntentHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.app.Notification::") -> NotificationHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.os.Bundle::") -> BundleHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.content.Intent::") -> IntentHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.graphics.Bitmap::") -> BitmapHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.graphics.Point::") -> PointHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.location.Location::") -> LocationHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.util.Pair::") -> PairHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.view.View::") -> ViewHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("java.io.File::") -> FileHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("PlatformService::") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding, pluginBinding, registrar)
                 else -> methodResult.notImplemented()
             }
         }
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        pluginBinding = binding;
+
         gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
         gMethodChannel.setMethodCallHandler(this)
 
@@ -85,6 +90,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        pluginBinding = null
         activity = null
         activityBinding = null
     }

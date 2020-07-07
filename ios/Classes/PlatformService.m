@@ -56,21 +56,21 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     // 批量为对象添加字段
     else if ([@"PlatformService::addProperty_batch" isEqualToString:method]) {
         NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
-
+        
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
-
+            
             NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
             NSNumber *propertyRefId = (NSNumber *) args[@"property"];
-        
+            
             NSObject *target = HEAP[refId];
             NSObject *property = HEAP[propertyRefId];
             
             objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
+            
             [resultList addObject:@"success"];
         }
         
@@ -84,7 +84,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         
         NSObject *target = HEAP[refId];
-                
+        
         if (target) {
             NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
             HEAP[@(result.hash)] = result;
@@ -96,15 +96,15 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     // 批量获取添加字段的值
     else if ([@"PlatformService::getProperty_batch" isEqualToString:method]) {
         NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
-
+        
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
-
+            
             NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-        
+            
             NSObject *target = HEAP[refId];
             
             NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
@@ -124,7 +124,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSObject *property = (NSObject *) args[@"property"];
         
         NSObject *target = HEAP[refId];
-                
+        
         if (target) {
             objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
@@ -135,16 +135,16 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     // 批量为对象添加jsonable字段
     else if ([@"PlatformService::addJsonableProperty_batch" isEqualToString:method]) {
         NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
-
+        
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
-
+            
             NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
             NSObject *property = (NSObject *) args[@"property"];
-        
+            
             NSObject *target = HEAP[refId];
             
             objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -161,7 +161,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         
         NSObject *target = HEAP[refId];
-                
+        
         if (target) {
             methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
         } else {
@@ -171,15 +171,15 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     // 批量获取添加字段的jsonable值
     else if ([@"PlatformService::getJsonableProperty_batch" isEqualToString:method]) {
         NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
-
+        
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
-
+            
             NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-        
+            
             NSObject *target = HEAP[refId];
             
             NSObject* result = objc_getAssociatedObject(target, (const void *) propertyKey);
@@ -272,17 +272,30 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         if (enableLog) NSLog(@"PlatformService::打开一个ViewController");
         NSString* viewControllerClass = (NSString*) args[@"viewControllerClass"];
         BOOL withNavigationController = [(NSNumber*) args[@"withNavigationController"] boolValue];
-
+        
         UIViewController *controller = [[NSClassFromString(viewControllerClass) alloc] init];
         if (withNavigationController) {
-//            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
-//            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:nil action:@selector(dismiss)];
-//            [[controller navigationItem] setLeftBarButtonItem:item];
-//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviController animated:YES completion:nil];
+            //            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
+            //            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:nil action:@selector(dismiss)];
+            //            [[controller navigationItem] setLeftBarButtonItem:item];
+            //            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviController animated:YES completion:nil];
         } else {
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:controller animated:YES completion:nil];
         }
         methodResult(@"success");
+    }
+    // 获取flutter asset的路径
+    else if ([@"PlatformService::getAssetPath" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        NSString *flutterAssetPath = (NSString *) args[@"flutterAssetPath"];
+        
+        if (enableLog) NSLog(@"PlatformService::Flutter Asset%@", flutterAssetPath);
+        
+        NSString* key = [registrar lookupKeyForAsset:flutterAssetPath];
+        NSString* path = [[NSBundle mainBundle] pathForResource:key ofType:nil];
+        
+        methodResult(path);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
