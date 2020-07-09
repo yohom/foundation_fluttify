@@ -196,6 +196,8 @@ Future<Uint8List> uri2ImageData(
   return imageData.future;
 }
 
+/// 不怎么好用
+@deprecated
 Future<String> getAssetPath(String flutterAssetPath) async {
   return kMethodChannel.invokeMethod(
     'PlatformService::getAssetPath',
