@@ -12,7 +12,20 @@ extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void CGSizeHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
-    if ([@"CGSize::getWidth" isEqualToString:method]) {
+    if ([@"CGSize::create" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        CGFloat width = [(NSNumber*) args[@"width"] floatValue];
+        CGFloat height = [(NSNumber*) args[@"height"] floatValue];
+        
+        CGSize rect = CGSizeMake(width, height);
+        
+        NSValue* result = [NSValue valueWithCGSize:rect];
+        
+        HEAP[@(result.hash)] = result;
+        
+        methodResult(@(result.hash));
+    } else if ([@"CGSize::getWidth" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSNumber *refId = (NSNumber *) args[@"refId"];

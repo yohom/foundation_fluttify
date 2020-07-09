@@ -1,5 +1,6 @@
 ## 0.8.11
 - feat: 增加PlatformService::getAssetPath方法
+- enhance: CGSize增加创建方法
 
 ## 0.8.10
 - feat: 增加UIImageView的创建
