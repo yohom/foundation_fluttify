@@ -142,7 +142,8 @@ final kMethodChannel = MethodChannel(kMethodChannelName)
   });
 
 const kBroadcastEventChannelName = 'com.fluttify/foundation_broadcast_event';
-const kBroadcastEventChannel = EventChannel(kBroadcastEventChannelName);
+const kBroadcastEventChannel =
+    FluttifyBroadcastEventChannel(kBroadcastEventChannelName);
 
 const kSensorEventChannelName = 'com.fluttify/foundation_sensor_event';
 const kSensorEventChannel = EventChannel(kSensorEventChannelName);
