@@ -2,6 +2,7 @@
 - feat: 增加PlatformService::getAssetPath方法
 - enhance: CGSize增加创建方法
 - enhance: 新增FluttifyBroadcastEventChannel, 一律返回Intent
+- enhance: Intent增加获取bundle
 
 ## 0.8.10
 - feat: 增加UIImageView的创建
