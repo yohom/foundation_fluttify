@@ -14,6 +14,9 @@ import me.yohom.foundation_fluttify.android.app.ActivityHandler
 import me.yohom.foundation_fluttify.android.app.ApplicationHandler
 import me.yohom.foundation_fluttify.android.app.NotificationHandler
 import me.yohom.foundation_fluttify.android.app.PendingIntentHandler
+import me.yohom.foundation_fluttify.android.content.BroadcastReceiverHandler
+import me.yohom.foundation_fluttify.android.content.ContextHandler
+import me.yohom.foundation_fluttify.android.content.IntentFilterHandler
 import me.yohom.foundation_fluttify.android.content.IntentHandler
 import me.yohom.foundation_fluttify.android.graphics.BitmapHandler
 import me.yohom.foundation_fluttify.android.graphics.PointHandler
@@ -35,9 +38,6 @@ var enableLog: Boolean = true
 // method channel for foundation
 lateinit var gMethodChannel: MethodChannel
 
-// broadcast event channel for foundation
-lateinit var gBroadcastEventChannel: EventChannel
-
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var activity: Activity? = null
     private var activityBinding: ActivityPluginBinding? = null
@@ -53,8 +53,6 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
 
             gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
             gMethodChannel.setMethodCallHandler(plugin)
-
-            gBroadcastEventChannel = EventChannel(registrar.messenger(), "com.fluttify/foundation_broadcast_event")
         }
     }
 
@@ -68,6 +66,9 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.app.Notification::") -> NotificationHandler(methodCall.method, rawArgs, methodResult, activity)
                 startsWith("android.os.Bundle::") -> BundleHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.content.Intent::") -> IntentHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.content.Context::") -> ContextHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.content.BroadcastReceiver::") -> BroadcastReceiverHandler(methodCall.method, rawArgs, registrar?.messenger(), methodResult)
+                startsWith("android.content.IntentFilter::") -> IntentFilterHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.graphics.Bitmap::") -> BitmapHandler(methodCall.method, rawArgs, methodResult, activity)
                 startsWith("android.graphics.Point::") -> PointHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.location.Location::") -> LocationHandler(methodCall.method, rawArgs, methodResult)
@@ -85,8 +86,6 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
 
         gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
         gMethodChannel.setMethodCallHandler(this)
-
-        gBroadcastEventChannel = EventChannel(binding.binaryMessenger, "com.fluttify/foundation_broadcast_event")
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
