@@ -26,6 +26,14 @@ fun IntentHandler(method: String, args: Any, methodResult: MethodChannel.Result)
 
             methodResult.success(result)
         }
+        "android.content.Intent::getAction" -> {
+            val refId = (args as Map<String, Any>)["refId"] as Int
+            val intent = HEAP[refId] as Intent
+
+            val action = intent.action
+
+            methodResult.success(action)
+        }
         else -> methodResult.notImplemented()
     }
 }
