@@ -9,4 +9,10 @@ class android_content_Intent extends java_lang_Object {
         'android.content.Intent::getBundle', {'refId': refId});
     return result;
   }
+
+  Future<String> get action async {
+    final result = await kMethodChannel
+        .invokeMethod('android.content.Intent::getAction', {'refId': refId});
+    return result;
+  }
 }
