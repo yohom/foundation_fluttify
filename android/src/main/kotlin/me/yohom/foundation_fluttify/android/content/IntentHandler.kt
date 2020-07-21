@@ -11,12 +11,17 @@ fun IntentHandler(method: String, args: Any, methodResult: MethodChannel.Result)
             val refId = (args as Map<String, Any>)["refId"] as Int
             val intent = HEAP[refId] as Intent
 
-            val bundle = intent.extras?: Bundle.EMPTY
+            val bundle = intent.extras ?: Bundle.EMPTY
 
-            // bundle转为map 暂时不考虑非jsonable的类型, 一律认为可以直接传递
             val result: MutableMap<String, java.io.Serializable?> = mutableMapOf()
             for (key in bundle.keySet()) {
-                result[key] = bundle.getSerializable(key)
+                when (val value = bundle.getSerializable(key)) {
+                    is Number, is String, is List<*>, is Map<*, *> -> result[key] = value
+                    else -> {
+                        HEAP[System.identityHashCode(value)] = value!!
+                        result[key] = System.identityHashCode(value)
+                    }
+                }
             }
 
             methodResult.success(result)
