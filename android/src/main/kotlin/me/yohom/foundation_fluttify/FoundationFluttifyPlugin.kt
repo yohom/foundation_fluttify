@@ -38,6 +38,9 @@ var enableLog: Boolean = true
 // method channel for foundation
 lateinit var gMethodChannel: MethodChannel
 
+// broadcast event channel for foundation
+lateinit var gBroadcastEventChannel: EventChannel
+
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var activity: Activity? = null
     private var activityBinding: ActivityPluginBinding? = null
@@ -53,6 +56,8 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
 
             gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
             gMethodChannel.setMethodCallHandler(plugin)
+
+            gBroadcastEventChannel = EventChannel(registrar.messenger(), "com.fluttify/foundation_broadcast_event")
         }
     }
 
@@ -86,6 +91,8 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
 
         gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
         gMethodChannel.setMethodCallHandler(this)
+
+        gBroadcastEventChannel = EventChannel(binding.binaryMessenger, "com.fluttify/foundation_broadcast_event")
     }
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
