@@ -2,6 +2,7 @@ package me.yohom.foundation_fluttify
 
 import android.app.Activity
 import android.content.IntentFilter
+import android.content.Context
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -43,6 +44,7 @@ lateinit var gMethodChannel: MethodChannel
 lateinit var gBroadcastEventChannel: EventChannel
 
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
+    private var applicationContext: Context? = null
     private var activity: Activity? = null
     private var activityBinding: ActivityPluginBinding? = null
     private var pluginBinding: FlutterPlugin.FlutterPluginBinding? = null
@@ -70,7 +72,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         val rawArgs = methodCall.arguments ?: mapOf<String, Any>()
         methodCall.method.run {
             when {
-                startsWith("android.app.Application::") -> ApplicationHandler(methodCall.method, rawArgs, methodResult, activity)
+                startsWith("android.app.Application::") -> ApplicationHandler(methodCall.method, rawArgs, methodResult, applicationContext)
                 startsWith("android.app.Activity::") -> ActivityHandler(methodCall.method, rawArgs, methodResult, activity)
                 startsWith("android.app.PendingIntent::") -> PendingIntentHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.app.Notification::") -> NotificationHandler(methodCall.method, rawArgs, methodResult, activity)
@@ -92,7 +94,8 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     }
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
-        pluginBinding = binding;
+        applicationContext = binding.applicationContext
+        pluginBinding = binding
 
         gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
         gMethodChannel.setMethodCallHandler(this)
