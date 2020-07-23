@@ -141,7 +141,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.8.11-dev.5"
+    version: "0.8.11-dev.7"
   http:
     dependency: transitive
     description:
