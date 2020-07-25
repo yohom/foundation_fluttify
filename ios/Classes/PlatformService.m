@@ -69,9 +69,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             NSObject *target = HEAP[refId];
             NSObject *property = HEAP[propertyRefId];
             
-            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            
-            [resultList addObject:@"success"];
+            if (target) {
+                objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                [resultList addObject:@"success"];
+            } else {
+                methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+                break;
+            }
         }
         
         methodResult(resultList);
@@ -107,10 +111,15 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *target = HEAP[refId];
             
-            NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
-            HEAP[@(result.hash)] = result;
-            
-            [resultList addObject:@(result.hash)];
+            if (target) {
+                NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
+                HEAP[@(result.hash)] = result;
+                
+                [resultList addObject:@(result.hash)];
+            } else {
+                methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+                break;
+            }
         }
         
         methodResult(resultList);
@@ -147,8 +156,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *target = HEAP[refId];
             
-            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-            [resultList addObject:@"success"];
+            if (target) {
+                objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                [resultList addObject:@"success"];
+            } else {
+                methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+                break;
+            }
         }
         
         methodResult(resultList);
@@ -182,9 +196,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *target = HEAP[refId];
             
-            NSObject* result = objc_getAssociatedObject(target, (const void *) propertyKey);
-            
-            [resultList addObject:result];
+            if (target) {
+                NSObject* result = objc_getAssociatedObject(target, (const void *) propertyKey);
+                [resultList addObject:result];
+            } else {
+                methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+                break;
+            }
         }
         
         methodResult(resultList);
