@@ -57,6 +57,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             val plugin = FoundationFluttifyPlugin()
             plugin.registrar = registrar
             plugin.activity = registrar.activity()
+            plugin.applicationContext = registrar.activity()?.applicationContext
             plugin.broadcastReceiver = FluttifyBroadcastReceiver()
 
             gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
