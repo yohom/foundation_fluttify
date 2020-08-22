@@ -53,6 +53,27 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
     }
+    // 为对象添加列表字段
+    else if ([@"PlatformService::addListProperty" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        NSNumber* refId = (NSNumber *) args[@"refId"];
+        NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
+        NSArray<NSNumber*>* propertyRefId = (NSArray<NSNumber*>*) args[@"property"];
+        
+        NSObject *target = HEAP[refId];
+        NSMutableArray<NSObject*>* property = [NSMutableArray array];
+        for (NSNumber* itemRefId in propertyRefId) {
+            [property addObject:HEAP[itemRefId]];
+        }
+        
+        if (target) {
+            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            methodResult(@"success");
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
+        }
+    }
     // 批量为对象添加字段
     else if ([@"PlatformService::addProperty_batch" isEqualToString:method]) {
         NSArray<NSDictionary<NSString*, NSObject*>*>* argsBatch = (NSArray<NSDictionary<NSString*, NSObject*>*>*) rawArgs;
