@@ -38,7 +38,7 @@ class Ref {
   /// 为类型添加属性
   Future<void> addListProperty__(int propertyKey, List<Ref> property) async {
     assert(propertyKey > 0);
-    return kMethodChannel.invokeMethod('PlatformService::addProperty', {
+    return kMethodChannel.invokeMethod('PlatformService::addListProperty', {
       'refId': refId,
       'propertyKey': propertyKey,
       'property': <int>[for (final item in property) item.refId],
