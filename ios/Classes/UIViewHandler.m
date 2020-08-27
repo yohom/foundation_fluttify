@@ -58,6 +58,23 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         target.layer.anchorPoint = CGPointMake([anchorU doubleValue], [anchorV doubleValue]);
         
         methodResult(@"success");
+    } else if ([@"UIView::scaleWithDuration" isEqualToString:method]) {
+        NSNumber* refId = (NSNumber*) args[@"refId"];
+        NSNumber* duration = (NSNumber*) args[@"duration"];
+        NSNumber* x = (NSNumber*) args[@"x"];
+        NSNumber* toX = (NSNumber*) args[@"toX"];
+        NSNumber* y = (NSNumber*) args[@"y"];
+        NSNumber* toY = (NSNumber*) args[@"toY"];
+        
+        UIView *target = (UIView *) HEAP[refId];
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            target.transform = CGAffineTransformMake(1.05f, 0, 0, 1.0f, 0, 0);
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+        methodResult(@"success");
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
