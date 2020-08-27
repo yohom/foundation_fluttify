@@ -17,6 +17,24 @@ class UIView extends NSObject {
     });
   }
 
+  Future<void> scaleWithDuration({
+    double duration = 1,
+    double x = 0,
+    double toX = 1,
+    double y = 0,
+    double toY = 1,
+  }) async {
+    assert(duration != null);
+    await kMethodChannel.invokeMethod('UIView::scaleWithDuration', {
+      'refId': refId,
+      'duration': duration,
+      'x': x,
+      'toX': toX,
+      'y': y,
+      'toY': toY,
+    });
+  }
+
   Future<CGRect> get frame async {
     final result =
         await kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});
