@@ -63,7 +63,7 @@ class UIView extends NSObject {
 
   /// 执行旋转动画
   ///
-  /// 单位为度
+  /// 单位为度, 逆时针旋转
   Future<void> rotateWithDuration({
     Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
@@ -75,7 +75,7 @@ class UIView extends NSObject {
       'refId': refId,
       'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue / 180 * pi,
-      'toValue': toValue / 180 * pi,
+      'toValue': -toValue / 180 * pi,
       'repeatCount': repeatCount,
     });
   }
