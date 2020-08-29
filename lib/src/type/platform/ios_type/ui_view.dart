@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/cupertino.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 import 'cg_rect.dart';
@@ -9,6 +12,9 @@ class UIView extends NSObject {
     return UIView()..refId = result;
   }
 
+  /// 旋转
+  ///
+  /// 单位为度
   Future<void> rotate(double angle) async {
     assert(angle != null);
     await kMethodChannel.invokeMethod('UIView::rotate', {
@@ -17,50 +23,59 @@ class UIView extends NSObject {
     });
   }
 
+  /// 执行缩放动画
   Future<void> scaleWithDuration({
-    double duration = 1,
+    Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
-    double toValue = 1,
+    @required double toValue,
     int repeatCount = 0,
   }) async {
-    assert(duration != null);
+    assert(fromValue >= 0 && fromValue <= 1);
+    assert(toValue >= 0 && toValue <= 1);
     await kMethodChannel.invokeMethod('UIView::scaleWithDuration', {
       'refId': refId,
-      'duration': duration,
+      'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue,
       'toValue': toValue,
       'repeatCount': repeatCount,
     });
   }
 
+  /// 执行透明度动画
+  ///
+  /// 范围为0-1
   Future<void> alphaWithDuration({
-    double duration = 1,
+    Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
-    double toValue = 1,
+    @required double toValue,
     int repeatCount = 0,
   }) async {
-    assert(duration != null);
+    assert(fromValue >= 0 && fromValue <= 1);
+    assert(toValue >= 0 && toValue <= 1);
     await kMethodChannel.invokeMethod('UIView::alphaWithDuration', {
       'refId': refId,
-      'duration': duration,
+      'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue,
       'toValue': toValue,
       'repeatCount': repeatCount,
     });
   }
 
+  /// 执行旋转动画
+  ///
+  /// 单位为度
   Future<void> rotateWithDuration({
-    double duration = 1,
+    Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
-    double toValue = 1,
+    @required double toValue,
     int repeatCount = 0,
   }) async {
     assert(duration != null);
     await kMethodChannel.invokeMethod('UIView::rotateWithDuration', {
       'refId': refId,
-      'duration': duration,
-      'fromValue': fromValue,
-      'toValue': toValue,
+      'duration': duration.inMilliseconds / 1000,
+      'fromValue': fromValue / 180 * pi,
+      'toValue': toValue / 180 * pi,
       'repeatCount': repeatCount,
     });
   }
