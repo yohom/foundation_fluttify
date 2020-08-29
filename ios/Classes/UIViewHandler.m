@@ -61,18 +61,21 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
     } else if ([@"UIView::scaleWithDuration" isEqualToString:method]) {
         NSNumber* refId = (NSNumber*) args[@"refId"];
         NSNumber* duration = (NSNumber*) args[@"duration"];
-        NSNumber* x = (NSNumber*) args[@"x"];
-        NSNumber* toX = (NSNumber*) args[@"toX"];
-        NSNumber* y = (NSNumber*) args[@"y"];
-        NSNumber* toY = (NSNumber*) args[@"toY"];
-        
+        NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
+        NSNumber* toValue = (NSNumber*) args[@"toValue"];
+        NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+
         UIView *target = (UIView *) HEAP[refId];
-        
-        [UIView animateWithDuration:0.3f animations:^{
-            target.transform = CGAffineTransformMake(1.05f, 0, 0, 1.0f, 0, 0);
-        } completion:^(BOOL finished) {
-            
-        }];
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        animation.fromValue = fromValue;
+        animation.toValue = toValue;
+        animation.duration = [duration doubleValue];
+        animation.autoreverses = NO;
+        animation.repeatCount = [repeatCount intValue];
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        [target.layer addAnimation:animation forKey:@"zoom"];
         
         methodResult(@"success");
     } else {
