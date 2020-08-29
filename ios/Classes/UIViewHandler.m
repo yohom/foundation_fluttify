@@ -78,6 +78,46 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         [target.layer addAnimation:animation forKey:@"zoom"];
         
         methodResult(@"success");
+    } else if ([@"UIView::alphaWithDuration" isEqualToString:method]) {
+        NSNumber* refId = (NSNumber*) args[@"refId"];
+        NSNumber* duration = (NSNumber*) args[@"duration"];
+        NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
+        NSNumber* toValue = (NSNumber*) args[@"toValue"];
+        NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+
+        UIView *target = (UIView *) HEAP[refId];
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        animation.fromValue = fromValue;
+        animation.toValue = toValue;
+        animation.duration = [duration doubleValue];
+        animation.autoreverses = NO;
+        animation.repeatCount = [repeatCount intValue];
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        [target.layer addAnimation:animation forKey:@"opacity"];
+        
+        methodResult(@"success");
+    } else if ([@"UIView::rotateWithDuration" isEqualToString:method]) {
+        NSNumber* refId = (NSNumber*) args[@"refId"];
+        NSNumber* duration = (NSNumber*) args[@"duration"];
+        NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
+        NSNumber* toValue = (NSNumber*) args[@"toValue"];
+        NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+
+        UIView *target = (UIView *) HEAP[refId];
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        animation.fromValue = fromValue;
+        animation.toValue = toValue;
+        animation.duration = [duration doubleValue];
+        animation.autoreverses = NO;
+        animation.repeatCount = [repeatCount intValue];
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        [target.layer addAnimation:animation forKey:@"rotation"];
+        
+        methodResult(@"success");
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

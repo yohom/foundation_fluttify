@@ -33,9 +33,41 @@ class UIView extends NSObject {
     });
   }
 
+  Future<void> alphaWithDuration({
+    double duration = 1,
+    double fromValue = 0,
+    double toValue = 1,
+    int repeatCount = 0,
+  }) async {
+    assert(duration != null);
+    await kMethodChannel.invokeMethod('UIView::alphaWithDuration', {
+      'refId': refId,
+      'duration': duration,
+      'fromValue': fromValue,
+      'toValue': toValue,
+      'repeatCount': repeatCount,
+    });
+  }
+
+  Future<void> rotateWithDuration({
+    double duration = 1,
+    double fromValue = 0,
+    double toValue = 1,
+    int repeatCount = 0,
+  }) async {
+    assert(duration != null);
+    await kMethodChannel.invokeMethod('UIView::rotateWithDuration', {
+      'refId': refId,
+      'duration': duration,
+      'fromValue': fromValue,
+      'toValue': toValue,
+      'repeatCount': repeatCount,
+    });
+  }
+
   Future<CGRect> get frame async {
     final result =
-    await kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});
+        await kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});
     return CGRect()..refId = result;
   }
 
