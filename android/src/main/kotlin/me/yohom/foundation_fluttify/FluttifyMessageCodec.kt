@@ -25,6 +25,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
     private val DOUBLE_ARRAY: Byte = 11
     private val LIST: Byte = 12
     private val MAP: Byte = 13
+    private val ENUM: Byte = 126
     private val REF: Byte = 127
 
     override fun writeValue(stream: ByteArrayOutputStream, value: Any?) {
@@ -91,7 +92,14 @@ class FluttifyMessageCodec: StandardMessageCodec() {
                 writeValue(stream, key)
                 writeValue(stream, value1)
             }
-        } else {
+        }
+        // 枚举值传索引
+        else if (value is Enum<*>) {
+            stream.write(ENUM.toInt())
+            writeInt(stream, value.ordinal)
+        }
+        // 其他类型传哈希值
+        else {
             // 放入HEAP
             HEAP[System.identityHashCode(value)] = value
 
@@ -167,6 +175,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
                 }
                 result = map
             }
+            ENUM -> result = buffer.int
             REF -> result = HEAP[buffer.int]
             else -> throw java.lang.IllegalArgumentException("Message corrupted")
         }

@@ -23,6 +23,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
   static const int _valueList = 12;
   static const int _valueMap = 13;
   // Fluttify使用
+  static const int _valueEnum = 126;
   // 虽然dart端说明自定义类型要用128以上的值, 但是Java那边是用byte接收, 128已经超出, 所以
   // 这里直接使用127了, 肯定不会与flutter本身的类型冲突
   static const int _valueRef = 127;
@@ -83,7 +84,15 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         writeValue(buffer, key);
         writeValue(buffer, value);
       });
-    } else if (value is Ref) {
+    }
+    // 以下为fluttify增加的类型
+    // 枚举 传递索引值
+    else if (_isEnum(value)) {
+      buffer.putUint8(_valueEnum);
+      buffer.putInt32(value.index);
+    }
+    // fluttify Ref类
+    else if (value is Ref) {
       buffer.putUint8(_valueRef);
       buffer.putInt32(value.refId);
     } else {
@@ -132,6 +141,8 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         for (int i = 0; i < length; i++)
           result[readValue(buffer)] = readValue(buffer);
         return result;
+      case _valueEnum:
+        return buffer.getInt32();
       case _valueRef:
         final refId = buffer.getInt32();
         final result = Ref()..refId = refId;
@@ -141,4 +152,9 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         throw const FormatException('Message corrupted');
     }
   }
+}
+
+bool _isEnum(dynamic data) {
+  final split = data.toString().split('.');
+  return split.length > 1 && split[0] == data.runtimeType.toString();
 }
