@@ -4,6 +4,7 @@ export 'src/extension/image_provider.x.dart';
 export 'src/function/functions.dart';
 export 'src/object/obejcts.dart';
 export 'src/type/core/broadcast_event_channel.dart';
+export 'src/type/core/fluttify_message_codec.dart';
 export 'src/type/core/ref.dart';
 export 'src/type/core/typedefs.dart';
 export 'src/type/platform/android_type/android/app/activity.dart';
