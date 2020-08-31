@@ -18,7 +18,7 @@ class UIView extends NSObject {
   Future<void> rotate(double angle) async {
     assert(angle != null);
     await kMethodChannel.invokeMethod('UIView::rotate', {
-      'refId': refId,
+      '__this__': this,
       'angle': angle,
     });
   }
@@ -33,7 +33,7 @@ class UIView extends NSObject {
     assert(fromValue >= 0 && fromValue <= 1);
     assert(toValue >= 0 && toValue <= 1);
     await kMethodChannel.invokeMethod('UIView::scaleWithDuration', {
-      'refId': refId,
+      '__this__': this,
       'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue,
       'toValue': toValue,
@@ -53,7 +53,7 @@ class UIView extends NSObject {
     assert(fromValue >= 0 && fromValue <= 1);
     assert(toValue >= 0 && toValue <= 1);
     await kMethodChannel.invokeMethod('UIView::alphaWithDuration', {
-      'refId': refId,
+      '__this__': this,
       'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue,
       'toValue': toValue,
@@ -72,7 +72,7 @@ class UIView extends NSObject {
   }) async {
     assert(duration != null);
     await kMethodChannel.invokeMethod('UIView::rotateWithDuration', {
-      'refId': refId,
+      '__this__': this,
       'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue / 180 * pi,
       'toValue': -toValue / 180 * pi,
@@ -81,21 +81,21 @@ class UIView extends NSObject {
   }
 
   Future<CGRect> get frame async {
-    final result =
-        await kMethodChannel.invokeMethod('UIView::getFrame', {'refId': refId});
+    final result = await kMethodChannel
+        .invokeMethod('UIView::getFrame', {'__this__': this});
     return CGRect()..refId = result;
   }
 
   Future<bool> get hidden async {
     final result = await kMethodChannel
-        .invokeMethod('UIView::getHidden', {'refId': refId});
+        .invokeMethod('UIView::getHidden', {'__this__': this});
     return result;
   }
 
   Future<void> setHidden(bool hidden) async {
     assert(hidden != null);
     await kMethodChannel.invokeMethod('UIView::setHidden', {
-      'refId': refId,
+      '__this__': this,
       'hidden': hidden,
     });
   }
@@ -103,7 +103,7 @@ class UIView extends NSObject {
   Future<void> setAnchorPoint(double anchorU, double anchorV) async {
     assert(hidden != null);
     await kMethodChannel.invokeMethod('UIView::setAnchorPoint', {
-      'refId': refId,
+      '__this__': this,
       'anchorU': anchorU,
       'anchorV': anchorV,
     });

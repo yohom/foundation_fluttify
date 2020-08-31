@@ -46,6 +46,6 @@ class UIImage extends NSObject {
   }
 
   Future<Uint8List> get data {
-    return kMethodChannel.invokeMethod('UIImage::getData', {'refId': refId});
+    return kMethodChannel.invokeMethod('UIImage::getData', {'__this__': this});
   }
 }

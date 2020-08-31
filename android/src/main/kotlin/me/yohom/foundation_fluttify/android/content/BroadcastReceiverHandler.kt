@@ -10,26 +10,19 @@ import me.yohom.foundation_fluttify.HEAP
 fun BroadcastReceiverHandler(method: String, rawArgs: Any, binaryMessenger: BinaryMessenger?, methodResult: MethodChannel.Result) {
     when (method) {
         "android.content.BroadcastReceiver::create" -> {
-            val args = rawArgs as Map<String, Any>
-
             val receiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context?, intent: Intent?) {
-                    if (intent != null) {
-                        HEAP[System.identityHashCode(intent)] = intent
-                    }
                     if (binaryMessenger != null) {
                         MethodChannel(binaryMessenger, "android.content.BroadcastReceiver::create::Callback")
                                 .invokeMethod(
                                         "Callback::android.content.BroadcastReceiver::onReceive",
-                                        mapOf("intent" to if (intent == null) null else System.identityHashCode(intent))
+                                        mapOf("intent" to intent)
                                 )
                     }
                 }
             }
 
-            HEAP[System.identityHashCode(receiver)] = receiver
-
-            methodResult.success(System.identityHashCode(receiver))
+            methodResult.success(receiver)
         }
         else -> methodResult.notImplemented()
     }

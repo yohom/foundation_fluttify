@@ -1,8 +1,8 @@
 package me.yohom.foundation_fluttify
 
 import android.app.Activity
-import android.content.IntentFilter
 import android.content.Context
+import android.content.IntentFilter
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -12,6 +12,7 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import io.flutter.plugin.common.StandardMethodCodec
 import me.yohom.foundation_fluttify.android.app.ActivityHandler
 import me.yohom.foundation_fluttify.android.app.ApplicationHandler
 import me.yohom.foundation_fluttify.android.app.NotificationHandler
@@ -40,16 +41,12 @@ var enableLog: Boolean = true
 // method channel for foundation
 lateinit var gMethodChannel: MethodChannel
 
-// broadcast event channel for foundation
-lateinit var gBroadcastEventChannel: EventChannel
-
 class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     private var applicationContext: Context? = null
     private var activity: Activity? = null
     private var activityBinding: ActivityPluginBinding? = null
     private var pluginBinding: FlutterPlugin.FlutterPluginBinding? = null
     private var registrar: Registrar? = null
-    private var broadcastReceiver: FluttifyBroadcastReceiver? = null
 
     companion object {
         @JvmStatic
@@ -58,14 +55,13 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             plugin.registrar = registrar
             plugin.activity = registrar.activity()
             plugin.applicationContext = registrar.activity()?.applicationContext
-            plugin.broadcastReceiver = FluttifyBroadcastReceiver()
 
-            gMethodChannel = MethodChannel(registrar.messenger(), "com.fluttify/foundation_method")
+            gMethodChannel = MethodChannel(
+                    registrar.messenger(),
+                    "com.fluttify/foundation_method",
+                    StandardMethodCodec(FluttifyMessageCodec())
+            )
             gMethodChannel.setMethodCallHandler(plugin)
-
-            registrar.activity().registerReceiver(plugin.broadcastReceiver, IntentFilter())
-            gBroadcastEventChannel = EventChannel(registrar.messenger(), "com.fluttify/foundation_broadcast_event")
-            gBroadcastEventChannel.setStreamHandler(plugin.broadcastReceiver)
         }
     }
 
@@ -111,15 +107,9 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
         activityBinding = binding
-
-        broadcastReceiver = FluttifyBroadcastReceiver()
-        binding.activity.registerReceiver(broadcastReceiver, IntentFilter())
-        gBroadcastEventChannel = EventChannel(pluginBinding?.binaryMessenger, "com.fluttify/foundation_broadcast_event")
-        gBroadcastEventChannel.setStreamHandler(broadcastReceiver)
     }
 
     override fun onDetachedFromActivity() {
-        activity?.unregisterReceiver(broadcastReceiver)
         activity = null
         activityBinding = null
     }
@@ -132,15 +122,5 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     override fun onDetachedFromActivityForConfigChanges() {
         activity = null
         activityBinding = null
-    }
-}
-
-fun <T> T.jsonable(): Boolean {
-    return when (this) {
-        is Byte, is Short, is Int, is Long, is Float, is Double -> true
-        is String -> true
-        is List<*> -> true
-        is Map<*, *> -> true
-        else -> false
     }
 }

@@ -11,10 +11,10 @@ class CGPoint extends Ref {
   }
 
   Future<double> get x {
-    return kMethodChannel.invokeMethod('CGPoint::getX', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGPoint::getX', {'__this__': this});
   }
 
   Future<double> get y {
-    return kMethodChannel.invokeMethod('CGPoint::getY', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGPoint::getY', {'__this__': this});
   }
 }

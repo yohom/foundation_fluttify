@@ -15,10 +15,10 @@ class CGSize extends Ref {
   }
 
   Future<double> get width {
-    return kMethodChannel.invokeMethod('CGSize::getWidth', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGSize::getWidth', {'__this__': this});
   }
 
   Future<double> get height {
-    return kMethodChannel.invokeMethod('CGSize::getHeight', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGSize::getHeight', {'__this__': this});
   }
 }

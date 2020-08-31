@@ -21,21 +21,21 @@ class UIEdgeInsets extends Ref {
 
   Future<double> get top {
     return kMethodChannel
-        .invokeMethod('UIEdgeInsets::getTop', {'refId': refId});
+        .invokeMethod('UIEdgeInsets::getTop', {'__this__': this});
   }
 
   Future<double> get left {
     return kMethodChannel
-        .invokeMethod('UIEdgeInsets::getLeft', {'refId': refId});
+        .invokeMethod('UIEdgeInsets::getLeft', {'__this__': this});
   }
 
   Future<double> get bottom {
     return kMethodChannel
-        .invokeMethod('UIEdgeInsets::getBottom', {'refId': refId});
+        .invokeMethod('UIEdgeInsets::getBottom', {'__this__': this});
   }
 
   Future<double> get right {
     return kMethodChannel
-        .invokeMethod('UIEdgeInsets::getRight', {'refId': refId});
+        .invokeMethod('UIEdgeInsets::getRight', {'__this__': this});
   }
 }

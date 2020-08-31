@@ -10,10 +10,13 @@ import io.flutter.plugin.common.PluginRegistry
 
 
 fun PlatformService(
-        method: String, args: Map<String, Any>, methodResult: MethodChannel.Result,
+        method: String,
+        args: Map<String, Any>,
+        methodResult: MethodChannel.Result,
         activityBinding: ActivityPluginBinding?,
         pluginBinding: FlutterPlugin.FlutterPluginBinding?,
-        registrar: PluginRegistry.Registrar?) {
+        registrar: PluginRegistry.Registrar?
+) {
     when (method) {
         "PlatformService::enableLog" -> {
             enableLog = args["enable"] as Boolean
@@ -59,6 +62,7 @@ fun PlatformService(
                 Log.d("PlatformService", "HEAP: $HEAP")
             }
         }
+        // TODO 自定义MessageCodec
         "PlatformService::pushStack" -> {
             val name = args["name"] as String
             val refId = args["refId"] as Int
@@ -147,8 +151,7 @@ fun PlatformService(
                 activityBinding.addActivityResultListener { reqCode, resultCode, data ->
                     if (reqCode == requestCode) {
                         if (resultCode == Activity.RESULT_OK) {
-                            HEAP[System.identityHashCode(data)] = data
-                            methodResult.success(System.identityHashCode(data))
+                            methodResult.success(data)
                         } else {
                             methodResult.error("获取Activity结果失败", "获取Activity结果失败", "获取Activity结果失败")
                         }

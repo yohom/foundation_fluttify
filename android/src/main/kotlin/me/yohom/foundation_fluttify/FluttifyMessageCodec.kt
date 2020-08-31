@@ -93,10 +93,10 @@ class FluttifyMessageCodec: StandardMessageCodec() {
             }
         } else {
             // 放入HEAP
-            HEAP[value.hashCode()] = value
+            HEAP[System.identityHashCode(value)] = value
 
             stream.write(REF.toInt())
-            writeInt(stream, value.hashCode())
+            writeInt(stream, System.identityHashCode(value))
         }
     }
 

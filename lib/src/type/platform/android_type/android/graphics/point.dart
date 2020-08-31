@@ -15,11 +15,11 @@ class android_graphics_Point extends java_lang_Object {
 
   Future<int> get x {
     return kMethodChannel
-        .invokeMethod('android.graphics.Point::getX', {'refId': refId});
+        .invokeMethod('android.graphics.Point::getX', {'__this__': this});
   }
 
   Future<int> get y {
     return kMethodChannel
-        .invokeMethod('android.graphics.Point::getY', {'refId': refId});
+        .invokeMethod('android.graphics.Point::getY', {'__this__': this});
   }
 }

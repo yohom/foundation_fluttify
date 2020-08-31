@@ -8,7 +8,7 @@ class android_content_IntentFilter extends java_lang_Object {
   Future<android_content_IntentFilter> create(String action) async {
     final result = await kMethodChannel.invokeMethod(
       'android.content.IntentFilter::create',
-      {'refId': refId, 'action': action},
+      {'__this__': this, 'action': action},
     );
     return android_content_IntentFilter()..refId = result;
   }
