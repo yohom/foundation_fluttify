@@ -94,7 +94,11 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         applicationContext = binding.applicationContext
         pluginBinding = binding
 
-        gMethodChannel = MethodChannel(binding.binaryMessenger, "com.fluttify/foundation_method")
+        gMethodChannel = MethodChannel(
+                binding.binaryMessenger,
+                "com.fluttify/foundation_method",
+                StandardMethodCodec(FluttifyMessageCodec())
+        )
         gMethodChannel.setMethodCallHandler(this)
     }
 
