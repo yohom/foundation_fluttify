@@ -19,18 +19,18 @@ class CGRect extends Ref {
   }
 
   Future<double> get x {
-    return kMethodChannel.invokeMethod('CGRect::getX', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGRect::getX', {'__this__': this});
   }
 
   Future<double> get y {
-    return kMethodChannel.invokeMethod('CGRect::getY', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGRect::getY', {'__this__': this});
   }
 
   Future<double> get width {
-    return kMethodChannel.invokeMethod('CGRect::getWidth', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGRect::getWidth', {'__this__': this});
   }
 
   Future<double> get height {
-    return kMethodChannel.invokeMethod('CGRect::getHeight', {'refId': refId});
+    return kMethodChannel.invokeMethod('CGRect::getHeight', {'__this__': this});
   }
 }

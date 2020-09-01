@@ -2,135 +2,96 @@ package me.yohom.foundation_fluttify.android.location
 
 import android.location.Location
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.__this__
+import me.yohom.foundation_fluttify.get
 
 fun LocationHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.location.Location::create" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val provider = args["provider"] as String
+            val provider = rawArgs["provider"] as String
 
             val location = Location(provider)
 
-            HEAP[System.identityHashCode(location)] = location
-
-            methodResult.success(System.identityHashCode(location))
+            methodResult.success(location)
         }
         "android.location.Location::getLatitude" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             methodResult.success(location.latitude)
         }
         "android.location.Location::getLongitude" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             methodResult.success(location.longitude)
         }
         "android.location.Location::getBearing" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             methodResult.success(location.bearing)
         }
         "android.location.Location::getAltitude" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             methodResult.success(location.altitude)
         }
         "android.location.Location::getAccuracy" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             methodResult.success(location.accuracy)
         }
         "android.location.Location::getSpeed" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             methodResult.success(location.speed)
         }
         "android.location.Location::setLatitude" -> {
-            val args = rawArgs as Map<String, Any>
+            val latitude = rawArgs["latitude"] as Double
 
-            val refId = args["refId"] as Int
-            val latitude = args["latitude"] as Double
-
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
             location.latitude = latitude
 
             methodResult.success("success")
         }
         "android.location.Location::setLongitude" -> {
-            val args = rawArgs as Map<String, Any>
+            val longitude = rawArgs["longitude"] as Double
 
-            val refId = args["refId"] as Int
-            val longitude = args["longitude"] as Double
-
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             location.longitude = longitude
 
             methodResult.success("success")
         }
         "android.location.Location::setBearing" -> {
-            val args = rawArgs as Map<String, Any>
+            val bearing = rawArgs["bearing"] as Double
 
-            val refId = args["refId"] as Int
-            val bearing = args["bearing"] as Double
-
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             location.bearing = bearing.toFloat()
 
             methodResult.success("success")
         }
         "android.location.Location::setAltitude" -> {
-            val args = rawArgs as Map<String, Any>
+            val altitude = rawArgs["altitude"] as Double
 
-            val refId = args["refId"] as Int
-            val altitude = args["altitude"] as Double
-
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             location.altitude = altitude
 
             methodResult.success("success")
         }
         "android.location.Location::setAccuracy" -> {
-            val args = rawArgs as Map<String, Any>
+            val accuracy = rawArgs["accuracy"] as Double
 
-            val refId = args["refId"] as Int
-            val accuracy = args["accuracy"] as Double
-
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             location.accuracy = accuracy.toFloat()
 
             methodResult.success("success")
         }
         "android.location.Location::setSpeed" -> {
-            val args = rawArgs as Map<String, Any>
+            val speed = rawArgs["speed"] as Double
 
-            val refId = args["refId"] as Int
-            val speed = args["speed"] as Double
-
-            val location = HEAP[refId] as Location
+            val location: Location = rawArgs.__this__()
 
             location.speed = speed.toFloat()
 

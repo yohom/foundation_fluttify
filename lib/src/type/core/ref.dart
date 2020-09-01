@@ -11,14 +11,14 @@ class Ref {
   /// 释放当前引用对象
   Future<void> release__() async {
     await kMethodChannel
-        .invokeMethod('PlatformService::release', {'refId': refId});
+        .invokeMethod('PlatformService::release', {'__this__': this});
   }
 
   /// 通过反射调用方法
   Future<void> performSelectorWithObject__(String selector, Object object) {
     return kMethodChannel
         .invokeMethod('PlatformService::performSelectorWithObject', {
-      'refId': refId,
+      '__this__': this,
       'selector': selector,
       'object': object,
     });
@@ -29,7 +29,7 @@ class Ref {
     assert(property is Ref);
     assert(propertyKey > 0);
     return kMethodChannel.invokeMethod('PlatformService::addProperty', {
-      'refId': refId,
+      '__this__': this,
       'propertyKey': propertyKey,
       'property': property.refId,
     });
@@ -39,7 +39,7 @@ class Ref {
   Future<void> addListProperty__(int propertyKey, List<Ref> property) async {
     assert(propertyKey > 0);
     return kMethodChannel.invokeMethod('PlatformService::addListProperty', {
-      'refId': refId,
+      '__this__': this,
       'propertyKey': propertyKey,
       'property': <int>[for (final item in property) item.refId],
     });
@@ -50,7 +50,7 @@ class Ref {
     assert(propertyKey > 0);
     final result =
         await kMethodChannel.invokeMethod('PlatformService::getProperty', {
-      'refId': refId,
+      '__this__': this,
       'propertyKey': propertyKey,
     });
     return Ref()..refId = result;
@@ -66,7 +66,7 @@ class Ref {
         property is List ||
         property is bool);
     return kMethodChannel.invokeMethod('PlatformService::addJsonableProperty', {
-      'refId': refId,
+      '__this__': this,
       'propertyKey': propertyKey,
       'property': property,
     });
@@ -76,7 +76,7 @@ class Ref {
   Future<dynamic> getJsonableProperty__(int propertyKey) async {
     assert(propertyKey > 0);
     return kMethodChannel.invokeMethod('PlatformService::getJsonableProperty', {
-      'refId': refId,
+      '__this__': this,
       'propertyKey': propertyKey,
     });
   }

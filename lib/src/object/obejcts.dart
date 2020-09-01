@@ -7,7 +7,8 @@ import 'package:foundation_fluttify/src/type/core/typedefs.dart';
 final kNativeObjectPool = <Ref>{};
 
 const kMethodChannelName = 'com.fluttify/foundation_method';
-final kMethodChannel = MethodChannel(kMethodChannelName)
+final kMethodChannel = MethodChannel(
+    kMethodChannelName, StandardMethodCodec(FluttifyMessageCodec()))
   ..setMethodCallHandler((call) async {
     final method = call.method;
     final arguments = call.arguments as Map<String, dynamic>;

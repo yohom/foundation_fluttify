@@ -4,27 +4,20 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.IntentFilter
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.__this__
+import me.yohom.foundation_fluttify.get
 
 fun ContextHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.content.Context::registerReceiver" -> {
-            val args = rawArgs as Map<String, Any>
+            val broadcastReceiver = rawArgs["broadcastReceiver"] as BroadcastReceiver
+            val intentFilter = rawArgs["intentFilter"] as IntentFilter
 
-            val broadcastReceiver = HEAP[args["broadcastReceiver"] as Int] as BroadcastReceiver
-            val intentFilter = HEAP[args["intentFilter"] as Int] as IntentFilter
-
-            val refId = args["refId"] as Int
-            val context = HEAP[refId] as Context
+            val context: Context = rawArgs.__this__()
 
             val intent = context.registerReceiver(broadcastReceiver, intentFilter)
 
-            if (intent != null) {
-                HEAP[System.identityHashCode(intent)] = intent
-                methodResult.success(System.identityHashCode(intent))
-            } else {
-                methodResult.success(null)
-            }
+            methodResult.success(intent)
         }
         else -> methodResult.notImplemented()
     }

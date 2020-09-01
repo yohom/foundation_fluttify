@@ -43,16 +43,16 @@ class android_graphics_Bitmap extends java_lang_Object {
 
   Future<Uint8List> get data {
     return kMethodChannel
-        .invokeMethod('android.graphics.Bitmap::getData', {'refId': refId});
+        .invokeMethod('android.graphics.Bitmap::getData', {'__this__': this});
   }
 
   Future<void> recycle() {
     return kMethodChannel
-        .invokeMethod('android.graphics.Bitmap::recycle', {'refId': refId});
+        .invokeMethod('android.graphics.Bitmap::recycle', {'__this__': this});
   }
 
   Future<bool> get isRecycled {
-    return kMethodChannel
-        .invokeMethod('android.graphics.Bitmap::isRecycled', {'refId': refId});
+    return kMethodChannel.invokeMethod(
+        'android.graphics.Bitmap::isRecycled', {'__this__': this});
   }
 }

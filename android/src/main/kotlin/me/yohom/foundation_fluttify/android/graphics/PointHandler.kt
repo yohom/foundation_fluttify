@@ -2,35 +2,25 @@ package me.yohom.foundation_fluttify.android.graphics
 
 import android.graphics.Point
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.__this__
+import me.yohom.foundation_fluttify.get
 
 fun PointHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.graphics.Point::create" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val x = args["x"] as Int
-            val y = args["y"] as Int
+            val x = rawArgs["x"] as Int
+            val y = rawArgs["y"] as Int
             val point = Point(x, y)
 
-            val hash = System.identityHashCode(point)
-            HEAP[hash] = point
-
-            methodResult.success(hash)
+            methodResult.success(point)
         }
         "android.graphics.Point::getX" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val point = HEAP[refId] as Point
+            val point: Point = rawArgs.__this__()
 
             methodResult.success(point.x)
         }
         "android.graphics.Point::getY" -> {
-            val args = rawArgs as Map<String, Any>
-
-            val refId = args["refId"] as Int
-            val point = HEAP[refId] as Point
+            val point: Point = rawArgs.__this__()
 
             methodResult.success(point.y)
         }

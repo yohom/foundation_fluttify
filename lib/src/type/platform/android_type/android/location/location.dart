@@ -14,73 +14,73 @@ class android_location_Location extends java_lang_Object {
 
   Future<double> get latitude {
     return kMethodChannel.invokeMethod(
-        'android.location.Location::getLatitude', {'refId': refId});
+        'android.location.Location::getLatitude', {'__this__': this});
   }
 
   Future<double> get longitude {
     return kMethodChannel.invokeMethod(
-        'android.location.Location::getLongitude', {'refId': refId});
+        'android.location.Location::getLongitude', {'__this__': this});
   }
 
   Future<double> get bearing {
     return kMethodChannel.invokeMethod(
-        'android.location.Location::getBearing', {'refId': refId});
+        'android.location.Location::getBearing', {'__this__': this});
   }
 
   Future<double> get altitude {
     return kMethodChannel.invokeMethod(
-        'android.location.Location::getAltitude', {'refId': refId});
+        'android.location.Location::getAltitude', {'__this__': this});
   }
 
   Future<double> get accuracy {
     return kMethodChannel.invokeMethod(
-        'android.location.Location::getAccuracy', {'refId': refId});
+        'android.location.Location::getAccuracy', {'__this__': this});
   }
 
   Future<double> get speed {
-    return kMethodChannel
-        .invokeMethod('android.location.Location::getSpeed', {'refId': refId});
+    return kMethodChannel.invokeMethod(
+        'android.location.Location::getSpeed', {'__this__': this});
   }
 
   Future<void> setLatitude(double latitude) async {
     return kMethodChannel.invokeMethod(
       'android.location.Location::setLatitude',
-      {'refId': refId, 'latitude': latitude},
+      {'__this__': this, 'latitude': latitude},
     );
   }
 
   Future<void> setLongitude(double longitude) async {
     return kMethodChannel.invokeMethod(
       'android.location.Location::setLongitude',
-      {'refId': refId, 'longitude': longitude},
+      {'__this__': this, 'longitude': longitude},
     );
   }
 
   Future<void> setBearing(double bearing) async {
     return kMethodChannel.invokeMethod(
       'android.location.Location::setBearing',
-      {'refId': refId, 'bearing': bearing},
+      {'__this__': this, 'bearing': bearing},
     );
   }
 
   Future<void> setAltitude(double altitude) async {
     return kMethodChannel.invokeMethod(
       'android.location.Location::setAltitude',
-      {'refId': refId, 'altitude': altitude},
+      {'__this__': this, 'altitude': altitude},
     );
   }
 
   Future<void> setAccuracy(double accuracy) async {
     return kMethodChannel.invokeMethod(
       'android.location.Location::setAccuracy',
-      {'refId': refId, 'accuracy': accuracy},
+      {'__this__': this, 'accuracy': accuracy},
     );
   }
 
   Future<void> setSpeed(double speed) async {
     return kMethodChannel.invokeMethod(
       'android.location.Location::setSpeed',
-      {'refId': refId, 'speed': speed},
+      {'__this__': this, 'speed': speed},
     );
   }
 }

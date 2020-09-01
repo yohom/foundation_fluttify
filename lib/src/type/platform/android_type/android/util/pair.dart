@@ -5,11 +5,11 @@ import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/obj
 class android_util_Pair extends java_lang_Object {
   Future<Object> get first {
     return kMethodChannel
-        .invokeMethod('android.util.Pair::getFirst', {'refId': refId});
+        .invokeMethod('android.util.Pair::getFirst', {'__this__': this});
   }
 
   Future<Object> get second {
     return kMethodChannel
-        .invokeMethod('android.util.Pair::getSecond', {'refId': refId});
+        .invokeMethod('android.util.Pair::getSecond', {'__this__': this});
   }
 }

@@ -56,10 +56,8 @@ fun NotificationHandler(method: String, rawArgs: Any, methodResult: MethodChanne
                         .setContentText(contentText)
                         .setWhen(`when`)
                 val notification = builder.build()
-                val hash = System.identityHashCode(notification)
-                HEAP[hash] = notification
 
-                methodResult.success(hash)
+                methodResult.success(notification)
             }
         }
         else -> methodResult.notImplemented()

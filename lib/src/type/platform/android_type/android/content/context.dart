@@ -14,7 +14,7 @@ class android_content_Context extends java_lang_Object {
     final result = await kMethodChannel.invokeMethod(
       'android.content.Context::registerReceiver',
       {
-        'refId': refId,
+        '__this__': this,
         'broadcastReceiver': receiver.refId,
         'intentFilter': intentFilter.refId,
       },
