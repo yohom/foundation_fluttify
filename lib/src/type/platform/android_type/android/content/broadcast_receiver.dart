@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
@@ -10,7 +11,7 @@ class android_content_BroadcastReceiver extends java_lang_Object {
   Future<android_content_BroadcastReceiver> create(
     ValueChanged<android_content_Intent> onReceive,
   ) async {
-    final result = await kMethodChannel.invokeMethod(
+    final Ref result = await kMethodChannel.invokeMethod(
       'android.content.Context::registerReceiver',
       {
         '__this__': this,
@@ -19,17 +20,18 @@ class android_content_BroadcastReceiver extends java_lang_Object {
       },
     );
 
-    MethodChannel('android.content.BroadcastReceiver::create::Callback')
-        .setMethodCallHandler((call) {
+    MethodChannel(
+      'android.content.BroadcastReceiver::create::Callback',
+      StandardMethodCodec(FluttifyMessageCodec()),
+    ).setMethodCallHandler((call) {
       if (call.method ==
           'Callback::android.content.BroadcastReceiver::onReceive') {
-        final intentRefId = call.arguments['intent'] as int;
-        if (intentRefId != null) {
-          final intent = android_content_Intent()..refId = intentRefId;
-          if (onReceive != null) onReceive(intent);
-        }
+        final intent = call.arguments['intent'] as android_content_Intent;
+        if (onReceive != null) onReceive(intent);
       }
     });
-    return result;
+    return android_content_BroadcastReceiver()
+      ..refId = result.refId
+      ..tag__ = 'platform';
   }
 }
