@@ -1,4 +1,3 @@
-import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
@@ -12,7 +11,7 @@ class android_content_Context extends java_lang_Object {
     android_content_BroadcastReceiver receiver,
     android_content_IntentFilter intentFilter,
   ) async {
-    final Ref result = await kMethodChannel.invokeMethod(
+    final result = await kMethodChannel.invokeMethod(
       'android.content.Context::registerReceiver',
       {
         '__this__': this,
@@ -20,8 +19,6 @@ class android_content_Context extends java_lang_Object {
         'intentFilter': intentFilter.refId,
       },
     );
-    return android_content_Intent()
-      ..refId = result.refId
-      ..tag__ = 'platform';
+    return android_content_Intent()..refId = result;
   }
 }
