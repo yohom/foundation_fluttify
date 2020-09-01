@@ -15,7 +15,7 @@ class android_app_Notification extends java_lang_Object {
     bool enableLights = true,
     bool showBadge = true,
   }) async {
-    final refId =
+    final Ref result =
         await kMethodChannel.invokeMethod('android.app.Notification::create', {
       'contentTitle': contentTitle,
       'contentText': contentText,
@@ -26,7 +26,7 @@ class android_app_Notification extends java_lang_Object {
       'showBadge': showBadge,
     });
     return android_app_Notification()
-      ..refId = refId
+      ..refId = result.refId
       ..tag__ = 'platform';
   }
 }
