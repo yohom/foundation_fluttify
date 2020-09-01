@@ -147,7 +147,9 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         final refId = buffer.getInt32();
         final result = Ref()..refId = refId;
         kNativeObjectPool.add(result);
-        return result;
+        // 暂时和原方案保持一致, 直接返回refId给上层处理, 要直接转换为可目标类型比较困难
+        // 改动也比较大, 后面再考虑了
+        return refId;
       default:
         throw const FormatException('Message corrupted');
     }
