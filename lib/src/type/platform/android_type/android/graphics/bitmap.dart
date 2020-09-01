@@ -1,28 +1,27 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 import 'dart:typed_data';
 
-import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_graphics_Bitmap extends java_lang_Object {
   static Future<android_graphics_Bitmap> create(Uint8List bitmapBytes) async {
-    final Ref result = await kMethodChannel.invokeMethod(
+    final refId = await kMethodChannel.invokeMethod(
         'android.graphics.Bitmap::create', {'bitmapBytes': bitmapBytes});
     return android_graphics_Bitmap()
-      ..refId = result.refId
+      ..refId = refId
       ..tag__ = 'platform';
   }
 
   static Future<android_graphics_Bitmap> createWithDrawable(
     String drawableId,
   ) async {
-    final Ref result = await kMethodChannel
+    final refId = await kMethodChannel
         .invokeMethod('android.graphics.Bitmap::createWithDrawable', {
       'drawableId': drawableId,
     });
     return android_graphics_Bitmap()
-      ..refId = result.refId
+      ..refId = refId
       ..tag__ = 'platform';
   }
 
@@ -36,8 +35,8 @@ class android_graphics_Bitmap extends java_lang_Object {
       ],
     );
     return resultBatch
-        .map((result) => android_graphics_Bitmap()
-          ..refId = result.refId
+        .map((refId) => android_graphics_Bitmap()
+          ..refId = refId
           ..tag__ = 'platform')
         .toList();
   }
