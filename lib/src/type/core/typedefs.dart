@@ -143,16 +143,16 @@ typedef void ApplicationDidReceiveRemoteNotificationFetchCompletionHandler(
 );
 typedef void ApplicationOpenURLOptions(
   UIApplication application,
-  NSUrl url,
+  NSURL url,
   Map<String, dynamic> options,
 );
 typedef void ApplicationHandleOpenURL(
   UIApplication application,
-  NSUrl url,
+  NSURL url,
 );
 typedef void ApplicationOpenURLSourceApplicationAnnotation(
   UIApplication application,
-  NSUrl url,
+  NSURL url,
   String sourceApplication,
   NSObject annotation,
 );
