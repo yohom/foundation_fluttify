@@ -80,20 +80,20 @@ final kMethodChannel = MethodChannel(
         break;
       case 'applicationOpenURLOptions':
         if (applicationOpenURLOptions != null) {
-          final url = NSUrl()..refId = arguments['url'];
+          final url = NSURL()..refId = arguments['url'];
           final options = arguments['options'] as Map;
           applicationOpenURLOptions(application, url, options);
         }
         break;
       case 'applicationHandleOpenURL':
         if (applicationHandleOpenURL != null) {
-          final url = NSUrl()..refId = arguments['url'];
+          final url = NSURL()..refId = arguments['url'];
           applicationHandleOpenURL(application, url);
         }
         break;
       case 'applicationOpenURLSourceApplicationAnnotation':
         if (applicationOpenURLSourceApplicationAnnotation != null) {
-          final openURL = NSUrl()..refId = arguments['openURL'];
+          final openURL = NSURL()..refId = arguments['openURL'];
           final sourceApplication = arguments['sourceApplication'] as String;
           final annotation = NSObject()..refId = arguments['annotation'];
 
