@@ -12,36 +12,28 @@ void UIEdgeInsetsHandler(NSString* method, id rawArgs, FlutterResult methodResul
     if ([@"UIEdgeInsets::getTop" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *target = (NSValue *) HEAP[refId];
+        NSValue *target = (NSValue *) args[@"__this__"];
         UIEdgeInsets insets = [target UIEdgeInsetsValue];
         
         methodResult(@(insets.top));
     } else if ([@"UIEdgeInsets::getLeft" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *target = (NSValue *) HEAP[refId];
+        NSValue *target = (NSValue *) args[@"__this__"];
         UIEdgeInsets insets = [target UIEdgeInsetsValue];
         
         methodResult(@(insets.left));
     } else if ([@"UIEdgeInsets::getBottom" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *target = (NSValue *) HEAP[refId];
+        NSValue *target = (NSValue *) args[@"__this__"];
         UIEdgeInsets insets = [target UIEdgeInsetsValue];
         
         methodResult(@(insets.bottom));
     } else if ([@"UIEdgeInsets::getRight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *target = (NSValue *) HEAP[refId];
+        NSValue *target = (NSValue *) args[@"__this__"];
         UIEdgeInsets insets = [target UIEdgeInsetsValue];
         
         methodResult(@(insets.right));
@@ -57,9 +49,7 @@ void UIEdgeInsetsHandler(NSString* method, id rawArgs, FlutterResult methodResul
         
         NSValue *valuePoint = [NSValue valueWithUIEdgeInsets:insets];
         
-        HEAP[@(valuePoint.hash)] = valuePoint;
-        
-        methodResult(@(valuePoint.hash));
+        methodResult(valuePoint);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

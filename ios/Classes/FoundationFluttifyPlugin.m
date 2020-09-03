@@ -89,9 +89,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"application:didFinishLaunchingWithOptions");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationDidFinishLaunchingWithOptions"
-              arguments:@{@"application": @(application.hash), @"launchOptions": @{}}]; // 由于无法预知NSDictionary里的类型, 这里不传输了
+              arguments:@{@"application": application, @"launchOptions": @{}}]; // 由于无法预知NSDictionary里的类型, 这里不传输了
   return YES;
 }
 
@@ -104,9 +108,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"application:willFinishLaunchingWithOptions");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationWillFinishLaunchingWithOptions"
-              arguments:@{@"application": @(application.hash), @"launchOptions": @{}}];
+              arguments:@{@"application": application, @"launchOptions": @{}}];
   return YES;
 }
 
@@ -117,9 +125,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"applicationDidBecomeActive");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationDidBecomeActive"
-              arguments:@{@"application": @(application.hash)}];
+              arguments:@{@"application": application}];
 }
 
 /**
@@ -129,9 +141,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"applicationWillResignActive");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationWillResignActive"
-              arguments:@{@"application": @(application.hash)}];
+              arguments:@{@"application": application}];
 }
 
 /**
@@ -141,9 +157,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"applicationDidEnterBackground");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationDidEnterBackground"
-              arguments:@{@"application": @(application.hash)}];
+              arguments:@{@"application": application}];
 }
 
 /**
@@ -153,9 +173,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"applicationWillEnterForeground");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationWillEnterForeground"
-              arguments:@{@"application": @(application.hash)}];
+              arguments:@{@"application": application}];
 }
 
 /**
@@ -165,9 +189,13 @@ NSString *_channelName = @"com.fluttify/foundation_method";
   if (enableLog) {
     NSLog(@"applicationWillTerminate");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationWillTerminate"
-              arguments:@{@"application": @(application.hash)}];
+              arguments:@{@"application": application}];
 }
 
 /**
@@ -181,9 +209,13 @@ API_DEPRECATED(
   if (enableLog) {
     NSLog(@"application:didRegisterUserNotificationSettings");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationDidRegisterUserNotificationSettings"
-              arguments:@{@"application": @(application.hash), @"notificationSettings": @([notificationSettings hash])}];
+              arguments:@{@"application": application, @"notificationSettings": notificationSettings}];
 }
 
 /**
@@ -193,9 +225,13 @@ API_DEPRECATED(
   if (enableLog) {
     NSLog(@"application:didRegisterForRemoteNotificationsWithDeviceToken");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationDidRegisterForRemoteNotificationsWithDeviceToken"
-              arguments:@{@"application": @(application.hash), @"deviceToken": @([deviceToken hash])}];
+              arguments:@{@"application": application, @"deviceToken": deviceToken}];
 }
 
 /**
@@ -209,9 +245,13 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
   if (enableLog) {
     NSLog(@"application:didReceiveRemoteNotification:fetchCompletionHandler");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationDidReceiveRemoteNotificationFetchCompletionHandler"
-              arguments:@{@"application": @(application.hash), @"userInfo": @([userInfo hash])}];
+              arguments:@{@"application": application, @"userInfo": userInfo}];
   return NO;
 }
 
@@ -226,9 +266,13 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
   if (enableLog) {
     NSLog(@"application:openURL:options");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationOpenURLOptions"
-              arguments:@{@"application": @(application.hash), @"url": @([url hash]), @"options": @{}}];
+              arguments:@{@"application": application, @"url": url, @"options": @{}}];
   return NO;
 }
 
@@ -241,9 +285,13 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
   if (enableLog) {
     NSLog(@"application:handleOpenURL");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationHandleOpenURL"
-              arguments:@{@"application": @(application.hash), @"url": @([url hash])}];
+              arguments:@{@"application": application, @"url": url}];
   return NO;
 }
 
@@ -259,9 +307,13 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo
   if (enableLog) {
     NSLog(@"application:openURL:sourceApplication:annotation");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationOpenURLSourceApplicationAnnotation"
-              arguments:@{@"application": @(application.hash), @"url": @([url hash]), @"sourceApplication": sourceApplication, @"annotation": @(((NSObject *) annotation).hash)}];
+              arguments:@{@"application": application, @"url": url, @"sourceApplication": sourceApplication, @"annotation": (NSObject *) annotation}];
   return NO;
 }
 
@@ -277,9 +329,13 @@ API_AVAILABLE(ios(9.0)) {
   if (enableLog) {
     NSLog(@"application:performActionForShortcutItem:completionHandler");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationPerformActionForShortcutItemCompletionHandler"
-              arguments:@{@"application": @(application.hash), @"shortcutItem": @([shortcutItem hash])}];
+              arguments:@{@"application": application, @"shortcutItem": shortcutItem}];
   return NO;
 }
 
@@ -294,9 +350,13 @@ handleEventsForBackgroundURLSession:(nonnull NSString *)identifier
   if (enableLog) {
     NSLog(@"application:handleEventsForBackgroundURLSession:completionHandler");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationHandleEventsForBackgroundURLSessionCompletionHandler"
-              arguments:@{@"application": @([application hash]), @"identifier": identifier}];
+              arguments:@{@"application": application, @"identifier": identifier}];
   return NO;
 }
 
@@ -310,9 +370,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))comp
   if (enableLog) {
     NSLog(@"application:performFetchWithCompletionHandler");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationPerformFetchWithCompletionHandler"
-              arguments:@{@"application": @([application hash])}];
+              arguments:@{@"application": application}];
   return NO;
 }
 
@@ -327,9 +391,13 @@ continueUserActivity:(NSUserActivity *)userActivity
   if (enableLog) {
     NSLog(@"application:continueUserActivity:restorationHandler");
   }
-  FlutterMethodChannel *channel = [FlutterMethodChannel methodChannelWithName:_channelName binaryMessenger:[_registrar messenger]];
+  FlutterMethodChannel *channel = [FlutterMethodChannel
+      methodChannelWithName:_channelName
+            binaryMessenger:[_registrar messenger]
+                      codec:[FlutterStandardMethodCodec codecWithReaderWriter:[[FluttifyReaderWriter alloc] init]]];
+
   [channel invokeMethod:@"applicationContinueUserActivityRestorationHandler"
-              arguments:@{@"application": @([application hash]), @"userActivity": @([userActivity hash])}];
+              arguments:@{@"application": application, @"userActivity": userActivity}];
   return NO;
 }
 

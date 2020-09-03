@@ -22,24 +22,22 @@ void CGSizeHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         
         NSValue* result = [NSValue valueWithCGSize:rect];
         
-        HEAP[@(result.hash)] = result;
-        
-        methodResult(@(result.hash));
+        methodResult(result);
     } else if ([@"CGSize::getWidth" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
+        NSNumber *__this__ = (NSNumber *) args[@"__this__"];
         
-        NSValue *value = (NSValue *) HEAP[refId];
+        NSValue *value = (NSValue *) HEAP[__this__];
         CGSize cgSize = value.CGSizeValue;
         
         methodResult(@(cgSize.width));
     } else if ([@"CGSize::getHeight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
+        NSNumber *__this__ = (NSNumber *) args[@"__this__"];
         
-        NSValue *value = (NSValue *) HEAP[refId];
+        NSValue *value = (NSValue *) HEAP[__this__];
         CGSize cgSize = value.CGSizeValue;
         
         methodResult(@(cgSize.height));

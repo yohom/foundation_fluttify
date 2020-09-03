@@ -25,13 +25,12 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::performSelectorWithObject" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
         NSString *selector = (NSString *) args[@"selector"];
         NSObject *object = (NSObject *) args[@"object"];
         
-        NSObject *target = (NSObject *) HEAP[refId];
+        NSObject *__this__ = (NSObject *) args[@"__this__"];
         
-        [target performSelector:NSSelectorFromString(selector) withObject:object];
+        [__this__ performSelector:NSSelectorFromString(selector) withObject:object];
         
         methodResult(@"success");
     }
@@ -39,15 +38,14 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::addProperty" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-        NSNumber *propertyRefId = (NSNumber *) args[@"property"];
+        NSNumber *property__this__ = (NSNumber *) args[@"property"];
         
-        NSObject *target = HEAP[refId];
-        NSObject *property = HEAP[propertyRefId];
+        NSObject *__this__ = args[@"__this__"];
+        NSObject *property = HEAP[property__this__];
         
-        if (target) {
-            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if (__this__) {
+            objc_setAssociatedObject(__this__, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -57,18 +55,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::addListProperty" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber* refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-        NSArray<NSNumber*>* propertyRefId = (NSArray<NSNumber*>*) args[@"property"];
+        NSArray<NSObject*>* property__ = (NSArray<NSObject *>*) args[@"property"];
         
-        NSObject *target = HEAP[refId];
-        NSMutableArray<NSObject*>* property = [NSMutableArray array];
-        for (NSNumber* itemRefId in propertyRefId) {
-            [property addObject:HEAP[itemRefId]];
-        }
-        
-        if (target) {
-            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        NSObject *__this__ = args[@"__this__"];
+
+        if (__this__) {
+            objc_setAssociatedObject(__this__, (const void *) propertyKey, property__, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -80,18 +73,16 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSMutableArray* resultList = [NSMutableArray array];
         
-        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
-            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+        for (NSUInteger __i__ = 0; __i__ < argsBatch.count; __i__++) {
+            NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
-            NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-            NSNumber *propertyRefId = (NSNumber *) args[@"property"];
+            NSObject *property__ = (NSObject *) args[@"property"];
             
-            NSObject *target = HEAP[refId];
-            NSObject *property = HEAP[propertyRefId];
-            
-            if (target) {
-                objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            NSObject *__this__ = args[@"__this__"];
+
+            if (__this__) {
+                objc_setAssociatedObject(__this__, (const void *) propertyKey, property__, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 [resultList addObject:@"success"];
             } else {
                 methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -105,15 +96,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::getProperty" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         
-        NSObject *target = HEAP[refId];
+        NSObject *__this__ = args[@"__this__"];
         
-        if (target) {
-            NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
-            HEAP[@(result.hash)] = result;
-            methodResult(@(result.hash));
+        if (__this__) {
+            NSObject *result = objc_getAssociatedObject(__this__, (const void *) propertyKey);
+            methodResult(result);
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
@@ -125,18 +114,15 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
-            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+            NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
-            NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
             
-            NSObject *target = HEAP[refId];
+            NSObject *__this__ = args[@"__this__"];
             
-            if (target) {
-                NSObject *result = objc_getAssociatedObject(target, (const void *) propertyKey);
-                HEAP[@(result.hash)] = result;
-                
-                [resultList addObject:@(result.hash)];
+            if (__this__) {
+                NSObject *result = objc_getAssociatedObject(__this__, (const void *) propertyKey);
+                [resultList addObject:result];
             } else {
                 methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
                 break;
@@ -149,14 +135,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::addJsonableProperty" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         NSObject *property = (NSObject *) args[@"property"];
         
-        NSObject *target = HEAP[refId];
+        NSObject *__this__ = args[@"__this__"];
         
-        if (target) {
-            objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if (__this__) {
+            objc_setAssociatedObject(__this__, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -169,16 +154,15 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
-            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+            NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
-            NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
             NSObject *property = (NSObject *) args[@"property"];
             
-            NSObject *target = HEAP[refId];
+            NSObject *__this__ = args[@"__this__"];
             
-            if (target) {
-                objc_setAssociatedObject(target, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if (__this__) {
+                objc_setAssociatedObject(__this__, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 [resultList addObject:@"success"];
             } else {
                 methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -192,13 +176,12 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::getJsonableProperty" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
         
-        NSObject *target = HEAP[refId];
+        NSObject *__this__ = args[@"__this__"];
         
-        if (target) {
-            methodResult(objc_getAssociatedObject(target, (const void *) propertyKey));
+        if (__this__) {
+            methodResult(objc_getAssociatedObject(__this__, (const void *) propertyKey));
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
         }
@@ -210,15 +193,14 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSMutableArray* resultList = [NSMutableArray array];
         
         for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
-            NSDictionary<NSString*, id>* args = [argsBatch objectAtIndex:__i__];
+            NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
-            NSNumber *refId = (NSNumber *) args[@"refId"];
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
             
-            NSObject *target = HEAP[refId];
+            NSObject *__this__ = args[@"__this__"];
             
-            if (target) {
-                NSObject* result = objc_getAssociatedObject(target, (const void *) propertyKey);
+            if (__this__) {
+                NSObject* result = objc_getAssociatedObject(__this__, (const void *) propertyKey);
                 [resultList addObject:result];
             } else {
                 methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -231,12 +213,12 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     // 释放一个对象
     else if ([@"PlatformService::release" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
-        
-        NSNumber *refId = (NSNumber *) args[@"refId"];
+
+        NSObject *__this__ = (NSObject *) args[@"__this__"];
         
         if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
-        
-        [HEAP removeObjectForKey:refId];
+
+        [HEAP removeObjectForKey:@(__this__.hash)];
         methodResult(@"success");
         
         if (enableLog) NSLog(@"HEAP: %@", HEAP);
@@ -245,12 +227,12 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::release_batch" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSArray<NSNumber*>* refBatch = (NSArray<NSNumber*>*) args[@"refId_batch"];
+        NSArray<NSObject *>* __this_batch__ = (NSArray<NSObject*>*) args[@"__this__"];
         
-        if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", refBatch);
+        if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", __this_batch__);
         
-        for (NSNumber* refId in refBatch) {
-            [HEAP removeObjectForKey:refId];
+        for (NSObject* item in __this_batch__) {
+            [HEAP removeObjectForKey:@(item.hash)];
         }
         methodResult(@"success");
         
@@ -270,11 +252,10 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSString *name = (NSString *) args[@"name"];
-        NSNumber *refId = (NSNumber *) args[@"refId"];
+
+        if (enableLog) NSLog(@"PlatformService::压入栈 %@@%@", NSStringFromClass([args[@"__this__"] class]), __this__);
         
-        if (enableLog) NSLog(@"PlatformService::压入栈 %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
-        
-        STACK[name] = HEAP[refId];
+        STACK[name] = args[@"__this__"];
         
         methodResult(@"success");
         
@@ -315,7 +296,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         UIViewController *controller = [[NSClassFromString(viewControllerClass) alloc] init];
         if (withNavigationController) {
             //            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
-            //            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone target:nil action:@selector(dismiss)];
+            //            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone __this__:nil action:@selector(dismiss)];
             //            [[controller navigationItem] setLeftBarButtonItem:item];
             //            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:naviController animated:YES completion:nil];
         } else {

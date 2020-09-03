@@ -22,9 +22,7 @@ void UIImageViewHandler(NSString* method, id rawArgs, FlutterResult methodResult
         
         UIImageView* imageView = [[UIImageView alloc]initWithImage:image];
         
-        HEAP[@(imageView.hash)] = imageView;
-        
-        methodResult(@(imageView.hash));
+        methodResult(imageView);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

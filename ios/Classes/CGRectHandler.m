@@ -24,42 +24,32 @@ void CGRectHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         
         NSValue* result = [NSValue valueWithCGRect:rect];
         
-        HEAP[@(result.hash)] = result;
-        
-        methodResult(@(result.hash));
+        methodResult(result);
     } else if ([@"CGRect::getX" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *value = (NSValue *) HEAP[refId];
+        NSValue *value = (NSValue *) args[@"__this__"];
         CGRect cgRect = value.CGRectValue;
         
         methodResult(@(cgRect.origin.x));
     } else if ([@"CGRect::getY" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *value = (NSValue *) HEAP[refId];
+        NSValue *value = (NSValue *) args[@"__this__"];
         CGRect cgRect = value.CGRectValue;
         
         methodResult(@(cgRect.origin.y));
     } else if ([@"CGRect::getWidth" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *value = (NSValue *) HEAP[refId];
+        NSValue *value = (NSValue *) args[@"__this__"];
         CGRect cgRect = value.CGRectValue;
         
         methodResult(@(cgRect.size.width));
     } else if ([@"CGRect::getHeight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSValue *value = (NSValue *) HEAP[refId];
+        NSValue *value = (NSValue *) args[@"__this__"];
         CGRect cgRect = value.CGRectValue;
         
         methodResult(@(cgRect.size.height));

@@ -15,17 +15,13 @@ void NSErrorHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
     if ([@"NSError::getCode" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSError *target = (NSError *) HEAP[refId];
+        NSError *target = (NSError *) args[@"__this__"];
         
         methodResult(@(target.code));
     } else if ([@"NSError::getDescription" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSNumber *refId = (NSNumber *) args[@"refId"];
-        
-        NSError *target = (NSError *) HEAP[refId];
+        NSError *target = (NSError *) args[@"__this__"];
         
         methodResult(target.description);
     } else {
