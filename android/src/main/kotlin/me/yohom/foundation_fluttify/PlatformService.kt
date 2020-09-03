@@ -1,3 +1,5 @@
+@file:Suppress("LocalVariableName")
+
 package me.yohom.foundation_fluttify
 
 import android.app.Activity
@@ -27,7 +29,7 @@ fun PlatformService(
                 Log.d("PlatformService", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
             }
 
-            HEAP.remove(args["refId"] as Int)
+            HEAP.remove(System.identityHashCode(args["__this__"]))
 
             methodResult.success("success")
 
@@ -38,10 +40,10 @@ fun PlatformService(
         }
         "PlatformService::release_batch" -> {
             if (enableLog) {
-                Log.d("PlatformService", "批量释放对象: refId_batch: ${(args["refId_batch"] as List<Int>)}")
+                Log.d("PlatformService", "批量释放对象: __this_batch__: ${args["__this_batch__"]}")
             }
 
-            (args["refId_batch"] as List<Int>).forEach { HEAP.remove(it) }
+            (args["__this_batch__"] as List<*>).forEach { HEAP.remove(System.identityHashCode(it)) }
 
             methodResult.success("success")
 
@@ -51,8 +53,7 @@ fun PlatformService(
             }
         }
         "PlatformService::clearHeap" -> {
-            if (enableLog)
-                Log.d("PlatformService", "CLEAR HEAP")
+            if (enableLog) Log.d("PlatformService", "CLEAR HEAP")
 
             HEAP.clear()
             methodResult.success("success")
@@ -62,40 +63,33 @@ fun PlatformService(
                 Log.d("PlatformService", "HEAP: $HEAP")
             }
         }
-        // TODO 自定义MessageCodec
         "PlatformService::pushStack" -> {
             val name = args["name"] as String
-            val refId = args["refId"] as Int
+            val __this__ = args["__this__"] as Any
 
             if (enableLog) {
-                Log.d("PlatformService", "PUSH OBJECT: ${HEAP[refId]?.javaClass}@${refId}")
+                Log.d("PlatformService", "PUSH OBJECT: $__this__")
             }
 
-            HEAP[refId]?.run { STACK[name] = this }
+            STACK[name] = System.identityHashCode(__this__)
 
             methodResult.success("success")
 
             // print current STACK
-            if (enableLog) {
-                Log.d("PlatformService", "STACK: $STACK")
-            }
+            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
         }
         "PlatformService::pushStackJsonable" -> {
             val name = args["name"] as String
             val data = args["data"]
 
-            if (enableLog) {
-                Log.d("PlatformService", "压入jsonable: ${data?.javaClass}@${data}")
-            }
+            if (enableLog) Log.d("PlatformService", "压入jsonable: ${data?.javaClass}@${data}")
 
             STACK[name] = data!!
 
             methodResult.success("success")
 
             // 打印当前STACK
-            if (enableLog) {
-                Log.d("PlatformService", "STACK: $STACK")
-            }
+            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
         }
         "PlatformService::clearStack" -> {
             STACK.clear()
@@ -103,9 +97,8 @@ fun PlatformService(
             methodResult.success("success")
 
             // print current STACK
-            if (enableLog) {
-                Log.d("PlatformService", "STACK: $STACK")
-            }
+            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+
         }
         "PlatformService::startActivity" -> {
             val activity = activityBinding?.activity

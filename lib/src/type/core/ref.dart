@@ -99,7 +99,7 @@ extension Ref_Batch on Iterable<Ref> {
   Future<void> release_batch() async {
     return kMethodChannel.invokeMethod(
       'PlatformService::release_batch',
-      {'refId_batch': map((e) => e.refId).toList()},
+      {'__this_batch__': this},
     );
   }
 }
