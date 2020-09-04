@@ -23,9 +23,7 @@ void UIColorHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         
         UIColor *color = [UIColor colorWithRed:red / 0xFF green:green / 0xFF blue:blue / 0xFF alpha:alpha / 0xFF];
         
-        HEAP[@(color.hash)] = color;
-        
-        methodResult(@(color.hash));
+        methodResult(color);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

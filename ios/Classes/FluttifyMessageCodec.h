@@ -9,7 +9,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FluttifyMessageCodec : FlutterStandardMessageCodec
+@interface FluttifyReaderWriter : FlutterStandardReaderWriter
+
+@end
+
+@interface FluttifyWriter : FlutterStandardWriter
+
+@end
+
+@interface FluttifyReader : FlutterStandardReader
 
 @end
 

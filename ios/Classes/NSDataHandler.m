@@ -16,9 +16,7 @@ void NSDataHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         
         NSData *target = data.data;
         
-        HEAP[@(target.hash)] = target;
-        
-        methodResult(@(target.hash));
+        methodResult(target);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

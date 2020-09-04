@@ -16,9 +16,7 @@ void UIViewControllerHandler(NSString* method, id args, FlutterResult methodResu
     if ([@"UIViewController::get" isEqualToString:method]) {
         UIViewController* controller = [UIApplication sharedApplication].keyWindow.rootViewController;
 
-        HEAP[@(controller.hash)] = controller;
-        
-        methodResult(@(controller.hash));
+        methodResult(controller);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
