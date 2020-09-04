@@ -39,13 +39,12 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
-        NSNumber *property__this__ = (NSNumber *) args[@"property"];
+        NSObject *property__ = (NSObject *) args[@"property"];
         
         NSObject *__this__ = args[@"__this__"];
-        NSObject *property = HEAP[property__this__];
-        
+
         if (__this__) {
-            objc_setAssociatedObject(__this__, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(__this__, (const void *) propertyKey, property__, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -113,7 +112,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSMutableArray* resultList = [NSMutableArray array];
         
-        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+        for (NSUInteger __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
@@ -153,7 +152,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSMutableArray* resultList = [NSMutableArray array];
         
-        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+        for (NSUInteger __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
@@ -192,7 +191,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSMutableArray* resultList = [NSMutableArray array];
         
-        for (int __i__ = 0; __i__ < argsBatch.count; __i__++) {
+        for (NSUInteger __i__ = 0; __i__ < argsBatch.count; __i__++) {
             NSDictionary<NSString*, id>* args = argsBatch[__i__];
             
             NSInteger propertyKey = [(NSNumber *) args[@"propertyKey"] integerValue];
@@ -295,7 +294,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSString* viewControllerClass = (NSString*) args[@"viewControllerClass"];
         BOOL withNavigationController = [(NSNumber*) args[@"withNavigationController"] boolValue];
         
-        UIViewController *controller = [[NSClassFromString(viewControllerClass) alloc] init];
+        UIViewController *controller = (UIViewController *) [[NSClassFromString(viewControllerClass) alloc] init];
         if (withNavigationController) {
             //            UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:controller];
             //            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStyleDone __this__:nil action:@selector(dismiss)];

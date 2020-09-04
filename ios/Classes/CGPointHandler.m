@@ -5,8 +5,6 @@
 #import <Flutter/Flutter.h>
 #import "CGPointHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void CGPointHandler(NSString* method, id rawArgs, FlutterResult methodResult) {

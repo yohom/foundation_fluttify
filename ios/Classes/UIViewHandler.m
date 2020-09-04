@@ -5,8 +5,6 @@
 #import <Flutter/Flutter.h>
 #import "UIViewHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {

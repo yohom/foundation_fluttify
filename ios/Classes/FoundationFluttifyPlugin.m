@@ -18,7 +18,7 @@
 NSMutableDictionary<NSString *, NSObject *> *STACK;
 
 // Container for Dart side random access objects
-NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
+NSMutableDictionary<NSString *, NSObject *> *HEAP;
 
 // whether enable log or not
 BOOL enableLog;
