@@ -7,8 +7,6 @@
 
 #import "CGSizeHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void CGSizeHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
@@ -25,20 +23,18 @@ void CGSizeHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         methodResult(result);
     } else if ([@"CGSize::getWidth" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+
+        NSValue *__this__ = (NSValue *) args[@"__this__"];
         
-        NSNumber *__this__ = (NSNumber *) args[@"__this__"];
-        
-        NSValue *value = (NSValue *) HEAP[__this__];
-        CGSize cgSize = value.CGSizeValue;
+        CGSize cgSize = __this__.CGSizeValue;
         
         methodResult(@(cgSize.width));
     } else if ([@"CGSize::getHeight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+
+        NSValue *__this__ = (NSValue *) args[@"__this__"];
         
-        NSNumber *__this__ = (NSNumber *) args[@"__this__"];
-        
-        NSValue *value = (NSValue *) HEAP[__this__];
-        CGSize cgSize = value.CGSizeValue;
+        CGSize cgSize = __this__.CGSizeValue;
         
         methodResult(@(cgSize.height));
     } else {

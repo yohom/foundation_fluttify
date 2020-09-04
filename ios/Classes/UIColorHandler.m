@@ -7,8 +7,6 @@
 
 #import "UIColorHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void UIColorHandler(NSString* method, id rawArgs, FlutterResult methodResult) {

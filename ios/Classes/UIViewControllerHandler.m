@@ -8,8 +8,6 @@
 #import "UIViewControllerHandler.h"
 #import <Flutter/Flutter.h>
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void UIViewControllerHandler(NSString* method, id args, FlutterResult methodResult) {

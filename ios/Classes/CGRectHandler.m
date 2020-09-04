@@ -7,8 +7,6 @@
 
 #import "CGRectHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void CGRectHandler(NSString* method, id rawArgs, FlutterResult methodResult) {

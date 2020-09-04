@@ -4,8 +4,6 @@
 
 #import "UIEdgeInsetsHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void UIEdgeInsetsHandler(NSString* method, id rawArgs, FlutterResult methodResult) {

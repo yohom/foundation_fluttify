@@ -4,8 +4,6 @@
 
 #import "UIImageHandler.h"
 
-extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void UIImageHandler(NSString *method, id rawArgs, FlutterResult methodResult) {

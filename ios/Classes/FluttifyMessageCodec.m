@@ -7,7 +7,7 @@
 
 #import "FluttifyMessageCodec.h"
 
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
+extern NSMutableDictionary<NSString *, NSObject *> *HEAP;
 
 typedef NS_ENUM(NSInteger, FluttifyField) {
   FluttifyFieldNil,
@@ -124,12 +124,7 @@ UInt8 elementSizeForFlutterStandardDataType(FlutterStandardDataType type) {
     // 传递NSObject类型
   else if ([value isKindOfClass:[NSObject class]]) {
     NSUInteger hash = [value hash];
-    SInt32 n;
-    BOOL success = CFNumberGetValue((CFNumberRef) hash, kCFNumberSInt32Type, &n);
-    if (success) {
-      [self writeByte:FluttifyFieldRef];
-      [self writeBytes:(UInt8 *) &n length:4];
-    }
+    [self writeUTF8:[NSString stringWithFormat:@"%@", @(hash)]];
   } else {
     NSLog(@"Unsupported value: %@ of type %@", value, [value class]);
     NSAssert(NO, @"Unsupported value for standard codec");
@@ -218,9 +213,8 @@ UInt8 elementSizeForFlutterStandardDataType(FlutterStandardDataType type) {
       return @(value);
     }
     case FluttifyFieldRef: {
-      SInt32 value;
-      [self readBytes:&value length:4];
-      return HEAP[@(value)];
+      NSString *refId = [self readUTF8];
+      return HEAP[refId];
     }
     default:
       NSAssert(NO, @"Corrupted standard message");
