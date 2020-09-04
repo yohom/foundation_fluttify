@@ -101,7 +101,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
         // 其他类型传哈希值
         else {
             // 放入HEAP
-            HEAP[System.identityHashCode(value)] = value
+            HEAP[System.identityHashCode(value).toString()] = value
 
             stream.write(REF.toInt())
             writeInt(stream, System.identityHashCode(value))
@@ -176,7 +176,10 @@ class FluttifyMessageCodec: StandardMessageCodec() {
                 result = map
             }
             ENUM -> result = buffer.int
-            REF -> result = HEAP[buffer.int]
+            REF -> {
+                val bytes = readBytes(buffer)
+                result = HEAP[String(bytes, UTF8)]
+            }
             else -> throw java.lang.IllegalArgumentException("Message corrupted")
         }
         return result

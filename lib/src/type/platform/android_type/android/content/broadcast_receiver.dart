@@ -23,7 +23,7 @@ class android_content_BroadcastReceiver extends java_lang_Object {
         .setMethodCallHandler((call) {
       if (call.method ==
           'Callback::android.content.BroadcastReceiver::onReceive') {
-        final intentRefId = call.arguments['intent'] as int;
+        final intentRefId = call.arguments['intent'] as String;
         if (intentRefId != null) {
           final intent = android_content_Intent()..refId = intentRefId;
           if (onReceive != null) onReceive(intent);

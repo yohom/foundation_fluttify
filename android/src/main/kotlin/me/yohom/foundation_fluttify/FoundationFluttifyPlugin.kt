@@ -33,7 +33,7 @@ import me.yohom.foundation_fluttify.java.io.FileHandler
 val STACK = mutableMapOf<String, Any>()
 
 // Container for Dart side random access objects
-val HEAP = mutableMapOf<Int, Any>()
+val HEAP = mutableMapOf<String, Any>()
 
 // whether enable log or not
 var enableLog: Boolean = true
