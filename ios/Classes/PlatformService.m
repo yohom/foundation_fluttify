@@ -216,7 +216,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
 
         NSObject *__this__ = (NSObject *) args[@"__this__"];
         
-        if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([HEAP[refId] class]), refId);
+        if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([__this__ class]), @([__this__ hash]));
 
         [HEAP removeObjectForKey:@(__this__.hash)];
         methodResult(@"success");
@@ -253,9 +253,11 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSString *name = (NSString *) args[@"name"];
 
+        NSObject *__this__ = (NSObject *) args[@"__this__"];
+
         if (enableLog) NSLog(@"PlatformService::压入栈 %@@%@", NSStringFromClass([args[@"__this__"] class]), __this__);
-        
-        STACK[name] = args[@"__this__"];
+
+        STACK[name] = __this__;
         
         methodResult(@"success");
         
