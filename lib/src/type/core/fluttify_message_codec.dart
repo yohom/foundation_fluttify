@@ -71,13 +71,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
       buffer.putUint8(_valueFloat64List);
       writeSize(buffer, value.length);
       buffer.putFloat64List(value);
-    } else if (value is List) {
-      buffer.putUint8(_valueList);
-      writeSize(buffer, value.length);
-      for (final dynamic item in value) {
-        writeValue(buffer, item);
-      }
-    } else if (value is Set) {
+    } else if (value is Iterable) {
       buffer.putUint8(_valueList);
       writeSize(buffer, value.length);
       for (final dynamic item in value) {
