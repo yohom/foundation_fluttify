@@ -3,7 +3,7 @@ import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class Ref {
   /// unique id of native side counterpart object
-  int refId;
+  String refId;
 
   /// custom tag
   String tag__;
@@ -41,7 +41,7 @@ class Ref {
     return kMethodChannel.invokeMethod('PlatformService::addListProperty', {
       '__this__': this,
       'propertyKey': propertyKey,
-      'property': <int>[for (final item in property) item.refId],
+      'property': property,
     });
   }
 

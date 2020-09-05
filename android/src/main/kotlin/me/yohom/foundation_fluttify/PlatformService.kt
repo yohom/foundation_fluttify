@@ -26,10 +26,10 @@ fun PlatformService(
         }
         "PlatformService::release" -> {
             if (enableLog) {
-                Log.d("PlatformService", "释放对象: ${HEAP[args["refId"] as Int]?.javaClass}@${args["refId"]}")
+                Log.d("PlatformService", "释放对象: ${args["__this__"]}")
             }
 
-            HEAP.remove(System.identityHashCode(args["__this__"]))
+            HEAP.remove(System.identityHashCode(args["__this__"]).toString())
 
             methodResult.success("success")
 
@@ -43,7 +43,7 @@ fun PlatformService(
                 Log.d("PlatformService", "批量释放对象: __this_batch__: ${args["__this_batch__"]}")
             }
 
-            (args["__this_batch__"] as List<*>).forEach { HEAP.remove(System.identityHashCode(it)) }
+            (args["__this_batch__"] as List<*>).forEach { HEAP.remove(System.identityHashCode(it).toString()) }
 
             methodResult.success("success")
 

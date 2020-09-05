@@ -36,8 +36,7 @@ fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Resu
             methodResult.success(resultBatch)
         }
         "android.graphics.Bitmap::getData" -> {
-            val refId = rawArgs["refId"] as Int
-            val bitmap = HEAP[refId] as Bitmap
+            val bitmap = rawArgs["__this__"] as Bitmap
 
             val outputStream = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)

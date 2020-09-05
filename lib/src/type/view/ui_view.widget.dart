@@ -30,7 +30,7 @@ class _UIViewWidgetState extends State<UIViewWidget> {
         viewType: 'me.yohom/foundation_fluttify/UIView',
         onPlatformViewCreated: (viewId) {
           _view = UIView()
-            ..refId = 2147483647 - viewId
+            ..refId = (2147483647 - viewId).toString()
             ..tag__ = 'platform';
           if (widget.onUIViewCreated != null) {
             widget.onUIViewCreated(_view);

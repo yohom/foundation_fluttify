@@ -100,7 +100,8 @@ class FluttifyMessageCodec extends StandardMessageCodec {
     // fluttify Ref类
     else if (value is Ref) {
       buffer.putUint8(_valueRef);
-      buffer.putInt32(value.refId);
+      final Uint8List bytes = utf8.encoder.convert(value.refId);
+      writeSize(buffer, bytes.length);
     } else {
       throw ArgumentError.value(value);
     }
@@ -150,7 +151,9 @@ class FluttifyMessageCodec extends StandardMessageCodec {
       case _valueEnum:
         return buffer.getInt32();
       case _valueRef:
-        final refId = buffer.getInt32();
+        final int length = readSize(buffer);
+        final refId = utf8.decoder.convert(buffer.getUint8List(length));
+
         final result = Ref()..refId = refId;
         kNativeObjectPool.add(result);
         // 暂时和原方案保持一致, 直接返回refId给上层处理, 要直接转换为可目标类型比较困难
