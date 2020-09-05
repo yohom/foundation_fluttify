@@ -155,6 +155,8 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         final int length = readSize(buffer);
         final String refId = utf8.decoder.convert(buffer.getUint8List(length));
 
+        if (refId == null) return null;
+
         final result = Ref()..refId = refId;
         kNativeObjectPool.add(result);
         // 暂时和原方案保持一致, 直接返回refId给上层处理, 要直接转换为可目标类型比较困难
