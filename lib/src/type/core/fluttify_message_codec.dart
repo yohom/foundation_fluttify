@@ -102,6 +102,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
       buffer.putUint8(_valueRef);
       final Uint8List bytes = utf8.encoder.convert(value.refId);
       writeSize(buffer, bytes.length);
+      buffer.putUint8List(bytes);
     } else {
       throw ArgumentError.value(value);
     }
@@ -152,7 +153,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         return buffer.getInt32();
       case _valueRef:
         final int length = readSize(buffer);
-        final refId = utf8.decoder.convert(buffer.getUint8List(length));
+        final String refId = utf8.decoder.convert(buffer.getUint8List(length));
 
         final result = Ref()..refId = refId;
         kNativeObjectPool.add(result);
