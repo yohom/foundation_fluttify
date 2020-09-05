@@ -124,7 +124,10 @@ UInt8 elementSizeForFlutterStandardDataType(FlutterStandardDataType type) {
     // 传递NSObject类型
   else if ([value isKindOfClass:[NSObject class]]) {
     NSUInteger hash = [value hash];
-    [self writeUTF8:[NSString stringWithFormat:@"%@", @(hash)]];
+    NSString* refId = [NSString stringWithFormat:@"%@", @(hash)];
+    [self writeByte:FluttifyFieldRef];
+    [self writeUTF8:refId];
+    HEAP[refId] = value;
   } else {
     NSLog(@"Unsupported value: %@ of type %@", value, [value class]);
     NSAssert(NO, @"Unsupported value for standard codec");
