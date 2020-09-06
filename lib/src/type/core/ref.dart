@@ -91,7 +91,7 @@ class Ref {
 
   @override
   String toString() {
-    return '$runtimeType{refId: $refId}';
+    return 'Ref{refId: $refId, tag__: $tag__}';
   }
 }
 
@@ -99,7 +99,7 @@ extension Ref_Batch on Iterable<Ref> {
   Future<void> release_batch() async {
     return kMethodChannel.invokeMethod(
       'PlatformService::release_batch',
-      {'__this_batch__': this},
+      {'__this_batch__': this.where((it) => it != null).toList()},
     );
   }
 }

@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
@@ -25,6 +23,7 @@ Future<T> platform<T>({
   _FutureCallback<T> android,
   _FutureCallback<T> ios,
 }) async {
+  // 方法单位的释放池, 如果需要的时候可以在这里直接释放, 不使用这个释放池的话可以使用[ScopedReleasePool]
   final releasePool = <Ref>{};
   try {
     if (android != null && Platform.isAndroid) {
@@ -41,7 +40,7 @@ Future<T> platform<T>({
       await releasePool.release_batch();
       releasePool.clear();
       // remove all local object from global object pool
-      kNativeObjectPool.removeAll(releasePool);
+      gGlobalReleasePool.removeAll(releasePool);
     }
   }
 }
@@ -66,7 +65,7 @@ Stream<T> platformStream<T>({
       await releasePool.release_batch();
       releasePool.clear();
       // remove all local object from global object pool
-      kNativeObjectPool.removeAll(releasePool);
+      gGlobalReleasePool.removeAll(releasePool);
     }
   }
 }
@@ -141,59 +140,6 @@ Future<void> presentViewController(
       'withNavigationController': withNavigationController,
     },
   );
-}
-
-Map<String, Uint8List> _cache = {};
-
-@Deprecated('使用ImageProviderX.toImageData代替')
-Future<Uint8List> uri2ImageData(
-  ImageConfiguration config,
-  Uri iconUri, {
-  String package,
-}) async {
-  final imageData = Completer<Uint8List>();
-  if (_cache.containsKey(iconUri.toString())) {
-    debugPrint('命中缓存');
-    imageData.complete(_cache[iconUri.toString()]);
-  } else {
-    switch (iconUri.scheme) {
-      // 网络图片
-      case 'https':
-      case 'http':
-        HttpClient httpClient = HttpClient();
-        var request = await httpClient.getUrl(iconUri);
-        var response = await request.close();
-        final result = await consolidateHttpClientResponseBytes(response);
-
-        _cache[iconUri.toString()] = result;
-        imageData.complete(result);
-        break;
-      // 文件图片
-      case 'file':
-        final imageFile = File.fromUri(iconUri);
-        final result = imageFile.readAsBytesSync();
-
-        _cache[iconUri.toString()] = result;
-        imageData.complete(result);
-        break;
-      // asset图片
-      default:
-        (package == null
-                ? AssetImage(iconUri.path)
-                : AssetImage(iconUri.path, package: package))
-            .resolve(config)
-            .addListener(ImageStreamListener((imageInfo, sync) async {
-          final byteData =
-              await imageInfo.image.toByteData(format: ImageByteFormat.png);
-          final result = byteData.buffer.asUint8List();
-
-          _cache[iconUri.toString()] = result;
-          imageData.complete(result);
-        }));
-        break;
-    }
-  }
-  return imageData.future;
 }
 
 /// 不怎么好用

@@ -1,4 +1,4 @@
-@file:Suppress("LocalVariableName")
+@file:Suppress("LocalVariableName", "FunctionName")
 
 package me.yohom.foundation_fluttify.core
 
@@ -12,7 +12,6 @@ import io.flutter.plugin.common.PluginRegistry
 import me.yohom.foundation_fluttify.HEAP
 import me.yohom.foundation_fluttify.STACK
 import me.yohom.foundation_fluttify.enableLog
-
 
 fun PlatformService(
         method: String,
@@ -28,43 +27,34 @@ fun PlatformService(
             methodResult.success("success")
         }
         "PlatformService::release" -> {
-            if (enableLog) {
-                Log.d("PlatformService", "释放对象: ${args["__this__"]}")
-            }
+            if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 释放对象: ${args["__this__"]}")
 
             HEAP.remove(System.identityHashCode(args["__this__"]).toString())
 
             methodResult.success("success")
 
             // print current HEAP
-            if (enableLog) {
-                Log.d("PlatformService", "HEAP: $HEAP")
-            }
+            if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, HEAP: $HEAP")
         }
         "PlatformService::release_batch" -> {
-            if (enableLog) {
-                Log.d("PlatformService", "批量释放对象: __this_batch__: ${args["__this_batch__"]}")
-            }
+            if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 批量释放对象: __this_batch__: ${args["__this_batch__"]}")
+
 
             (args["__this_batch__"] as List<*>).forEach { HEAP.remove(System.identityHashCode(it).toString()) }
 
             methodResult.success("success")
 
             // print current HEAP
-            if (enableLog) {
-                Log.d("PlatformService", "HEAP: $HEAP")
-            }
+            if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, HEAP: $HEAP")
         }
         "PlatformService::clearHeap" -> {
-            if (enableLog) Log.d("PlatformService", "CLEAR HEAP")
+            if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, CLEAR HEAP")
 
             HEAP.clear()
             methodResult.success("success")
 
             // print current HEAP
-            if (enableLog) {
-                Log.d("PlatformService", "HEAP: $HEAP")
-            }
+            if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, HEAP: $HEAP")
         }
         "PlatformService::pushStack" -> {
             val name = args["name"] as String
@@ -79,7 +69,7 @@ fun PlatformService(
             methodResult.success("success")
 
             // print current STACK
-            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+            if (enableLog) Log.d("PlatformService", "size: ${STACK.size}, STACK: $STACK")
         }
         "PlatformService::pushStackJsonable" -> {
             val name = args["name"] as String
@@ -92,7 +82,7 @@ fun PlatformService(
             methodResult.success("success")
 
             // 打印当前STACK
-            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+            if (enableLog) Log.d("PlatformService", "size: ${STACK.size}, STACK: $STACK")
         }
         "PlatformService::clearStack" -> {
             STACK.clear()
@@ -100,7 +90,7 @@ fun PlatformService(
             methodResult.success("success")
 
             // print current STACK
-            if (enableLog) Log.d("PlatformService", "STACK: $STACK")
+            if (enableLog) Log.d("PlatformService", "size: ${STACK.size}, STACK: $STACK")
 
         }
         "PlatformService::startActivity" -> {
