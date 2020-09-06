@@ -150,3 +150,7 @@ Future<String> getAssetPath(String flutterAssetPath) async {
     {'flutterAssetPath': flutterAssetPath},
   );
 }
+
+void log(String content) {
+  if (fluttifyLogEnabled) debugPrint(content);
+}
