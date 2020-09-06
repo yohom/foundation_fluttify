@@ -30,7 +30,7 @@ class ScopedReleasePoolState extends State<ScopedReleasePool> {
 
   @override
   void dispose() {
-    if (fluttifyLogEnabled) debugPrint('ScopedReleasePool释放对象: $_releasePool');
+    log('ScopedReleasePool释放对象: $_releasePool');
     gReleasePoolStack.pop();
     _releasePool.release_batch();
     super.dispose();
