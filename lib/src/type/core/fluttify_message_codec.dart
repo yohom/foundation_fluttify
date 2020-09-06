@@ -7,7 +7,10 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/array.dart';
 
 class FluttifyMessageCodec extends StandardMessageCodec {
-  const FluttifyMessageCodec();
+  const FluttifyMessageCodec([this.refTag]);
+
+  /// Ref对象(如果是)的tag
+  final String refTag;
 
   static const int _valueNull = 0;
   static const int _valueTrue = 1;
@@ -165,7 +168,9 @@ class FluttifyMessageCodec extends StandardMessageCodec {
 
         if (refId == null) return null;
 
-        final ref = Ref()..refId = refId;
+        final ref = Ref()
+          ..refId = refId
+          ..tag__ = refTag;
         // 如果有ScopedReleasePool, 则使用ScopedReleasePool里的释放池
         // 否则使用全局的释放池
         if (gReleasePoolStack.peek() != null) {
