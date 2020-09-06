@@ -1,6 +1,6 @@
 @file:Suppress("LocalVariableName")
 
-package me.yohom.foundation_fluttify
+package me.yohom.foundation_fluttify.core
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,9 @@ import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
+import me.yohom.foundation_fluttify.HEAP
+import me.yohom.foundation_fluttify.STACK
+import me.yohom.foundation_fluttify.enableLog
 
 
 fun PlatformService(

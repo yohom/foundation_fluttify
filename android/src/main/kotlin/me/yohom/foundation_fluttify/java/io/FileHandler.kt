@@ -1,8 +1,7 @@
 package me.yohom.foundation_fluttify.java.io
 
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.HEAP
-import me.yohom.foundation_fluttify.get
+import me.yohom.foundation_fluttify.core.get
 import java.io.File
 
 fun FileHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {

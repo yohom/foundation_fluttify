@@ -4,9 +4,8 @@ import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.HEAP
-import me.yohom.foundation_fluttify.__this__
-import me.yohom.foundation_fluttify.get
+import me.yohom.foundation_fluttify.core.__this__
+import me.yohom.foundation_fluttify.core.get
 import java.io.ByteArrayOutputStream
 
 fun BitmapHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result, activity: Activity?) {
