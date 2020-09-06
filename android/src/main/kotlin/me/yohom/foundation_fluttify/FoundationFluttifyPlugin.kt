@@ -2,11 +2,9 @@ package me.yohom.foundation_fluttify
 
 import android.app.Activity
 import android.content.Context
-import android.content.IntentFilter
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
-import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -27,6 +25,8 @@ import me.yohom.foundation_fluttify.android.location.LocationHandler
 import me.yohom.foundation_fluttify.android.os.BundleHandler
 import me.yohom.foundation_fluttify.android.util.PairHandler
 import me.yohom.foundation_fluttify.android.view.ViewHandler
+import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
+import me.yohom.foundation_fluttify.core.PlatformService
 import me.yohom.foundation_fluttify.java.io.FileHandler
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited

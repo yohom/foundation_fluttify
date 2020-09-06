@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
+import 'package:foundation_fluttify/src/type/core/array.dart';
 
 class FluttifyMessageCodec extends StandardMessageCodec {
   const FluttifyMessageCodec();
@@ -22,6 +23,8 @@ class FluttifyMessageCodec extends StandardMessageCodec {
   static const int _valueFloat64List = 11;
   static const int _valueList = 12;
   static const int _valueMap = 13;
+  // Fluttify使用 Android only
+  static const int _valueArray = 125;
   // Fluttify使用
   static const int _valueEnum = 126;
   // 虽然dart端说明自定义类型要用128以上的值, 但是Java那边是用byte接收, 128已经超出, 所以
@@ -71,6 +74,12 @@ class FluttifyMessageCodec extends StandardMessageCodec {
       buffer.putUint8(_valueFloat64List);
       writeSize(buffer, value.length);
       buffer.putFloat64List(value);
+    } else if (value is Array) {
+      buffer.putUint8(_valueArray);
+      writeSize(buffer, value.data.length);
+      for (final dynamic item in value.data) {
+        writeValue(buffer, item);
+      }
     } else if (value is Iterable) {
       buffer.putUint8(_valueList);
       writeSize(buffer, value.length);
@@ -132,6 +141,11 @@ class FluttifyMessageCodec extends StandardMessageCodec {
       case _valueFloat64List:
         final int length = readSize(buffer);
         return buffer.getFloat64List(length);
+      case _valueArray:
+        final int length = readSize(buffer);
+        final dynamic result = List<dynamic>(length);
+        for (int i = 0; i < length; i++) result[i] = readValue(buffer);
+        return Array.ofList(result);
       case _valueList:
         final int length = readSize(buffer);
         final dynamic result = List<dynamic>(length);

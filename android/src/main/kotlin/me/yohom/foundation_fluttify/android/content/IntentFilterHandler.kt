@@ -2,8 +2,7 @@ package me.yohom.foundation_fluttify.android.content
 
 import android.content.IntentFilter
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.HEAP
-import me.yohom.foundation_fluttify.get
+import me.yohom.foundation_fluttify.core.get
 
 fun IntentFilterHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {

@@ -2,8 +2,8 @@ package me.yohom.foundation_fluttify.android.os
 
 import android.os.Bundle
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.__this__
-import me.yohom.foundation_fluttify.get
+import me.yohom.foundation_fluttify.core.__this__
+import me.yohom.foundation_fluttify.core.get
 
 fun BundleHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {

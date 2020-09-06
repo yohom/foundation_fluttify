@@ -1,6 +1,7 @@
-package me.yohom.foundation_fluttify
+package me.yohom.foundation_fluttify.core
 
 import io.flutter.plugin.common.StandardMessageCodec
+import me.yohom.foundation_fluttify.HEAP
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
 import java.nio.ByteBuffer
@@ -25,6 +26,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
     private val DOUBLE_ARRAY: Byte = 11
     private val LIST: Byte = 12
     private val MAP: Byte = 13
+    private val ARRAY: Byte = 125
     private val ENUM: Byte = 126
     private val REF: Byte = 127
 
@@ -81,6 +83,12 @@ class FluttifyMessageCodec: StandardMessageCodec() {
             }
         } else if (value is List<*>) {
             stream.write(LIST.toInt())
+            writeSize(stream, value.size)
+            for (o in value) {
+                writeValue(stream, o)
+            }
+        } else if (value is Array<*>) {
+            stream.write(ARRAY.toInt())
             writeSize(stream, value.size)
             for (o in value) {
                 writeValue(stream, o)
@@ -154,6 +162,16 @@ class FluttifyMessageCodec: StandardMessageCodec() {
                 buffer.asDoubleBuffer()[array]
                 result = array
                 buffer.position(buffer.position() + 8 * length)
+            }
+            ARRAY -> {
+                val size = readSize(buffer)
+                val list: MutableList<Any> = ArrayList(size)
+                var i = 0
+                while (i < size) {
+                    list.add(readValue(buffer))
+                    i++
+                }
+                result = list.toTypedArray()
             }
             LIST -> {
                 val size = readSize(buffer)

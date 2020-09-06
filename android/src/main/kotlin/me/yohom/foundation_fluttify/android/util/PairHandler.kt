@@ -2,7 +2,7 @@ package me.yohom.foundation_fluttify.android.util
 
 import android.util.Pair
 import io.flutter.plugin.common.MethodChannel
-import me.yohom.foundation_fluttify.__this__
+import me.yohom.foundation_fluttify.core.__this__
 
 fun PairHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
