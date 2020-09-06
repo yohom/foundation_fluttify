@@ -1,10 +1,13 @@
 import 'package:flutter/services.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/ref.dart';
+import 'package:foundation_fluttify/src/type/core/stack.dart';
 import 'package:foundation_fluttify/src/type/core/typedefs.dart';
 
 /// native object release pool, all objects returned by the native side will be in this set
-final kNativeObjectPool = <Ref>{};
+final gGlobalReleasePool = <Ref>{};
+
+final gReleasePoolStack = Stack<ScopedReleasePoolState>();
 
 const kMethodChannelName = 'com.fluttify/foundation_method';
 final kMethodChannel = MethodChannel(

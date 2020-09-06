@@ -112,7 +112,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
             HEAP[System.identityHashCode(value).toString()] = value
 
             stream.write(REF.toInt())
-            writeInt(stream, System.identityHashCode(value))
+            writeBytes(stream, System.identityHashCode(value).toString().toByteArray(UTF8))
         }
     }
 
@@ -175,7 +175,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
             }
             LIST -> {
                 val size = readSize(buffer)
-                val list: MutableList<Any> = ArrayList(size)
+                val list: MutableList<Any?> = ArrayList(size)
                 var i = 0
                 while (i < size) {
                     list.add(readValue(buffer))
@@ -185,7 +185,7 @@ class FluttifyMessageCodec: StandardMessageCodec() {
             }
             MAP -> {
                 val size = readSize(buffer)
-                val map: MutableMap<Any, Any> = HashMap()
+                val map: MutableMap<Any, Any?> = HashMap()
                 var i = 0
                 while (i < size) {
                     map[readValue(buffer)] = readValue(buffer)

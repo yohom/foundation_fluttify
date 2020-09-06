@@ -145,7 +145,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         final int length = readSize(buffer);
         final dynamic result = List<dynamic>(length);
         for (int i = 0; i < length; i++) result[i] = readValue(buffer);
-        return Array.ofList(result);
+        return result;
       case _valueList:
         final int length = readSize(buffer);
         final dynamic result = List<dynamic>(length);
@@ -165,8 +165,17 @@ class FluttifyMessageCodec extends StandardMessageCodec {
 
         if (refId == null) return null;
 
-        final result = Ref()..refId = refId;
-        kNativeObjectPool.add(result);
+        final ref = Ref()..refId = refId;
+        // 如果有ScopedReleasePool, 则使用ScopedReleasePool里的释放池
+        // 否则使用全局的释放池
+        if (gReleasePoolStack.peek() != null) {
+          log('添加对象 $ref 到局部释放池');
+          gReleasePoolStack.peek().add(ref);
+        } else {
+          log('添加对象 $ref 到全局释放池');
+          gGlobalReleasePool.add(ref);
+        }
+
         // 暂时和原方案保持一致, 直接返回refId给上层处理, 要直接转换为可目标类型比较困难
         // 改动也比较大, 后面再考虑了
         return refId;
