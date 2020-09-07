@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 
 extern NSMutableDictionary<NSString *, NSObject *> *STACK;
-extern NSMutableDictionary<NSNumber *, NSObject *> *HEAP;
+extern NSMutableDictionary<NSString *, NSObject *> *HEAP;
 extern BOOL enableLog;
 
 void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, NSObject<FlutterPluginRegistrar>* registrar) {
@@ -213,11 +213,11 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::release" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
 
-        NSObject *__this__ = (NSObject *) args[@"__this__"];
+        NSNumber *__this__ = (NSNumber *) args[@"__this__"];
         
-        if (enableLog) NSLog(@"PlatformService::释放对象: %@@%@", NSStringFromClass([__this__ class]), @([__this__ hash]));
+        if (enableLog) NSLog(@"PlatformService::释放对象: %@", __this__);
 
-        [HEAP removeObjectForKey:@(__this__.hash)];
+        [HEAP removeObjectForKey:[NSString stringWithFormat:@"%@", @(__this__.hash)]];
         methodResult(@"success");
         
         if (enableLog) NSLog(@"HEAP: %@", HEAP);
@@ -226,12 +226,12 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
     else if ([@"PlatformService::release_batch" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
-        NSArray<NSObject *>* __this_batch__ = (NSArray<NSObject*>*) args[@"__this__"];
+        NSArray<NSNumber *>* __this_batch__ = (NSArray<NSNumber*>*) args[@"__this_batch__"];
         
         if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", __this_batch__);
         
-        for (NSObject* item in __this_batch__) {
-            [HEAP removeObjectForKey:@(item.hash)];
+        for (NSNumber* item in __this_batch__) {
+            [HEAP removeObjectForKey:[NSString stringWithFormat:@"%@", @(item.hash)]];
         }
         methodResult(@"success");
         

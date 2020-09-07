@@ -9,7 +9,7 @@
 #import "FoundationFluttifyPlugin.h"
 
 // Dart端随机存取对象的容器
-extern NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
+extern NSMutableDictionary<NSString *, NSObject *> *HEAP;
 
 @implementation UIViewFactory {
 }
@@ -51,7 +51,7 @@ extern NSMutableDictionary<NSNumber*, NSObject*>* HEAP;
         _view = [[UIView alloc] initWithFrame:_frame];
     }
     // 这里用一个magic number调整一下id
-    HEAP[@(2147483647 - _viewId)] = _view;
+    HEAP[[NSString stringWithFormat:@"%@", @(2147483647 - _viewId)]] = _view;
     return _view;
 }
 

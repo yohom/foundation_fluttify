@@ -162,7 +162,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.9.0-pre.6"
+    version: "0.9.0-pre.7"
   http:
     dependency: transitive
     description:

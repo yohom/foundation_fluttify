@@ -10,8 +10,10 @@ class Ref {
 
   /// 释放当前引用对象
   Future<void> release__() async {
+    // 这里使用refId去删除元素, 因为PlatformView和普通对象的键不同, 不是hashCode, 原生端不能
+    // 通过获取hash的方式删除元素
     await kMethodChannel
-        .invokeMethod('PlatformService::release', {'__this__': this});
+        .invokeMethod('PlatformService::release', {'__this__': refId});
   }
 
   /// 通过反射调用方法
@@ -96,10 +98,12 @@ class Ref {
 }
 
 extension Ref_Batch on Iterable<Ref> {
+  // 这里使用refId去删除元素, 因为PlatformView和普通对象的键不同, 不是hashCode, 原生端不能
+  // 通过获取hash的方式删除元素
   Future<void> release_batch() async {
     return kMethodChannel.invokeMethod(
       'PlatformService::release_batch',
-      {'__this_batch__': this.where((it) => it != null).toList()},
+      {'__this_batch__': map((e) => e.refId).toList()},
     );
   }
 }
