@@ -217,10 +217,10 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         if (enableLog) NSLog(@"PlatformService::释放对象: %@", __this__);
 
-        [HEAP removeObjectForKey:[NSString stringWithFormat:@"%@", @(__this__.hash)]];
+        [HEAP removeObjectForKey:[NSString stringWithFormat:@"%@", __this__]];
         methodResult(@"success");
         
-        if (enableLog) NSLog(@"HEAP: %@", HEAP);
+        if (enableLog) NSLog(@"size: %ld, HEAP: %@", [HEAP count], HEAP);
     }
     // 释放一批对象
     else if ([@"PlatformService::release_batch" isEqualToString:method]) {
@@ -231,11 +231,11 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         if (enableLog) NSLog(@"PlatformService::批量释放对象: %@", __this_batch__);
         
         for (NSNumber* item in __this_batch__) {
-            [HEAP removeObjectForKey:[NSString stringWithFormat:@"%@", @(item.hash)]];
+            [HEAP removeObjectForKey:[NSString stringWithFormat:@"%@", item]];
         }
         methodResult(@"success");
         
-        if (enableLog) NSLog(@"HEAP: %@", HEAP);
+        if (enableLog) NSLog(@"size: %ld, HEAP: %@", [HEAP count], HEAP);
     }
     // 清空堆
     else if ([@"PlatformService::clearHeap" isEqualToString:method]) {
@@ -244,7 +244,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         [HEAP removeAllObjects];
         methodResult(@"success");
         
-        if (enableLog) NSLog(@"HEAP: %@", HEAP);
+        if (enableLog) NSLog(@"size: %ld, HEAP: %@", [HEAP count], HEAP);
     }
     // 压入栈
     else if ([@"PlatformService::pushStack" isEqualToString:method]) {
