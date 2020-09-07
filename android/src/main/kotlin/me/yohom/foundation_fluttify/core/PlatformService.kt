@@ -29,7 +29,7 @@ fun PlatformService(
         "PlatformService::release" -> {
             if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 释放对象: ${args["__this__"]}")
 
-            HEAP.values.remove(args["__this__"])
+            HEAP.remove(args["__this__"])
 
             methodResult.success("success")
 
@@ -39,7 +39,7 @@ fun PlatformService(
         "PlatformService::release_batch" -> {
             if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 批量释放对象: __this_batch__: ${args["__this_batch__"]}")
 
-            (args["__this_batch__"] as List<*>).forEach { HEAP.values.remove(it) }
+            (args["__this_batch__"] as List<*>).forEach { HEAP.remove(it) }
 
             methodResult.success("success")
 
