@@ -61,7 +61,7 @@ fun PlatformService(
 
             if (enableLog) Log.d("PlatformService", "PUSH OBJECT: $__this__")
 
-            STACK[name] = System.identityHashCode(__this__)
+            STACK[name] = __this__
 
             methodResult.success("success")
 
