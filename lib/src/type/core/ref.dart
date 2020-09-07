@@ -33,7 +33,7 @@ class Ref {
     return kMethodChannel.invokeMethod('PlatformService::addProperty', {
       '__this__': this,
       'propertyKey': propertyKey,
-      'property': property.refId,
+      'property': property,
     });
   }
 
@@ -117,9 +117,9 @@ extension RefList_Batch on List<Ref> {
       [
         for (int i = 0; i < this.length; i++)
           <String, dynamic>{
-            'refId': this[i].refId,
+            '__this__': this[i],
             'propertyKey': propertyKey,
-            'property': property[i].refId,
+            'property': property[i],
           }
       ],
     );
@@ -132,7 +132,7 @@ extension RefList_Batch on List<Ref> {
       [
         for (int i = 0; i < this.length; i++)
           <String, dynamic>{
-            'refId': this[i].refId,
+            '__this__': this[i],
             'propertyKey': propertyKey,
           }
       ],
@@ -160,7 +160,7 @@ extension RefList_Batch on List<Ref> {
       [
         for (int i = 0; i < this.length; i++)
           <String, dynamic>{
-            'refId': this[i].refId,
+            '__this__': this[i],
             'propertyKey': propertyKey,
             'property': property[i],
           }
@@ -175,7 +175,7 @@ extension RefList_Batch on List<Ref> {
       [
         for (int i = 0; i < this.length; i++)
           <String, dynamic>{
-            'refId': this[i].refId,
+            '__this__': this[i],
             'propertyKey': propertyKey,
           }
       ],
