@@ -29,7 +29,7 @@ fun PlatformService(
         "PlatformService::release" -> {
             if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 释放对象: ${args["__this__"]}")
 
-            HEAP.remove(System.identityHashCode(args["__this__"]).toString())
+            HEAP.values.remove(args["__this__"])
 
             methodResult.success("success")
 
@@ -39,8 +39,7 @@ fun PlatformService(
         "PlatformService::release_batch" -> {
             if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 批量释放对象: __this_batch__: ${args["__this_batch__"]}")
 
-
-            (args["__this_batch__"] as List<*>).forEach { HEAP.remove(System.identityHashCode(it).toString()) }
+            (args["__this_batch__"] as List<*>).forEach { HEAP.values.remove(it) }
 
             methodResult.success("success")
 
@@ -60,9 +59,7 @@ fun PlatformService(
             val name = args["name"] as String
             val __this__ = args["__this__"] as Any
 
-            if (enableLog) {
-                Log.d("PlatformService", "PUSH OBJECT: $__this__")
-            }
+            if (enableLog) Log.d("PlatformService", "PUSH OBJECT: $__this__")
 
             STACK[name] = System.identityHashCode(__this__)
 
