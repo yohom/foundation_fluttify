@@ -75,10 +75,10 @@ Future<void> clearHeap() async {
 }
 
 Future<void> pushStack(String name, Ref ref) async {
-  await kMethodChannel.invokeMethod('PlatformService::pushStack', {
-    'name': name,
-    'refId': ref.refId,
-  });
+  await kMethodChannel.invokeMethod(
+    'PlatformService::pushStack',
+    {'name': name, '__this__': ref},
+  );
 }
 
 Future<void> pushStackJsonable(String name, dynamic jsonable) async {
