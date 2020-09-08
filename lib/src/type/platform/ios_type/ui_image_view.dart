@@ -7,7 +7,7 @@ class UIImageView extends UIView {
   static Future<UIImageView> create(UIImage image) async {
     final result = await kMethodChannel.invokeMethod(
       'UIImageView::create',
-      {'image': image.refId},
+      {'image': image},
     );
     return UIImageView()..refId = result;
   }
