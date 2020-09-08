@@ -103,9 +103,12 @@ UInt8 elementSizeForFlutterStandardDataType(FlutterStandardDataType type) {
     [self writeSize:typedData.elementCount];
     [self writeAlignment:typedData.elementSize];
     [self writeData:typedData.data];
-  } else if ([value isKindOfClass:[NSData class]]) {
+  }
+  // 官方给NSData也自动转换了, 但是fluttify需要的是NSData对象, 所以这里去掉NSData的自动转换
+  /*else if ([value isKindOfClass:[NSData class]]) {
     [self writeValue:[FlutterStandardTypedData typedDataWithBytes:value]];
-  } else if ([value isKindOfClass:[NSArray class]]) {
+  } */
+  else if ([value isKindOfClass:[NSArray class]]) {
     NSArray *array = value;
     [self writeByte:FluttifyFieldList];
     [self writeSize:array.count];
