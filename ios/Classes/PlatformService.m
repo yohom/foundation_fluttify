@@ -317,6 +317,22 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSString* path = [[NSBundle mainBundle] pathForResource:key ofType:nil];
         
         methodResult(path);
+    }
+    // viewId转refId
+    else if ([@"PlatformService::viewId2RefId" isEqualToString:method]) {
+        NSDictionary<NSString*, NSObject*>* args = (NSDictionary<NSString*, NSObject*>*) rawArgs;
+        
+        NSString *viewId = (NSString *) args[@"viewId"];
+        
+        if (enableLog) NSLog(@"PlatformService::viewId%@", viewId);
+        
+        if ([[HEAP allKeys] containsObject:viewId]) {
+            NSObject* object = HEAP[viewId];
+            methodResult(@(object.hash));
+        } else {
+            methodResult([FlutterError errorWithCode:@"viewId无对应对象" message:@"viewId无对应对象" details:@"viewId无对应对象"]);
+        }
+        
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

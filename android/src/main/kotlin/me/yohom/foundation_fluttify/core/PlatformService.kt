@@ -162,6 +162,15 @@ fun PlatformService(
                 methodResult.error("非当前请求的响应", "非当前请求的响应", "非当前请求的响应")
             }
         }
+        "PlatformService::viewId2RefId" -> {
+            val viewId = args["viewId"] as String
+
+            if (HEAP.containsKey(viewId)) {
+                methodResult.success(System.identityHashCode(HEAP[viewId]))
+            } else {
+                methodResult.error("viewId无对应对象", "viewId无对应对象", "viewId无对应对象")
+            }
+        }
         else -> methodResult.notImplemented()
     }
 }
