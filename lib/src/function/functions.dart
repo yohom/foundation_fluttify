@@ -142,6 +142,17 @@ Future<void> presentViewController(
   );
 }
 
+/// viewId转换为refId
+///
+/// 使用这个方法前, 保存PlatformView是把viewId作为key保存在Map中, 带来了不一致性.
+/// 使用这个方法把viewId转换为对应PlatformView对象的refId, 使其与普通对象的行为保持一致.
+Future<String> viewId2RefId(String viewId) async {
+  return kMethodChannel.invokeMethod(
+    'PlatformService::viewId2RefId',
+    {'viewId': viewId},
+  );
+}
+
 /// 不怎么好用
 @deprecated
 Future<String> getAssetPath(String flutterAssetPath) async {
