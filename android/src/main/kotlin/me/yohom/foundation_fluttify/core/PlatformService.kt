@@ -167,6 +167,8 @@ fun PlatformService(
 
             if (HEAP.containsKey(viewId)) {
                 methodResult.success(System.identityHashCode(HEAP[viewId]))
+                // 转换后删除viewId
+                HEAP.remove(viewId)
             } else {
                 methodResult.error("viewId无对应对象", "viewId无对应对象", "viewId无对应对象")
             }
