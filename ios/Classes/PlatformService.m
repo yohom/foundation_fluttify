@@ -328,7 +328,9 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         if ([[HEAP allKeys] containsObject:viewId]) {
             NSObject* object = HEAP[viewId];
-            methodResult(@(object.hash));
+            methodResult([NSString stringWithFormat:@"%@", @(object.hash)]);
+            // 转换后删除viewId
+            [HEAP removeObjectForKey:viewId];
         } else {
             methodResult([FlutterError errorWithCode:@"viewId无对应对象" message:@"viewId无对应对象" details:@"viewId无对应对象"]);
         }
