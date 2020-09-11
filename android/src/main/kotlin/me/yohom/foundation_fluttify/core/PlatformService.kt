@@ -166,7 +166,7 @@ fun PlatformService(
             val viewId = args["viewId"] as String
 
             if (HEAP.containsKey(viewId)) {
-                methodResult.success(System.identityHashCode(HEAP[viewId]))
+                methodResult.success(System.identityHashCode(HEAP[viewId]).toString())
                 // 转换后删除viewId
                 HEAP.remove(viewId)
             } else {
