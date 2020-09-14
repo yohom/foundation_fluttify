@@ -11,6 +11,7 @@
 #import "CGSizeHandler.h"
 #import "UIViewControllerHandler.h"
 #import "UIImageViewHandler.h"
+#import "NSObjectHandler.h"
 #import "platform_view/UIViewFactory.h"
 #import "FluttifyMessageCodec.h"
 
@@ -78,6 +79,8 @@ NSString *_channelName = @"com.fluttify/foundation_method";
     CGSizeHandler(methodCall.method, rawArgs, methodResult);
   } else if ([methodCall.method hasPrefix:@"UIImageView::"]) {
     UIImageViewHandler(methodCall.method, rawArgs, methodResult);
+  } else if ([methodCall.method hasPrefix:@"NSObject::"]) {
+    NSObjectHandler(methodCall.method, rawArgs, methodResult);
   } else if ([methodCall.method hasPrefix:@"Platform"]) {
     PlatformService(methodCall.method, rawArgs, methodResult, self->_registrar);
   } else {
