@@ -107,6 +107,37 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         [target.layer addAnimation:animation forKey:@"rotation"];
         
         methodResult(@"success");
+    } else if ([@"UIView::groupWithDuration" isEqualToString:method]) {
+        NSNumber* duration = (NSNumber*) args[@"duration"];
+        NSArray<NSNumber*>* fromValue = (NSArray<NSNumber*>*) args[@"fromValue"];
+        NSArray<NSNumber*>* toValue = (NSArray<NSNumber*>*) args[@"toValue"];
+        NSArray<NSString*>* keyPath = (NSArray<NSString*>*) args[@"keyPath"];
+        NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+        NSNumber* repeatMode = (NSNumber*) args[@"repeatMode"];
+
+        UIView *target = (UIView *) args[@"__this__"];
+
+        NSMutableArray<CAAnimation*>* animations = [NSMutableArray arrayWithCapacity:[fromValue count]];
+        
+        for (NSUInteger i = 0; i < animations.count; i++) {
+            CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath[i]];
+            animation.fromValue = fromValue[i];
+            animation.toValue = toValue[i];
+            
+            [animations addObject:animation];
+        }
+        
+        CAAnimationGroup *group = [CAAnimationGroup animation];
+        group.duration = [duration doubleValue];
+        group.autoreverses = [repeatMode intValue] == 0 ? NO : YES;
+        group.repeatCount = [repeatCount intValue] == 0 ? MAXFLOAT : [repeatCount intValue];
+        group.removedOnCompletion = NO;
+        group.fillMode = kCAFillModeForwards;
+        [group setAnimations:animations];
+        
+        [target.layer addAnimation:group forKey:@"group"];
+
+        methodResult(@"success");
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
