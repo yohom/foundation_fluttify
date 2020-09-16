@@ -86,6 +86,34 @@ class UIView extends NSObject {
     });
   }
 
+  /// 执行组合动画
+  ///
+  /// [keyPath]为构造CABasicAnimation时的[CABasicAnimation animationWithKeyPath:keyPath];
+  /// 缩放为`transform.scale`, 透明度为`opacity`, 旋转为`transform.rotation`
+  ///
+  /// [fromValue], [toValue]和[keyPath]的长度必须相等
+  Future<void> groupWithDuration({
+    Duration duration = const Duration(seconds: 1),
+    @required List<double> fromValue,
+    @required List<double> toValue,
+    @required List<String> keyPath,
+    int repeatCount = 0,
+    int repeatMode = 0,
+  }) async {
+    assert(duration != null);
+    assert(fromValue.length == toValue.length);
+    assert(toValue.length == keyPath.length);
+    await kMethodChannel.invokeMethod('UIView::groupWithDuration', {
+      '__this__': this,
+      'duration': duration.inMilliseconds / 1000,
+      'fromValue': [for (final item in fromValue) item / 180 * pi],
+      'toValue': [for (final item in fromValue) -item / 180 * pi],
+      'keyPath': keyPath,
+      'repeatCount': repeatCount,
+      'repeatMode': repeatMode,
+    });
+  }
+
   Future<CGRect> get frame async {
     final result = await kMethodChannel
         .invokeMethod('UIView::getFrame', {'__this__': this});
