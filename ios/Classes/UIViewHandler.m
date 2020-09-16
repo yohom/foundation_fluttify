@@ -52,6 +52,7 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
         NSNumber* toValue = (NSNumber*) args[@"toValue"];
         NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+        NSNumber* repeatMode = (NSNumber*) args[@"repeatMode"];
 
         UIView *target = (UIView *) args[@"__this__"];
 
@@ -59,8 +60,8 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         animation.fromValue = fromValue;
         animation.toValue = toValue;
         animation.duration = [duration doubleValue];
-        animation.autoreverses = NO;
-        animation.repeatCount = [repeatCount intValue];
+        animation.autoreverses = [repeatMode intValue] == 0 ? NO : YES;
+        animation.repeatCount = [repeatCount intValue] == 0 ? MAXFLOAT : [repeatCount intValue];
         animation.removedOnCompletion = NO;
         animation.fillMode = kCAFillModeForwards;
         [target.layer addAnimation:animation forKey:@"zoom"];
@@ -71,6 +72,7 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
         NSNumber* toValue = (NSNumber*) args[@"toValue"];
         NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+        NSNumber* repeatMode = (NSNumber*) args[@"repeatMode"];
 
         UIView *target = (UIView *) args[@"__this__"];
 
@@ -78,8 +80,8 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         animation.fromValue = fromValue;
         animation.toValue = toValue;
         animation.duration = [duration doubleValue];
-        animation.autoreverses = NO;
-        animation.repeatCount = [repeatCount intValue];
+        animation.autoreverses = [repeatMode intValue] == 0 ? NO : YES;
+        animation.repeatCount = [repeatCount intValue] == 0 ? MAXFLOAT : [repeatCount intValue];
         animation.removedOnCompletion = NO;
         animation.fillMode = kCAFillModeForwards;
         [target.layer addAnimation:animation forKey:@"opacity"];
@@ -90,6 +92,7 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
         NSNumber* toValue = (NSNumber*) args[@"toValue"];
         NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+        NSNumber* repeatMode = (NSNumber*) args[@"repeatMode"];
 
         UIView *target = (UIView *) args[@"__this__"];
 
@@ -97,8 +100,8 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         animation.fromValue = fromValue;
         animation.toValue = toValue;
         animation.duration = [duration doubleValue];
-        animation.autoreverses = NO;
-        animation.repeatCount = [repeatCount intValue];
+        animation.autoreverses = [repeatMode intValue] == 0 ? NO : YES;
+        animation.repeatCount = [repeatCount intValue] == 0 ? MAXFLOAT : [repeatCount intValue];
         animation.removedOnCompletion = NO;
         animation.fillMode = kCAFillModeForwards;
         [target.layer addAnimation:animation forKey:@"rotation"];

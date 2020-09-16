@@ -29,15 +29,17 @@ class UIView extends NSObject {
     double fromValue = 0,
     @required double toValue,
     int repeatCount = 0,
+    int repeatMode = 1,
   }) async {
-    assert(fromValue >= 0 && fromValue <= 1);
-    assert(toValue >= 0 && toValue <= 1);
+    assert(fromValue >= 0);
+    assert(toValue >= 0);
     await kMethodChannel.invokeMethod('UIView::scaleWithDuration', {
       '__this__': this,
       'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue,
       'toValue': toValue,
       'repeatCount': repeatCount,
+      'repeatMode': repeatMode,
     });
   }
 
@@ -49,6 +51,7 @@ class UIView extends NSObject {
     double fromValue = 0,
     @required double toValue,
     int repeatCount = 0,
+    int repeatMode = 0,
   }) async {
     assert(fromValue >= 0 && fromValue <= 1);
     assert(toValue >= 0 && toValue <= 1);
@@ -58,6 +61,7 @@ class UIView extends NSObject {
       'fromValue': fromValue,
       'toValue': toValue,
       'repeatCount': repeatCount,
+      'repeatMode': repeatMode,
     });
   }
 
@@ -69,6 +73,7 @@ class UIView extends NSObject {
     double fromValue = 0,
     @required double toValue,
     int repeatCount = 0,
+    int repeatMode = 0,
   }) async {
     assert(duration != null);
     await kMethodChannel.invokeMethod('UIView::rotateWithDuration', {
@@ -77,6 +82,7 @@ class UIView extends NSObject {
       'fromValue': fromValue / 180 * pi,
       'toValue': -toValue / 180 * pi,
       'repeatCount': repeatCount,
+      'repeatMode': repeatMode,
     });
   }
 
