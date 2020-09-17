@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
 typedef Future<void> OnUIViewCreated(UIView controller);
@@ -28,9 +29,10 @@ class _UIViewWidgetState extends State<UIViewWidget> {
     if (Platform.isIOS) {
       return UiKitView(
         viewType: 'me.yohom/foundation_fluttify/UIView',
-        onPlatformViewCreated: (viewId) {
+        onPlatformViewCreated: (viewId) async {
+          final refId = await viewId2RefId((2147483647 - viewId).toString());
           _view = UIView()
-            ..refId = (2147483647 - viewId).toString()
+            ..refId = refId
             ..tag__ = 'platform';
           if (widget.onUIViewCreated != null) {
             widget.onUIViewCreated(_view);
