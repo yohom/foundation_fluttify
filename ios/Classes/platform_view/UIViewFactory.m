@@ -52,6 +52,7 @@ extern NSMutableDictionary<NSString *, NSObject *> *HEAP;
     }
     // 这里用一个magic number调整一下id
     HEAP[[NSString stringWithFormat:@"%@", @(2147483647 - _viewId)]] = _view;
+    HEAP[[NSString stringWithFormat:@"%@", @(_view.hash)]] = _view;
     return _view;
 }
 
