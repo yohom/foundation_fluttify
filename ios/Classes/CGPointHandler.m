@@ -22,6 +22,30 @@ void CGPointHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         CGPoint cgPoint = value.CGPointValue;
         
         methodResult(@(cgPoint.y));
+    } else if ([@"CGPoint::getX_batch" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        NSArray<NSValue*>* value = (NSArray<NSValue*>*) args[@"__this__"];
+    
+        NSMutableArray<NSNumber*>* result = [NSMutableArray arrayWithCapacity:value.count];
+        
+        for (NSValue* pointValue in value) {
+            [result addObject:@(pointValue.CGPointValue.x)];
+        }
+        
+        methodResult(result);
+    } else if ([@"CGPoint::getY_batch" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        NSArray<NSValue*>* value = (NSArray<NSValue*>*) args[@"__this__"];
+    
+        NSMutableArray<NSNumber*>* result = [NSMutableArray arrayWithCapacity:value.count];
+        
+        for (NSValue* pointValue in value) {
+            [result addObject:@(pointValue.CGPointValue.y)];
+        }
+        
+        methodResult(result);
     } else if ([@"CGPoint::create" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
@@ -32,6 +56,22 @@ void CGPointHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         NSValue *valuePoint = [NSValue valueWithCGPoint:cgPoint];
         
         methodResult(valuePoint);
+    } else if ([@"CGPoint::create_batch" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+        
+        NSArray<NSNumber*>* x = (NSArray<NSNumber*>*) args[@"x"];
+        NSArray<NSNumber*>* y = (NSArray<NSNumber*>*) args[@"y"];
+        
+        NSMutableArray<NSValue*>* result = [NSMutableArray arrayWithCapacity:x.count];
+        
+        for (NSUInteger i = 0; i < x.count; i++) {
+            CGPoint cgPoint = CGPointMake([x[i] floatValue], [y[i] floatValue]);
+            NSValue *valuePoint = [NSValue valueWithCGPoint:cgPoint];
+            
+            [result addObject:valuePoint];
+        }
+        
+        methodResult(result);
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
