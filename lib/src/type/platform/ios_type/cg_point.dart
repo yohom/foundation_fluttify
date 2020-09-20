@@ -11,16 +11,6 @@ class CGPoint extends Ref {
       ..tag__ = 'platform';
   }
 
-  Future<double> get x {
-    return kMethodChannel.invokeMethod('CGPoint::getX', {'__this__': this});
-  }
-
-  Future<double> get y {
-    return kMethodChannel.invokeMethod('CGPoint::getY', {'__this__': this});
-  }
-}
-
-extension CGPointListX on List<CGPoint> {
   static Future<List<CGPoint>> create_batch(
     List<double> x,
     List<double> y,
@@ -35,6 +25,16 @@ extension CGPointListX on List<CGPoint> {
     ];
   }
 
+  Future<double> get x {
+    return kMethodChannel.invokeMethod('CGPoint::getX', {'__this__': this});
+  }
+
+  Future<double> get y {
+    return kMethodChannel.invokeMethod('CGPoint::getY', {'__this__': this});
+  }
+}
+
+extension CGPointListX on List<CGPoint> {
   Future<List<double>> get x_batch {
     return kMethodChannel
         .invokeMethod('CGPoint::getX_batch', {'__this__': this});
