@@ -21,7 +21,9 @@ extension ImageProviderX on ImageProvider {
             await imageInfo.image.toByteData(format: ImageByteFormat.png);
         final result = byteData.buffer.asUint8List();
         _cache[key.toString()] = result;
-        completer.complete(result);
+
+        if (!completer.isCompleted) completer.complete(result);
+
         stream.removeListener(listener); //移除监听
       });
       stream.addListener(listener);
