@@ -71,5 +71,6 @@ export 'src/type/platform/ios_type/ui_status_bar_style.dart';
 export 'src/type/platform/ios_type/ui_user_notification_settings.dart';
 export 'src/type/platform/ios_type/ui_view.dart';
 export 'src/type/platform/ios_type/ui_view_controller.dart';
+export 'src/type/widget/android_view_SurfaceView.widget.dart';
 export 'src/type/widget/scoped_release_pool.widget.dart';
 export 'src/type/widget/ui_view.widget.dart';
