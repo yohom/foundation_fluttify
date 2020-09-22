@@ -11,6 +11,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
 import io.flutter.plugin.common.StandardMethodCodec
+import io.flutter.plugin.platform.PlatformViewRegistry
 import me.yohom.foundation_fluttify.android.app.ActivityHandler
 import me.yohom.foundation_fluttify.android.app.ApplicationHandler
 import me.yohom.foundation_fluttify.android.app.NotificationHandler
@@ -28,6 +29,8 @@ import me.yohom.foundation_fluttify.android.view.ViewHandler
 import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 import me.yohom.foundation_fluttify.core.PlatformService
 import me.yohom.foundation_fluttify.java.io.FileHandler
+import me.yohom.foundation_fluttify.platform_view.android_view_SurfaceViewFactory
+
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
 val STACK = mutableMapOf<String, Any>()
@@ -47,14 +50,17 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     private var activityBinding: ActivityPluginBinding? = null
     private var pluginBinding: FlutterPlugin.FlutterPluginBinding? = null
     private var registrar: Registrar? = null
+    private var platformViewRegistry: PlatformViewRegistry? = null
 
     companion object {
         @JvmStatic
         fun registerWith(registrar: Registrar) {
             val plugin = FoundationFluttifyPlugin()
             plugin.registrar = registrar
+            plugin.platformViewRegistry = registrar.platformViewRegistry()
             plugin.activity = registrar.activity()
             plugin.applicationContext = registrar.activity()?.applicationContext
+            plugin.platformViewRegistry?.registerViewFactory("me.yohom/android.view.SurfaceView", android_view_SurfaceViewFactory(registrar.activity()))
 
             gMethodChannel = MethodChannel(
                     registrar.messenger(),
@@ -62,6 +68,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                     StandardMethodCodec(FluttifyMessageCodec())
             )
             gMethodChannel.setMethodCallHandler(plugin)
+
         }
     }
 
@@ -93,6 +100,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         applicationContext = binding.applicationContext
         pluginBinding = binding
+        platformViewRegistry = binding.platformViewRegistry
 
         gMethodChannel = MethodChannel(
                 binding.binaryMessenger,
@@ -111,6 +119,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
         activityBinding = binding
+        platformViewRegistry?.registerViewFactory("me.yohom/android.view.SurfaceView", android_view_SurfaceViewFactory(activity))
     }
 
     override fun onDetachedFromActivity() {

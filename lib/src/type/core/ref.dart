@@ -83,6 +83,12 @@ class Ref {
     });
   }
 
+  /// 转换为批处理
+  List<T> asBatch<T extends Ref>(int length) {
+    assert(length > 0);
+    return List.filled(length, this);
+  }
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
