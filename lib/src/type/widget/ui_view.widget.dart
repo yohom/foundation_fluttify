@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
@@ -12,10 +14,12 @@ class UIViewWidget extends StatefulWidget {
     Key key,
     this.onUIViewCreated,
     this.onDispose,
+    this.gestureRecognizers,
   }) : super(key: key);
 
   final OnUIViewCreated onUIViewCreated;
   final _OnUiKitViewDispose onDispose;
+  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
 
   @override
   _UIViewWidgetState createState() => _UIViewWidgetState();
@@ -27,8 +31,16 @@ class _UIViewWidgetState extends State<UIViewWidget> {
   @override
   Widget build(BuildContext context) {
     if (Platform.isIOS) {
+      final gestureRecognizers = widget.gestureRecognizers ??
+          <Factory<OneSequenceGestureRecognizer>>{
+            Factory<OneSequenceGestureRecognizer>(
+                () => EagerGestureRecognizer()),
+          };
+      final messageCodec = FluttifyMessageCodec('platform');
       return UiKitView(
         viewType: 'me.yohom/foundation_fluttify/UIView',
+        creationParamsCodec: messageCodec,
+        gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
           _view = UIView()

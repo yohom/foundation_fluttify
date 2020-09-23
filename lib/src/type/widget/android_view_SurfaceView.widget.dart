@@ -1,6 +1,8 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
@@ -13,10 +15,12 @@ class android_view_SurfaceViewWidget extends StatefulWidget {
     Key key,
     this.onSurfaceViewCreated,
     this.onDispose,
+    this.gestureRecognizers,
   }) : super(key: key);
 
   final OnViewCreated onSurfaceViewCreated;
   final _OnViewDispose onDispose;
+  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
 
   @override
   _android_view_SurfaceViewWidgetState createState() =>
@@ -30,8 +34,16 @@ class _android_view_SurfaceViewWidgetState
   @override
   Widget build(BuildContext context) {
     if (Platform.isAndroid) {
+      final gestureRecognizers = widget.gestureRecognizers ??
+          <Factory<OneSequenceGestureRecognizer>>{
+            Factory<OneSequenceGestureRecognizer>(
+                () => EagerGestureRecognizer()),
+          };
+      final messageCodec = FluttifyMessageCodec('platform');
       return AndroidView(
         viewType: 'me.yohom/foundation_fluttify/android.view.SurfaceView',
+        creationParamsCodec: messageCodec,
+        gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
           _view = android_view_SurfaceView()

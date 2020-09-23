@@ -60,7 +60,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             plugin.platformViewRegistry = registrar.platformViewRegistry()
             plugin.activity = registrar.activity()
             plugin.applicationContext = registrar.activity()?.applicationContext
-            plugin.platformViewRegistry?.registerViewFactory("me.yohom/android.view.SurfaceView", android_view_SurfaceViewFactory(registrar.activity()))
+            plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
 
             gMethodChannel = MethodChannel(
                     registrar.messenger(),
@@ -119,7 +119,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
         activityBinding = binding
-        platformViewRegistry?.registerViewFactory("me.yohom/android.view.SurfaceView", android_view_SurfaceViewFactory(activity))
+        platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
     }
 
     override fun onDetachedFromActivity() {
