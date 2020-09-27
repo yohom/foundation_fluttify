@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
+import 'package:foundation_fluttify/src/type/platform/ios_type/cg_point.dart';
 
 import 'cg_rect.dart';
 import 'ns_object.dart';
@@ -38,6 +39,23 @@ class UIView extends NSObject {
       'duration': duration.inMilliseconds / 1000,
       'fromValue': fromValue,
       'toValue': toValue,
+      'repeatCount': repeatCount,
+      'repeatMode': repeatMode,
+    });
+  }
+
+  /// 执行移动动画
+  Future<void> translateWithDuration({
+    Duration duration = const Duration(seconds: 1),
+    @required CGPoint toValue,
+    int repeatCount = 0,
+    int repeatMode = 1,
+  }) async {
+    await kMethodChannel.invokeMethod('UIView::translateWithDuration', {
+      '__this__': this,
+      'duration': duration.inMilliseconds / 1000,
+      'toX': await toValue.x,
+      'toY': await toValue.y,
       'repeatCount': repeatCount,
       'repeatMode': repeatMode,
     });

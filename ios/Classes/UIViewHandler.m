@@ -67,6 +67,25 @@ void UIViewHandler(NSString* method, id args, FlutterResult methodResult) {
         [target.layer addAnimation:animation forKey:@"zoom"];
         
         methodResult(@"success");
+    } else if ([@"UIView::translateWithDuration" isEqualToString:method]) {
+        NSNumber* duration = (NSNumber*) args[@"duration"];
+        NSNumber* toX = (NSNumber*) args[@"toX"];
+        NSNumber* toY = (NSNumber*) args[@"toY"];
+        NSNumber* repeatCount = (NSNumber*) args[@"repeatCount"];
+        NSNumber* repeatMode = (NSNumber*) args[@"repeatMode"];
+
+        UIView *target = (UIView *) args[@"__this__"];
+
+        CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"position"];
+        animation.toValue = [NSValue valueWithCGPoint:CGPointMake([toX floatValue], [toY floatValue])];
+        animation.duration = [duration doubleValue];
+        animation.autoreverses = [repeatMode intValue] == 0 ? NO : YES;
+        animation.repeatCount = [repeatCount intValue] == 0 ? MAXFLOAT : [repeatCount intValue];
+        animation.removedOnCompletion = NO;
+        animation.fillMode = kCAFillModeForwards;
+        [target.layer addAnimation:animation forKey:@"position"];
+        
+        methodResult(@"success");
     } else if ([@"UIView::alphaWithDuration" isEqualToString:method]) {
         NSNumber* duration = (NSNumber*) args[@"duration"];
         NSNumber* fromValue = (NSNumber*) args[@"fromValue"];
