@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -12,6 +13,8 @@ class UIView extends NSObject {
     final result = await kMethodChannel.invokeMethod('UIView::create');
     return UIView()..refId = result;
   }
+
+  final String tag__ = 'platform';
 
   /// 旋转
   ///

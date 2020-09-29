@@ -41,6 +41,8 @@ class android_graphics_Bitmap extends java_lang_Object {
         .toList();
   }
 
+  final String tag__ = 'platform';
+
   Future<Uint8List> get data {
     return kMethodChannel
         .invokeMethod('android.graphics.Bitmap::getData', {'__this__': this});

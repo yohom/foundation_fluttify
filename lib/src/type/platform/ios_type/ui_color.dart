@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'dart:ui';
 
 import 'package:foundation_fluttify/src/object/obejcts.dart';
@@ -12,4 +13,6 @@ class UIColor extends NSObject {
       ..refId = refId
       ..tag__ = 'platform';
   }
+
+  final String tag__ = 'platform';
 }

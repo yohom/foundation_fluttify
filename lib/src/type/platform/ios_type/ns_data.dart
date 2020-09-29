@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'dart:typed_data';
 
 import 'package:foundation_fluttify/foundation_fluttify.dart';
@@ -7,8 +8,8 @@ class NSData extends NSObject {
   static Future<NSData> createWithUint8List(Uint8List data) async {
     final refId = await kMethodChannel
         .invokeMethod('NSData::createWithUint8List', {'data': data});
-    return NSData()
-      ..refId = refId
-      ..tag__ = 'platform';
+    return NSData()..refId = refId;
   }
+
+  final String tag__ = 'platform';
 }

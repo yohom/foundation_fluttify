@@ -12,6 +12,8 @@ class android_app_Activity extends android_content_Context {
       ..tag__ = 'platform';
   }
 
+  final String tag__ = 'platform';
+
   Future<android_content_Intent> get intent async {
     final result = await kMethodChannel
         .invokeMethod('android.app.Activity::getIntent', {'__this__': this});
