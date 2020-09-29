@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 class CGSize extends Ref {
@@ -9,10 +10,10 @@ class CGSize extends Ref {
       'width': width,
       'height': height,
     });
-    return CGSize()
-      ..refId = refId
-      ..tag__ = 'platform';
+    return CGSize()..refId = refId;
   }
+
+  final String tag__ = 'platform';
 
   Future<double> get width {
     return kMethodChannel.invokeMethod('CGSize::getWidth', {'__this__': this});

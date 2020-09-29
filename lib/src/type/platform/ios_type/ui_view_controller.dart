@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 import 'ns_object.dart';
@@ -9,4 +10,6 @@ class UIViewController extends NSObject {
       ..refId = refId
       ..tag__ = 'platform';
   }
+
+  final String tag__ = 'platform';
 }

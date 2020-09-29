@@ -99,7 +99,7 @@ class Ref {
 
   @override
   String toString() {
-    return 'Ref{refId: $refId, tag__: $tag__}';
+    return 'Ref{refId: $refId, runtimeType: $runtimeType, tag__: $tag__}';
   }
 }
 

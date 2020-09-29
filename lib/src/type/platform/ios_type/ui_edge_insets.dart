@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
@@ -18,6 +19,8 @@ class UIEdgeInsets extends Ref {
       ..refId = refId
       ..tag__ = 'platform';
   }
+
+  final String tag__ = 'platform';
 
   Future<double> get top {
     return kMethodChannel

@@ -2,6 +2,8 @@
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 class NSObject extends Ref {
+  final String tag__ = 'platform';
+
   /// 初始化方法
   ///
   /// 暂时没有用处, create__方法会有相关处理

@@ -7,6 +7,8 @@ import 'intent.dart';
 
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 class android_content_BroadcastReceiver extends java_lang_Object {
+  final String tag__ = 'platform';
+
   Future<android_content_BroadcastReceiver> create(
     ValueChanged<android_content_Intent> onReceive,
   ) async {

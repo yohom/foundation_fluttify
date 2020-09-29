@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
@@ -11,4 +12,6 @@ class UIImageView extends UIView {
     );
     return UIImageView()..refId = result;
   }
+
+  final String tag__ = 'platform';
 }
