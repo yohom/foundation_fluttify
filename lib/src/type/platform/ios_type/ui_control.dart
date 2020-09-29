@@ -2,5 +2,6 @@
 import 'ns_object.dart';
 
 class UIControl extends NSObject {
+  @override
   final String tag__ = 'platform';
 }

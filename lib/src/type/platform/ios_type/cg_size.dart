@@ -13,6 +13,7 @@ class CGSize extends Ref {
     return CGSize()..refId = refId;
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<double> get width {

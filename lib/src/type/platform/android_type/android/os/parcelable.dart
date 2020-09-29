@@ -9,5 +9,6 @@ mixin android_os_Parcelable on java_lang_Object {
     return _android_os_Parcelable_SUB();
   }
 
+  @override
   final String tag__ = 'platform';
 }

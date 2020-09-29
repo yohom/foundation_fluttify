@@ -2,5 +2,6 @@
 import 'package:foundation_fluttify/src/type/platform/android_type/android/view/view_group.dart';
 
 class android_widget_FrameLayout extends android_view_ViewGroup {
+  @override
   final String tag__ = 'platform';
 }

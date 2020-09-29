@@ -13,5 +13,6 @@ class UIImageView extends UIView {
     return UIImageView()..refId = result;
   }
 
+  @override
   final String tag__ = 'platform';
 }

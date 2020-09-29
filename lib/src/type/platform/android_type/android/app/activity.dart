@@ -12,6 +12,7 @@ class android_app_Activity extends android_content_Context {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<android_content_Intent> get intent async {

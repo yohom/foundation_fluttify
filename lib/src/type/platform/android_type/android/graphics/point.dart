@@ -13,6 +13,7 @@ class android_graphics_Point extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<int> get x {

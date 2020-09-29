@@ -3,18 +3,21 @@ import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_view_View extends java_lang_Object {
+  @override
   final String tag__ = 'platform';
 }
 
 class _android_view_View_OnApplyWindowInsetsListener_SUB
     extends java_lang_Object
     with android_view_View_OnApplyWindowInsetsListener {
+  @override
   final String tag__ = 'platform';
 }
 
 mixin android_view_View_OnApplyWindowInsetsListener on java_lang_Object {
   static android_view_View_OnApplyWindowInsetsListener subInstance() =>
       _android_view_View_OnApplyWindowInsetsListener_SUB();
+  @override
   final String tag__ = 'platform';
 }
 
@@ -24,6 +27,7 @@ class _android_view_View_OnClickListener_SUB extends java_lang_Object
 mixin android_view_View_OnClickListener on java_lang_Object {
   static android_view_View_OnClickListener subInstance() =>
       _android_view_View_OnClickListener_SUB();
+  @override
   final String tag__ = 'platform';
 }
 
@@ -33,5 +37,6 @@ class _android_view_View_OnTouchListener_SUB extends java_lang_Object
 mixin android_view_View_OnTouchListener on java_lang_Object {
   static android_view_View_OnTouchListener subInstance() =>
       _android_view_View_OnTouchListener_SUB();
+  @override
   final String tag__ = 'platform';
 }

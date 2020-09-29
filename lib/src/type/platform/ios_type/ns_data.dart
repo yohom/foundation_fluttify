@@ -11,5 +11,6 @@ class NSData extends NSObject {
     return NSData()..refId = refId;
   }
 
+  @override
   final String tag__ = 'platform';
 }

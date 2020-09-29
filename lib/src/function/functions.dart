@@ -6,8 +6,8 @@ import 'package:flutter/foundation.dart';
 
 import '../../foundation_fluttify.dart';
 
-typedef Future<T> _FutureCallback<T>(Set<Ref> releasePool);
-typedef T _StreamCallback<T>(Set<Ref> releasePool);
+typedef _FutureCallback<T> = Future<T> Function(Set<Ref> releasePool);
+typedef _StreamCallback<T> = T Function(Set<Ref> releasePool);
 
 bool _enableFluttifyLog = true;
 Future<void> enableFluttifyLog(bool enable) {

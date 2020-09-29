@@ -2,6 +2,7 @@
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 mixin CAMediaTiming on NSObject {
+  @override
   final String tag__ = 'platform';
 
   /// The begin time of the object, in relation to its parent object, if

@@ -12,6 +12,7 @@ class android_location_Location extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<double> get latitude {

@@ -5,6 +5,7 @@ import 'ns_object.dart';
 class _NSCopying_SUB extends NSObject with NSCopying {}
 
 mixin NSCopying on NSObject {
+  @override
   final String tag__ = 'platform';
 
   static NSCopying subInstance() => _NSCopying_SUB();

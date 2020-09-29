@@ -6,5 +6,6 @@ class _NSMutableCopying_SUB extends NSObject with NSMutableCopying {}
 mixin NSMutableCopying on NSObject {
   static NSMutableCopying subInstance() => _NSMutableCopying_SUB();
 
+  @override
   final String tag__ = 'platform';
 }

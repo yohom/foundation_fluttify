@@ -2,5 +2,6 @@
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_graphics_drawable_Drawable extends java_lang_Object {
+  @override
   final String tag__ = 'platform';
 }

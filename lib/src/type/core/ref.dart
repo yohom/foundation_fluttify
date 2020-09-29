@@ -121,7 +121,7 @@ extension RefList_Batch on List<Ref> {
     return kMethodChannel.invokeMethod(
       'PlatformService::addProperty_batch',
       [
-        for (int i = 0; i < this.length; i++)
+        for (int i = 0; i < length; i++)
           <String, dynamic>{
             '__this__': this[i],
             'propertyKey': propertyKey,
@@ -136,7 +136,7 @@ extension RefList_Batch on List<Ref> {
     final List resultBatch = await kMethodChannel.invokeMethod(
       'PlatformService::getProperty_batch',
       [
-        for (int i = 0; i < this.length; i++)
+        for (int i = 0; i < length; i++)
           <String, dynamic>{
             '__this__': this[i],
             'propertyKey': propertyKey,
@@ -164,7 +164,7 @@ extension RefList_Batch on List<Ref> {
     return kMethodChannel.invokeMethod(
       'PlatformService::addJsonableProperty_batch',
       [
-        for (int i = 0; i < this.length; i++)
+        for (int i = 0; i < length; i++)
           <String, dynamic>{
             '__this__': this[i],
             'propertyKey': propertyKey,
@@ -179,7 +179,7 @@ extension RefList_Batch on List<Ref> {
     final List resultBatch = await kMethodChannel.invokeMethod(
       'PlatformService::getJsonableProperty_batch',
       [
-        for (int i = 0; i < this.length; i++)
+        for (int i = 0; i < length; i++)
           <String, dynamic>{
             '__this__': this[i],
             'propertyKey': propertyKey,

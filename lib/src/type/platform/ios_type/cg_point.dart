@@ -18,6 +18,7 @@ class CGPoint extends Ref {
     return [for (final refId in refIdBatch) CGPoint()..refId = refId];
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<double> get x {

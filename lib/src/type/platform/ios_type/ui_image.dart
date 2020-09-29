@@ -39,6 +39,7 @@ class UIImage extends NSObject {
     return resultBatch.map((refId) => UIImage()..refId = refId).toList();
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<Uint8List> get data {

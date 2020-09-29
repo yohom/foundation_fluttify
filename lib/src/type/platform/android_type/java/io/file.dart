@@ -10,5 +10,6 @@ class java_io_File extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 }
