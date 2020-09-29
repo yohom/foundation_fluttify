@@ -12,6 +12,8 @@ class android_location_Location extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  final String tag__ = 'platform';
+
   Future<double> get latitude {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getLatitude', {'__this__': this});

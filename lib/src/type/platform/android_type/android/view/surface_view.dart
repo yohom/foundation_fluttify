@@ -1,6 +1,10 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
-class android_view_SurfaceView extends android_view_View {}
+class android_view_SurfaceView extends android_view_View {
+  final String tag__ = 'platform';
+}
 
-mixin android_view_SurfaceHolder_Callback on java_lang_Object {}
+mixin android_view_SurfaceHolder_Callback on java_lang_Object {
+  final String tag__ = 'platform';
+}

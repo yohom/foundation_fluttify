@@ -24,9 +24,7 @@ class UIImage extends NSObject {
       'type': type,
       'fileName': fileName,
     });
-    return UIImage()
-      ..refId = refId
-      ..tag__ = 'platform';
+    return UIImage()..refId = refId;
   }
 
   static Future<List<UIImage>> create_batch(
@@ -38,12 +36,10 @@ class UIImage extends NSObject {
         for (final bitmapBytes in bitmapBytesBatch) {'bitmapBytes': bitmapBytes}
       ],
     );
-    return resultBatch
-        .map((refId) => UIImage()
-          ..refId = refId
-          ..tag__ = 'platform')
-        .toList();
+    return resultBatch.map((refId) => UIImage()..refId = refId).toList();
   }
+
+  final String tag__ = 'platform';
 
   Future<Uint8List> get data {
     return kMethodChannel.invokeMethod('UIImage::getData', {'__this__': this});

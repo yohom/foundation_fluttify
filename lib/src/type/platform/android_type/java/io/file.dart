@@ -9,4 +9,6 @@ class java_io_File extends java_lang_Object {
       ..refId = result
       ..tag__ = 'platform';
   }
+
+  final String tag__ = 'platform';
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 class CGRect extends Ref {
@@ -13,10 +14,10 @@ class CGRect extends Ref {
       'width': width,
       'height': height,
     });
-    return CGRect()
-      ..refId = refId
-      ..tag__ = 'platform';
+    return CGRect()..refId = refId;
   }
+
+  final String tag__ = 'platform';
 
   Future<double> get x {
     return kMethodChannel.invokeMethod('CGRect::getX', {'__this__': this});

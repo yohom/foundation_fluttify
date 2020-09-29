@@ -11,6 +11,8 @@ class android_os_Bundle extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  final String tag__ = 'platform';
+
   Future<void> putString(String key, String value) async {
     await kMethodChannel.invokeMethod('android.os.Bundle::putString', {
       '__this__': this,

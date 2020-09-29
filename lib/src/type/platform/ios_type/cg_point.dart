@@ -6,9 +6,7 @@ class CGPoint extends Ref {
   static Future<CGPoint> create(double x, double y) async {
     final refId =
         await kMethodChannel.invokeMethod('CGPoint::create', {'x': x, 'y': y});
-    return CGPoint()
-      ..refId = refId
-      ..tag__ = 'platform';
+    return CGPoint()..refId = refId;
   }
 
   static Future<List<CGPoint>> create_batch(
@@ -17,13 +15,10 @@ class CGPoint extends Ref {
   ) async {
     final refIdBatch = await kMethodChannel
         .invokeMethod('CGPoint::create_batch', {'x': x, 'y': y});
-    return [
-      for (final refId in refIdBatch)
-        CGPoint()
-          ..refId = refId
-          ..tag__ = 'platform'
-    ];
+    return [for (final refId in refIdBatch) CGPoint()..refId = refId];
   }
+
+  final String tag__ = 'platform';
 
   Future<double> get x {
     return kMethodChannel.invokeMethod('CGPoint::getX', {'__this__': this});

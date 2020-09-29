@@ -29,4 +29,6 @@ class android_app_Notification extends java_lang_Object {
       ..refId = refId
       ..tag__ = 'platform';
   }
+
+  final String tag__ = 'platform';
 }

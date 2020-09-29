@@ -10,4 +10,6 @@ class android_app_Application extends android_content_Context {
       ..refId = refId
       ..tag__ = 'platform';
   }
+
+  final String tag__ = 'platform';
 }

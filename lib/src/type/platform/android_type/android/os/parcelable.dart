@@ -8,4 +8,6 @@ mixin android_os_Parcelable on java_lang_Object {
   static android_os_Parcelable subInstance() {
     return _android_os_Parcelable_SUB();
   }
+
+  final String tag__ = 'platform';
 }
