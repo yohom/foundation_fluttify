@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
-typedef Future<void> OnViewCreated(android_view_SurfaceView controller);
-typedef Future<void> _OnViewDispose();
+typedef OnViewCreated = Future<void> Function(
+    android_view_SurfaceView controller);
+typedef _OnViewDispose = Future<void> Function();
 
 class android_view_SurfaceViewWidget extends StatefulWidget {
   const android_view_SurfaceViewWidget({
@@ -50,7 +51,7 @@ class _android_view_SurfaceViewWidgetState
             ..refId = refId
             ..tag__ = 'platform';
           if (widget.onSurfaceViewCreated != null) {
-            widget.onSurfaceViewCreated(_view);
+            await widget.onSurfaceViewCreated(_view);
           }
         },
       );

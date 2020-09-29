@@ -17,7 +17,7 @@ class ContinuousSetting extends StatefulWidget {
   final double max;
 
   @override
-  _ContinuousSettingState createState() => new _ContinuousSettingState();
+  _ContinuousSettingState createState() => _ContinuousSettingState();
 }
 
 class _ContinuousSettingState extends State<ContinuousSetting> {

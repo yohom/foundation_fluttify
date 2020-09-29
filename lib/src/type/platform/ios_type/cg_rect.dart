@@ -17,6 +17,7 @@ class CGRect extends Ref {
     return CGRect()..refId = refId;
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<double> get x {

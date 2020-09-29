@@ -14,6 +14,7 @@ class UIView extends NSObject {
     return UIView()..refId = result;
   }
 
+  @override
   final String tag__ = 'platform';
 
   /// 旋转

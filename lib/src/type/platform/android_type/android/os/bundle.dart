@@ -11,6 +11,7 @@ class android_os_Bundle extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<void> putString(String key, String value) async {

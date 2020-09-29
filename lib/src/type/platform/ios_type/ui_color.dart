@@ -14,5 +14,6 @@ class UIColor extends NSObject {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 }

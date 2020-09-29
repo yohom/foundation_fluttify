@@ -15,7 +15,7 @@ class _PlatformScreenState extends State<PlatformScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('Platform Type Demo')),
       body: DecoratedColumn(
-        itemSpacing: kSpaceBig,
+        itemSpacing: kSpace16,
         children: <Widget>[
           FunctionGroup(
             headLabel: 'Android Type Demo',

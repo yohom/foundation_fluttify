@@ -4,6 +4,7 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'ns_object.dart';
 
 class NSError extends NSObject {
+  @override
   final String tag__ = 'platform';
 
   Future<int> get code async {

@@ -2,5 +2,6 @@
 import 'ca_animation.dart';
 
 class CAPropertyAnimation extends CAAnimation {
+  @override
   final String tag__ = 'platform';
 }

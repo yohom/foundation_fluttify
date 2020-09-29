@@ -41,6 +41,7 @@ class android_graphics_Bitmap extends java_lang_Object {
         .toList();
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<Uint8List> get data {

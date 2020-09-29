@@ -11,5 +11,6 @@ class android_app_Application extends android_content_Context {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 }

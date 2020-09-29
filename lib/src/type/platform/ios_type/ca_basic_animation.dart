@@ -4,6 +4,7 @@ import 'ca_property_animation.dart';
 class CABasicAnimation extends CAPropertyAnimation {
   CABasicAnimation(this.fromValue, this.toValue, this.byValue);
 
+  @override
   final String tag__ = 'platform';
 
   final dynamic fromValue;

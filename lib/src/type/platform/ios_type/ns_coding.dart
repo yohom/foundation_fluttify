@@ -5,6 +5,7 @@ import 'ns_object.dart';
 class _NSCoding_SUB extends NSObject with NSCoding {}
 
 mixin NSCoding on NSObject {
+  @override
   final String tag__ = 'platform';
 
   static NSCoding subInstance() => _NSCoding_SUB();

@@ -7,6 +7,7 @@ import 'intent_filter.dart';
 
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 class android_content_Context extends java_lang_Object {
+  @override
   final String tag__ = 'platform';
 
   Future<android_content_Intent> registerReceiver(

@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(title: const Text('Plugin example app')),
         body: DecoratedColumn(
-          itemSpacing: kSpaceBig,
+          itemSpacing: kSpace16,
           children: <Widget>[
             FunctionGroup(
               headLabel: 'Type Demo',

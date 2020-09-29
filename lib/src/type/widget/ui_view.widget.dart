@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
-typedef Future<void> OnUIViewCreated(UIView controller);
-typedef Future<void> _OnUiKitViewDispose();
+typedef OnUIViewCreated = Future<void> Function(UIView controller);
+typedef _OnUiKitViewDispose = Future<void> Function();
 
 class UIViewWidget extends StatefulWidget {
   const UIViewWidget({
@@ -47,7 +47,7 @@ class _UIViewWidgetState extends State<UIViewWidget> {
             ..refId = refId
             ..tag__ = 'platform';
           if (widget.onUIViewCreated != null) {
-            widget.onUIViewCreated(_view);
+            await widget.onUIViewCreated(_view);
           }
         },
       );

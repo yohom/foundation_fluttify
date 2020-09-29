@@ -34,6 +34,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
   // 这里直接使用127了, 肯定不会与flutter本身的类型冲突
   static const int _valueRef = 127;
 
+  @override
   void writeValue(WriteBuffer buffer, dynamic value) {
     if (value == null) {
       buffer.putUint8(_valueNull);
@@ -114,6 +115,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
     }
   }
 
+  @override
   dynamic readValueOfType(int type, ReadBuffer buffer) {
     switch (type) {
       case _valueNull:
@@ -147,18 +149,23 @@ class FluttifyMessageCodec extends StandardMessageCodec {
       case _valueArray:
         final int length = readSize(buffer);
         final dynamic result = List<dynamic>(length);
-        for (int i = 0; i < length; i++) result[i] = readValue(buffer);
+        for (int i = 0; i < length; i++) {
+          result[i] = readValue(buffer);
+        }
         return result;
       case _valueList:
         final int length = readSize(buffer);
         final dynamic result = List<dynamic>(length);
-        for (int i = 0; i < length; i++) result[i] = readValue(buffer);
+        for (int i = 0; i < length; i++) {
+          result[i] = readValue(buffer);
+        }
         return result;
       case _valueMap:
         final int length = readSize(buffer);
         final dynamic result = <dynamic, dynamic>{};
-        for (int i = 0; i < length; i++)
+        for (int i = 0; i < length; i++) {
           result[readValue(buffer)] = readValue(buffer);
+        }
         return result;
       case _valueEnum:
         return buffer.getInt32();

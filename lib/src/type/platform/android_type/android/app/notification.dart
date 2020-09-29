@@ -30,5 +30,6 @@ class android_app_Notification extends java_lang_Object {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 }

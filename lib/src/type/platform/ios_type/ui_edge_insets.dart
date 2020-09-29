@@ -20,6 +20,7 @@ class UIEdgeInsets extends Ref {
       ..tag__ = 'platform';
   }
 
+  @override
   final String tag__ = 'platform';
 
   Future<double> get top {
