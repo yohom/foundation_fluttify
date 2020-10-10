@@ -7,7 +7,7 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/array.dart';
 
 class FluttifyMessageCodec extends StandardMessageCodec {
-  const FluttifyMessageCodec(this.refTag);
+  const FluttifyMessageCodec([this.refTag]);
 
   /// Ref对象(如果是)的tag
   final String refTag;
