@@ -12,40 +12,60 @@ void CGPointHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *value = (NSValue *) args[@"__this__"];
-        CGPoint cgPoint = value.CGPointValue;
-        
-        methodResult(@(cgPoint.x));
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            CGPoint cgPoint = value.CGPointValue;
+            methodResult(@(cgPoint.x));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"CGPoint::getY" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *value = (NSValue *) args[@"__this__"];
-        CGPoint cgPoint = value.CGPointValue;
-        
-        methodResult(@(cgPoint.y));
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            CGPoint cgPoint = value.CGPointValue;
+            methodResult(@(cgPoint.y));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"CGPoint::getX_batch" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSArray<NSValue*>* value = (NSArray<NSValue*>*) args[@"__this__"];
-    
-        NSMutableArray<NSNumber*>* result = [NSMutableArray arrayWithCapacity:value.count];
-        
-        for (NSValue* pointValue in value) {
-            [result addObject:@(pointValue.CGPointValue.x)];
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            NSMutableArray<NSNumber*>* result = [NSMutableArray arrayWithCapacity:value.count];
+            
+            for (NSValue* pointValue in value) {
+                [result addObject:@(pointValue.CGPointValue.x)];
+            }
+            
+            methodResult(result);
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
         }
-        
-        methodResult(result);
     } else if ([@"CGPoint::getY_batch" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSArray<NSValue*>* value = (NSArray<NSValue*>*) args[@"__this__"];
-    
-        NSMutableArray<NSNumber*>* result = [NSMutableArray arrayWithCapacity:value.count];
-        
-        for (NSValue* pointValue in value) {
-            [result addObject:@(pointValue.CGPointValue.y)];
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            NSMutableArray<NSNumber*>* result = [NSMutableArray arrayWithCapacity:value.count];
+            
+            for (NSValue* pointValue in value) {
+                [result addObject:@(pointValue.CGPointValue.y)];
+            }
+            
+            methodResult(result);
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
         }
-        
-        methodResult(result);
     } else if ([@"CGPoint::create" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         

@@ -25,18 +25,26 @@ void CGSizeHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
 
         NSValue *__this__ = (NSValue *) args[@"__this__"];
-        
-        CGSize cgSize = __this__.CGSizeValue;
-        
-        methodResult(@(cgSize.width));
+        if (__this__ != nil && (NSNull*) __this__ != [NSNull null]) {
+            CGSize cgSize = __this__.CGSizeValue;
+            methodResult(@(cgSize.width));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"CGSize::getHeight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
 
         NSValue *__this__ = (NSValue *) args[@"__this__"];
-        
-        CGSize cgSize = __this__.CGSizeValue;
-        
-        methodResult(@(cgSize.height));
+        if (__this__ != nil && (NSNull*) __this__ != [NSNull null]) {
+            CGSize cgSize = __this__.CGSizeValue;
+            methodResult(@(cgSize.height));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

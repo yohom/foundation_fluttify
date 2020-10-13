@@ -11,10 +11,14 @@ void NSDataHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         FlutterStandardTypedData *data = (FlutterStandardTypedData *) args[@"data"];
-        
-        NSData *target = data.data;
-        
-        methodResult(target);
+        if (data != nil && (NSNull*) data != [NSNull null]) {
+            NSData *target = data.data;
+            methodResult(target);
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else {
         methodResult(FlutterMethodNotImplemented);
     }

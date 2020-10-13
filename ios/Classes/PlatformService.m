@@ -29,10 +29,14 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         NSObject *object = (NSObject *) args[@"object"];
         
         NSObject *__this__ = (NSObject *) args[@"__this__"];
-        
-        [__this__ performSelector:NSSelectorFromString(selector) withObject:object];
-        
-        methodResult(@"success");
+        if (__this__ != nil && (NSNull*) __this__ != [NSNull null]) {
+            [__this__ performSelector:NSSelectorFromString(selector) withObject:object];
+            methodResult(@"success");
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     }
     // 为对象添加字段
     else if ([@"PlatformService::addProperty" isEqualToString:method]) {
@@ -43,7 +47,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSObject *__this__ = args[@"__this__"];
 
-        if (__this__) {
+        if (__this__ && (NSNull*) __this__ != [NSNull null]) {
             objc_setAssociatedObject(__this__, (const void *) propertyKey, property__, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
@@ -59,7 +63,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSObject *__this__ = args[@"__this__"];
 
-        if (__this__) {
+        if (__this__ && (NSNull*) __this__ != [NSNull null]) {
             objc_setAssociatedObject(__this__, (const void *) propertyKey, property__, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
@@ -80,7 +84,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *__this__ = args[@"__this__"];
 
-            if (__this__) {
+            if (__this__ && (NSNull*) __this__ != [NSNull null]) {
                 objc_setAssociatedObject(__this__, (const void *) propertyKey, property__, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 [resultList addObject:@"success"];
             } else {
@@ -99,7 +103,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSObject *__this__ = args[@"__this__"];
         
-        if (__this__) {
+        if (__this__ && (NSNull*) __this__ != [NSNull null]) {
             NSObject *result = objc_getAssociatedObject(__this__, (const void *) propertyKey);
             methodResult(result);
         } else {
@@ -119,7 +123,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *__this__ = args[@"__this__"];
             
-            if (__this__) {
+            if (__this__ && (NSNull*) __this__ != [NSNull null]) {
                 NSObject *result = objc_getAssociatedObject(__this__, (const void *) propertyKey);
                 [resultList addObject:result];
             } else {
@@ -139,7 +143,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSObject *__this__ = args[@"__this__"];
         
-        if (__this__) {
+        if (__this__ && (NSNull*) __this__ != [NSNull null]) {
             objc_setAssociatedObject(__this__, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
             methodResult(@"success");
         } else {
@@ -160,7 +164,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *__this__ = args[@"__this__"];
             
-            if (__this__) {
+            if (__this__ && (NSNull*) __this__ != [NSNull null]) {
                 objc_setAssociatedObject(__this__, (const void *) propertyKey, property, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
                 [resultList addObject:@"success"];
             } else {
@@ -179,7 +183,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
         
         NSObject *__this__ = args[@"__this__"];
         
-        if (__this__) {
+        if (__this__ && (NSNull*) __this__ != [NSNull null]) {
             methodResult(objc_getAssociatedObject(__this__, (const void *) propertyKey));
         } else {
             methodResult([FlutterError errorWithCode:@"目标对象为空" message:@"目标对象为空" details:@"目标对象为空"]);
@@ -198,7 +202,7 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
             
             NSObject *__this__ = args[@"__this__"];
             
-            if (__this__) {
+            if (__this__ && (NSNull*) __this__ != [NSNull null]) {
                 NSObject* result = objc_getAssociatedObject(__this__, (const void *) propertyKey);
                 [resultList addObject:result];
             } else {

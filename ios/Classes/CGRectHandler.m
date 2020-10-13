@@ -27,30 +27,50 @@ void CGRectHandler(NSString* method, id rawArgs, FlutterResult methodResult) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *value = (NSValue *) args[@"__this__"];
-        CGRect cgRect = value.CGRectValue;
-        
-        methodResult(@(cgRect.origin.x));
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            CGRect cgRect = value.CGRectValue;
+            methodResult(@(cgRect.origin.x));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"CGRect::getY" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *value = (NSValue *) args[@"__this__"];
-        CGRect cgRect = value.CGRectValue;
-        
-        methodResult(@(cgRect.origin.y));
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            CGRect cgRect = value.CGRectValue;
+            methodResult(@(cgRect.origin.y));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"CGRect::getWidth" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *value = (NSValue *) args[@"__this__"];
-        CGRect cgRect = value.CGRectValue;
-        
-        methodResult(@(cgRect.size.width));
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            CGRect cgRect = value.CGRectValue;
+            methodResult(@(cgRect.size.width));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"CGRect::getHeight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *value = (NSValue *) args[@"__this__"];
-        CGRect cgRect = value.CGRectValue;
-        
-        methodResult(@(cgRect.size.height));
+        if (value != nil && (NSNull*) value != [NSNull null]) {
+            CGRect cgRect = value.CGRectValue;
+            methodResult(@(cgRect.size.height));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else {
         methodResult(FlutterMethodNotImplemented);
     }
