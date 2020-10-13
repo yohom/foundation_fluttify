@@ -11,30 +11,50 @@ void UIEdgeInsetsHandler(NSString* method, id rawArgs, FlutterResult methodResul
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *target = (NSValue *) args[@"__this__"];
-        UIEdgeInsets insets = [target UIEdgeInsetsValue];
-        
-        methodResult(@(insets.top));
+        if (target != nil && (NSNull*) target != [NSNull null]) {
+            UIEdgeInsets insets = [target UIEdgeInsetsValue];
+            methodResult(@(insets.top));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"UIEdgeInsets::getLeft" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *target = (NSValue *) args[@"__this__"];
-        UIEdgeInsets insets = [target UIEdgeInsetsValue];
-        
-        methodResult(@(insets.left));
+        if (target != nil && (NSNull*) target != [NSNull null]) {
+            UIEdgeInsets insets = [target UIEdgeInsetsValue];
+            methodResult(@(insets.left));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"UIEdgeInsets::getBottom" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *target = (NSValue *) args[@"__this__"];
-        UIEdgeInsets insets = [target UIEdgeInsetsValue];
-        
-        methodResult(@(insets.bottom));
+        if (target != nil && (NSNull*) target != [NSNull null]) {
+            UIEdgeInsets insets = [target UIEdgeInsetsValue];
+            methodResult(@(insets.bottom));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"UIEdgeInsets::getRight" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
         NSValue *target = (NSValue *) args[@"__this__"];
-        UIEdgeInsets insets = [target UIEdgeInsetsValue];
-        
-        methodResult(@(insets.right));
+        if (target != nil && (NSNull*) target != [NSNull null]) {
+            UIEdgeInsets insets = [target UIEdgeInsetsValue];
+            methodResult(@(insets.right));
+        } else {
+            methodResult([FlutterError errorWithCode:@"目标对象为nul"
+                                             message:@"目标对象为nul"
+                                             details:@"目标对象为nul"]);
+        }
     } else if ([@"UIEdgeInsets::create" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
         
