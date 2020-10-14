@@ -188,9 +188,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
           gGlobalReleasePool.add(ref);
         }
 
-        // 暂时和原方案保持一致, 直接返回refId给上层处理, 要直接转换为可目标类型比较困难
-        // 改动也比较大, 后面再考虑了
-        return refId;
+        return ref;
       default:
         throw const FormatException('Message corrupted');
     }
