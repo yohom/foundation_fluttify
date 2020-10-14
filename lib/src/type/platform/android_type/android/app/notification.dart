@@ -6,6 +6,9 @@ import 'package:foundation_fluttify/src/type/platform/android_type/android/conte
 
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 class android_app_Notification extends java_lang_Object {
+  @override
+  final String tag__ = 'platform';
+
   static Future<android_app_Notification> create({
     @required String contentTitle,
     @required String contentText,
@@ -15,21 +18,18 @@ class android_app_Notification extends java_lang_Object {
     bool enableLights = true,
     bool showBadge = true,
   }) async {
-    final refId =
-        await kMethodChannel.invokeMethod('android.app.Notification::create', {
-      'contentTitle': contentTitle,
-      'contentText': contentText,
-      'when': when ?? DateTime.now().millisecondsSinceEpoch,
-      'channelId': channelId,
-      'channelName': channelName,
-      'enableLights': enableLights,
-      'showBadge': showBadge,
-    });
-    return android_app_Notification()
-      ..refId = refId
-      ..tag__ = 'platform';
+    final result = await kMethodChannel.invokeMethod<Ref>(
+      'android.app.Notification::create',
+      {
+        'contentTitle': contentTitle,
+        'contentText': contentText,
+        'when': when ?? DateTime.now().millisecondsSinceEpoch,
+        'channelId': channelId,
+        'channelName': channelName,
+        'enableLights': enableLights,
+        'showBadge': showBadge,
+      },
+    );
+    return android_app_Notification()..refId = result.refId;
   }
-
-  @override
-  final String tag__ = 'platform';
 }

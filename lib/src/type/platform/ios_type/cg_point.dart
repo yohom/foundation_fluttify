@@ -3,23 +3,23 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class CGPoint extends Ref {
+  @override
+  final String tag__ = 'platform';
+
   static Future<CGPoint> create(double x, double y) async {
-    final refId =
-        await kMethodChannel.invokeMethod('CGPoint::create', {'x': x, 'y': y});
-    return CGPoint()..refId = refId;
+    final result = await kMethodChannel
+        .invokeMethod<Ref>('CGPoint::create', {'x': x, 'y': y});
+    return CGPoint()..refId = result.refId;
   }
 
   static Future<List<CGPoint>> create_batch(
     List<double> x,
     List<double> y,
   ) async {
-    final refIdBatch = await kMethodChannel
-        .invokeMethod('CGPoint::create_batch', {'x': x, 'y': y});
-    return [for (final refId in refIdBatch) CGPoint()..refId = refId];
+    final resultBatch = await kMethodChannel
+        .invokeListMethod<Ref>('CGPoint::create_batch', {'x': x, 'y': y});
+    return [for (final item in resultBatch) CGPoint()..refId = item.refId];
   }
-
-  @override
-  final String tag__ = 'platform';
 
   Future<double> get x {
     return kMethodChannel.invokeMethod('CGPoint::getX', {'__this__': this});

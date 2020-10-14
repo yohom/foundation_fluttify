@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/cg_point.dart';
 
@@ -9,13 +10,13 @@ import 'cg_rect.dart';
 import 'ns_object.dart';
 
 class UIView extends NSObject {
-  static Future<UIView> create() async {
-    final result = await kMethodChannel.invokeMethod('UIView::create');
-    return UIView()..refId = result;
-  }
-
   @override
   final String tag__ = 'platform';
+
+  static Future<UIView> create() async {
+    final result = await kMethodChannel.invokeMethod<Ref>('UIView::create');
+    return UIView()..refId = result.refId;
+  }
 
   /// 旋转
   ///
@@ -138,8 +139,8 @@ class UIView extends NSObject {
 
   Future<CGRect> get frame async {
     final result = await kMethodChannel
-        .invokeMethod('UIView::getFrame', {'__this__': this});
-    return CGRect()..refId = result;
+        .invokeMethod<Ref>('UIView::getFrame', {'__this__': this});
+    return CGRect()..refId = result.refId;
   }
 
   Future<bool> get hidden async {
