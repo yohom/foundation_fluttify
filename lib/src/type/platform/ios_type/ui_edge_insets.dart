@@ -3,25 +3,24 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class UIEdgeInsets extends Ref {
+  @override
+  final String tag__ = 'platform';
+
   static Future<UIEdgeInsets> create(
     double top,
     double left,
     double bottom,
     double right,
   ) async {
-    final refId = await kMethodChannel.invokeMethod('UIEdgeInsets::create', {
+    final result =
+        await kMethodChannel.invokeMethod<Ref>('UIEdgeInsets::create', {
       'top': top,
       'left': left,
       'bottom': bottom,
       'right': right,
     });
-    return UIEdgeInsets()
-      ..refId = refId
-      ..tag__ = 'platform';
+    return UIEdgeInsets()..refId = result.refId;
   }
-
-  @override
-  final String tag__ = 'platform';
 
   Future<double> get top {
     return kMethodChannel

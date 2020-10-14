@@ -5,10 +5,10 @@ class _android_os_Parcelable_SUB extends java_lang_Object
     with android_os_Parcelable {}
 
 mixin android_os_Parcelable on java_lang_Object {
+  @override
+  final String tag__ = 'platform';
+
   static android_os_Parcelable subInstance() {
     return _android_os_Parcelable_SUB();
   }
-
-  @override
-  final String tag__ = 'platform';
 }
