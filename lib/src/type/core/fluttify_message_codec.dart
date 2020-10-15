@@ -7,10 +7,14 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/array.dart';
 
 class FluttifyMessageCodec extends StandardMessageCodec {
-  const FluttifyMessageCodec(this.refTag);
+  const FluttifyMessageCodec(
+    this.refTag, {
+    @required this.refCaster,
+  });
 
   /// Ref对象(如果是)的tag
   final String refTag;
+  final dynamic Function(Ref ref, String typeName) refCaster;
 
   static const int _valueNull = 0;
   static const int _valueTrue = 1;
@@ -188,7 +192,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
           gGlobalReleasePool.add(ref);
         }
 
-        return ref;
+        return refCaster(ref, refId.split(':')[0]);
       default:
         throw const FormatException('Message corrupted');
     }
