@@ -199,7 +199,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
           log('添加对象 $ref 到全局释放池');
           gGlobalReleasePool.add(ref);
         }
-        break;
+        return ref;
       default:
         throw const FormatException('Message corrupted');
     }
