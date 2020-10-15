@@ -9,9 +9,12 @@ import 'package:foundation_fluttify/src/type/core/array.dart';
 
 class FluttifyMessageCodec extends StandardMessageCodec {
   const FluttifyMessageCodec({
+    this.tag,
     this.androidCaster,
     this.iosCaster,
   });
+
+  final String tag;
 
   /// 外部传入造型回调, 自动把Ref转换为目标对象
   /// foundation内部还是手动处理
@@ -181,10 +184,10 @@ class FluttifyMessageCodec extends StandardMessageCodec {
 
         if (refId == null) return null;
 
-        Ref ref;
-        if (androidCaster == null && iosCaster == null) {
-          ref = Ref()..refId = refId;
-        } else if (Platform.isAndroid && androidCaster != null) {
+        Ref ref = Ref()
+          ..refId = refId
+          ..tag__ = tag;
+        if (Platform.isAndroid && androidCaster != null) {
           ref = androidCaster(ref, refId.split(':')[0]);
         } else if (Platform.isIOS && iosCaster != null) {
           ref = iosCaster(ref, refId.split(':')[0]);
