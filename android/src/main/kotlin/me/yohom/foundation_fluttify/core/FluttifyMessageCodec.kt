@@ -108,11 +108,12 @@ class FluttifyMessageCodec: StandardMessageCodec() {
         }
         // 其他类型传哈希值
         else {
+            val refId = "${value.javaClass.name}:${System.identityHashCode(value)}"
             // 放入HEAP
-            HEAP[System.identityHashCode(value).toString()] = value
+            HEAP[refId] = value
 
             stream.write(REF.toInt())
-            writeBytes(stream, System.identityHashCode(value).toString().toByteArray(UTF8))
+            writeBytes(stream, refId.toByteArray(UTF8))
         }
     }
 
