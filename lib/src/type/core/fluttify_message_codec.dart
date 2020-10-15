@@ -181,7 +181,15 @@ class FluttifyMessageCodec extends StandardMessageCodec {
 
         if (refId == null) return null;
 
-        final ref = Ref()..refId = refId;
+        Ref ref;
+        if (androidCaster == null && iosCaster == null) {
+          ref = Ref()..refId = refId;
+        } else if (Platform.isAndroid && androidCaster != null) {
+          ref = androidCaster(ref, refId.split(':')[0]);
+        } else if (Platform.isIOS && iosCaster != null) {
+          ref = iosCaster(ref, refId.split(':')[0]);
+        }
+
         // 如果有ScopedReleasePool, 则使用ScopedReleasePool里的释放池
         // 否则使用全局的释放池
         if (gReleasePoolStack.peek() != null) {
@@ -190,16 +198,6 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         } else {
           log('添加对象 $ref 到全局释放池');
           gGlobalReleasePool.add(ref);
-        }
-
-        if (androidCaster == null && iosCaster == null) {
-          return ref;
-        } else if (Platform.isAndroid && androidCaster != null) {
-          return androidCaster(ref, refId.split(':')[0]);
-        } else if (Platform.isIOS && iosCaster != null) {
-          return iosCaster(ref, refId.split(':')[0]);
-        } else {
-          return null;
         }
         break;
       default:
