@@ -36,16 +36,14 @@ class _UIViewWidgetState extends State<UIViewWidget> {
             Factory<OneSequenceGestureRecognizer>(
                 () => EagerGestureRecognizer()),
           };
-      final messageCodec = FluttifyMessageCodec('platform');
+      final messageCodec = FluttifyMessageCodec();
       return UiKitView(
         viewType: 'me.yohom/foundation_fluttify/UIView',
         creationParamsCodec: messageCodec,
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = UIView()
-            ..refId = refId
-            ..tag__ = 'platform';
+          _view = UIView()..refId = refId;
           if (widget.onUIViewCreated != null) {
             await widget.onUIViewCreated(_view);
           }
