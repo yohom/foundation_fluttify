@@ -192,7 +192,12 @@ class FluttifyMessageCodec extends StandardMessageCodec {
           gGlobalReleasePool.add(ref);
         }
 
-        return refCaster(ref, refId.split(':')[0]);
+        if (refCaster == null) {
+          return ref;
+        } else {
+          return refCaster(ref, refId.split(':')[0]);
+        }
+        break;
       default:
         throw const FormatException('Message corrupted');
     }
