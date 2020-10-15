@@ -11,7 +11,7 @@ final gReleasePoolStack = Stack<ScopedReleasePoolState>();
 
 const kMethodChannelName = 'com.fluttify/foundation_method';
 final kMethodChannel = MethodChannel(
-    kMethodChannelName, StandardMethodCodec(FluttifyMessageCodec('platform')))
+    kMethodChannelName, StandardMethodCodec(FluttifyMessageCodec()))
   ..setMethodCallHandler((call) async {
     final method = call.method;
     final arguments = call.arguments as Map<String, dynamic>;

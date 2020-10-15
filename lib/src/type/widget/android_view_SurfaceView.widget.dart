@@ -40,16 +40,14 @@ class _android_view_SurfaceViewWidgetState
             Factory<OneSequenceGestureRecognizer>(
                 () => EagerGestureRecognizer()),
           };
-      final messageCodec = FluttifyMessageCodec('platform');
+      final messageCodec = FluttifyMessageCodec();
       return AndroidView(
         viewType: 'me.yohom/foundation_fluttify/android.view.SurfaceView',
         creationParamsCodec: messageCodec,
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = android_view_SurfaceView()
-            ..refId = refId
-            ..tag__ = 'platform';
+          _view = android_view_SurfaceView()..refId = refId;
           if (widget.onSurfaceViewCreated != null) {
             await widget.onSurfaceViewCreated(_view);
           }

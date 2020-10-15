@@ -8,14 +8,13 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/array.dart';
 
 class FluttifyMessageCodec extends StandardMessageCodec {
-  const FluttifyMessageCodec(
-    this.refTag, {
-    @required this.androidCaster,
-    @required this.iosCaster,
+  const FluttifyMessageCodec({
+    this.androidCaster,
+    this.iosCaster,
   });
 
-  /// Ref对象(如果是)的tag
-  final String refTag;
+  /// 外部传入造型回调, 自动把Ref转换为目标对象
+  /// foundation内部还是手动处理
   final dynamic Function(dynamic ref, String typeName) androidCaster;
   final dynamic Function(dynamic ref, String typeName) iosCaster;
 
@@ -182,9 +181,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
 
         if (refId == null) return null;
 
-        final ref = Ref()
-          ..refId = refId
-          ..tag__ = refTag;
+        final ref = Ref()..refId = refId;
         // 如果有ScopedReleasePool, 则使用ScopedReleasePool里的释放池
         // 否则使用全局的释放池
         if (gReleasePoolStack.peek() != null) {
