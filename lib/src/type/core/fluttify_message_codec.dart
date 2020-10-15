@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
@@ -9,12 +10,14 @@ import 'package:foundation_fluttify/src/type/core/array.dart';
 class FluttifyMessageCodec extends StandardMessageCodec {
   const FluttifyMessageCodec(
     this.refTag, {
-    @required this.refCaster,
+    @required this.androidCaster,
+    @required this.iosCaster,
   });
 
   /// Ref对象(如果是)的tag
   final String refTag;
-  final dynamic Function(Ref ref, String typeName) refCaster;
+  final dynamic Function(dynamic ref, String typeName) androidCaster;
+  final dynamic Function(dynamic ref, String typeName) iosCaster;
 
   static const int _valueNull = 0;
   static const int _valueTrue = 1;
@@ -192,10 +195,14 @@ class FluttifyMessageCodec extends StandardMessageCodec {
           gGlobalReleasePool.add(ref);
         }
 
-        if (refCaster == null) {
+        if (androidCaster == null && iosCaster == null) {
           return ref;
+        } else if (Platform.isAndroid && androidCaster != null) {
+          return androidCaster(ref, refId.split(':')[0]);
+        } else if (Platform.isIOS && iosCaster != null) {
+          return iosCaster(ref, refId.split(':')[0]);
         } else {
-          return refCaster(ref, refId.split(':')[0]);
+          return null;
         }
         break;
       default:

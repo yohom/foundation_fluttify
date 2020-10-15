@@ -127,7 +127,7 @@ UInt8 elementSizeForFlutterStandardDataType(FlutterStandardDataType type) {
     // 传递NSObject类型
   else if ([value isKindOfClass:[NSObject class]]) {
     NSUInteger hash = [value hash];
-    NSString* refId = [NSString stringWithFormat:@"%@", @(hash)];
+    NSString* refId = [NSString stringWithFormat:@"%@:%@", NSStringFromClass([value class]), @(hash)];
     [self writeByte:FluttifyFieldRef];
     [self writeUTF8:refId];
     HEAP[refId] = value;
