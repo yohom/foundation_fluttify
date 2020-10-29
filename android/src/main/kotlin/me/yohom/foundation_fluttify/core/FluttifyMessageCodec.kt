@@ -9,7 +9,7 @@ import java.nio.charset.Charset
 import java.util.*
 
 @Suppress("PrivatePropertyName")
-class FluttifyMessageCodec: StandardMessageCodec() {
+class FluttifyMessageCodec : StandardMessageCodec() {
     private val UTF8 = Charset.forName("UTF8")
 
     private val NULL: Byte = 0
