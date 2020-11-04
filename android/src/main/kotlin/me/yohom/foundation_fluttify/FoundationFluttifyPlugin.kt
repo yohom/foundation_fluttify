@@ -25,10 +25,12 @@ import me.yohom.foundation_fluttify.android.graphics.PointHandler
 import me.yohom.foundation_fluttify.android.location.LocationHandler
 import me.yohom.foundation_fluttify.android.os.BundleHandler
 import me.yohom.foundation_fluttify.android.util.PairHandler
+import me.yohom.foundation_fluttify.android.view.ViewGroupHandler
 import me.yohom.foundation_fluttify.android.view.ViewHandler
 import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 import me.yohom.foundation_fluttify.core.PlatformService
 import me.yohom.foundation_fluttify.java.io.FileHandler
+import me.yohom.foundation_fluttify.platform_view.android_view_FrameLayoutFactory
 import me.yohom.foundation_fluttify.platform_view.android_view_SurfaceViewFactory
 
 
@@ -61,6 +63,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             plugin.activity = registrar.activity()
             plugin.applicationContext = registrar.activity()?.applicationContext
             plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
+            plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.FrameLayout", android_view_FrameLayoutFactory())
 
             gMethodChannel = MethodChannel(
                     registrar.messenger(),
@@ -90,6 +93,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.location.Location::") -> LocationHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.util.Pair::") -> PairHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.View::") -> ViewHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.view.ViewGroup::") -> ViewGroupHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("java.io.File::") -> FileHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("PlatformService::") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding, pluginBinding, registrar)
                 else -> methodResult.notImplemented()
@@ -120,6 +124,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         activity = binding.activity
         activityBinding = binding
         platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
+        platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.FrameLayout", android_view_FrameLayoutFactory())
     }
 
     override fun onDetachedFromActivity() {
