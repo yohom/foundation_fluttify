@@ -8,7 +8,7 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/android/view/frame_layout.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
-typedef OnViewCreated = Future<void> Function(
+typedef _OnViewCreated = Future<void> Function(
     android_view_FrameLayout controller);
 typedef _OnViewDispose = Future<void> Function();
 
@@ -20,7 +20,7 @@ class android_view_FrameLayoutWidget extends StatefulWidget {
     this.gestureRecognizers,
   }) : super(key: key);
 
-  final OnViewCreated onFrameLayoutCreated;
+  final _OnViewCreated onFrameLayoutCreated;
   final _OnViewDispose onDispose;
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
 
