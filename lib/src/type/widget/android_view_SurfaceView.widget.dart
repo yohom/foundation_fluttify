@@ -47,7 +47,8 @@ class _android_view_SurfaceViewWidgetState
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = android_view_SurfaceView()..refId = refId;
+          _view = android_view_SurfaceView()
+            ..refId = 'android.view.SurfaceView:$refId';
           if (widget.onSurfaceViewCreated != null) {
             await widget.onSurfaceViewCreated(_view);
           }

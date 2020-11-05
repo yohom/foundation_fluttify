@@ -43,7 +43,7 @@ class _UIViewWidgetState extends State<UIViewWidget> {
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = UIView()..refId = refId;
+          _view = UIView()..refId = refId; // TODO 改成`类型:id`形式
           if (widget.onUIViewCreated != null) {
             await widget.onUIViewCreated(_view);
           }

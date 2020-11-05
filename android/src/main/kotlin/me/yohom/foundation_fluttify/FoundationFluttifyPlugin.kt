@@ -30,7 +30,7 @@ import me.yohom.foundation_fluttify.android.view.ViewHandler
 import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 import me.yohom.foundation_fluttify.core.PlatformService
 import me.yohom.foundation_fluttify.java.io.FileHandler
-import me.yohom.foundation_fluttify.platform_view.android_view_FrameLayoutFactory
+import me.yohom.foundation_fluttify.platform_view.android_widget_FrameLayoutFactory
 import me.yohom.foundation_fluttify.platform_view.android_view_SurfaceViewFactory
 
 
@@ -63,7 +63,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             plugin.activity = registrar.activity()
             plugin.applicationContext = registrar.activity()?.applicationContext
             plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
-            plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.FrameLayout", android_view_FrameLayoutFactory())
+            plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.widget.FrameLayout", android_widget_FrameLayoutFactory())
 
             gMethodChannel = MethodChannel(
                     registrar.messenger(),
@@ -124,7 +124,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         activity = binding.activity
         activityBinding = binding
         platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
-        platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.FrameLayout", android_view_FrameLayoutFactory())
+        platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.widget.FrameLayout", android_widget_FrameLayoutFactory())
     }
 
     override fun onDetachedFromActivity() {

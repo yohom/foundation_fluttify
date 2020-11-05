@@ -5,11 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
-import 'package:foundation_fluttify/src/type/platform/android_type/android/view/frame_layout.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
 typedef _OnViewCreated = Future<void> Function(
-    android_view_FrameLayout controller);
+    android_widget_FrameLayout controller);
 typedef _OnViewDispose = Future<void> Function();
 
 class android_view_FrameLayoutWidget extends StatefulWidget {
@@ -31,7 +30,7 @@ class android_view_FrameLayoutWidget extends StatefulWidget {
 
 class _android_view_FrameLayoutWidgetState
     extends State<android_view_FrameLayoutWidget> {
-  android_view_FrameLayout _view;
+  android_widget_FrameLayout _view;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +42,13 @@ class _android_view_FrameLayoutWidgetState
           };
       final messageCodec = FluttifyMessageCodec();
       return AndroidView(
-        viewType: 'me.yohom/foundation_fluttify/android.view.FrameLayout',
+        viewType: 'me.yohom/foundation_fluttify/android.widget.FrameLayout',
         creationParamsCodec: messageCodec,
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = android_view_FrameLayout()
-            ..refId = 'android.view.FrameLayout:$refId';
+          _view = android_widget_FrameLayout()
+            ..refId = 'android.widget.FrameLayout:$refId';
           if (widget.onFrameLayoutCreated != null) {
             await widget.onFrameLayoutCreated(_view);
           }
