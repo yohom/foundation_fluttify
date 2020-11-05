@@ -15,7 +15,7 @@ class android_view_SurfaceViewFactory : PlatformViewFactory(StandardMessageCodec
 
         // 同时存放viewId和refId的对象, 供后续viewId转refId使用
         HEAP[(Int.MAX_VALUE - id).toString()] = view
-        HEAP[System.identityHashCode(view).toString()] = view
+        HEAP["android.view.SurfaceView:${System.identityHashCode(view)}"] = view
         return object : PlatformView {
             override fun getView(): View {
                 return view
