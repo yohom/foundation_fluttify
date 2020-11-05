@@ -12,4 +12,11 @@ class android_view_ViewGroup extends android_view_View {
       {'__this__': this, 'child': child},
     );
   }
+
+  Future<void> removeAllViews() {
+    return kMethodChannel.invokeMethod(
+      'android.view.ViewGroup::removeAllViews',
+      {'__this__': this},
+    );
+  }
 }
