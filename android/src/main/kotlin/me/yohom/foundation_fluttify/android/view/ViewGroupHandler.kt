@@ -16,6 +16,13 @@ fun ViewGroupHandler(method: String, rawArgs: Any, methodResult: MethodChannel.R
 
             methodResult.success("success")
         }
+        "android.view.ViewGroup::removeAllViews" -> {
+            val viewGroup: ViewGroup = rawArgs.__this__()
+
+            viewGroup.removeAllViews()
+
+            methodResult.success("success")
+        }
         else -> methodResult.notImplemented()
     }
 }
