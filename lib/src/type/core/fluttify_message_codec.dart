@@ -45,7 +45,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
 
   @override
   void writeValue(WriteBuffer buffer, dynamic value) {
-    if (value == null) {
+    if (value == null || (value is Ref && value.refId == null)) {
       buffer.putUint8(_valueNull);
     } else if (value is bool) {
       buffer.putUint8(value ? _valueTrue : _valueFalse);
