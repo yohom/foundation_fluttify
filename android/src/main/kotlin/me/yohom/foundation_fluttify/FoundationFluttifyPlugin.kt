@@ -25,6 +25,8 @@ import me.yohom.foundation_fluttify.android.graphics.PointHandler
 import me.yohom.foundation_fluttify.android.location.LocationHandler
 import me.yohom.foundation_fluttify.android.os.BundleHandler
 import me.yohom.foundation_fluttify.android.util.PairHandler
+import me.yohom.foundation_fluttify.android.view.SurfaceHolderHandler
+import me.yohom.foundation_fluttify.android.view.SurfaceViewHandler
 import me.yohom.foundation_fluttify.android.view.ViewGroupHandler
 import me.yohom.foundation_fluttify.android.view.ViewHandler
 import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
@@ -95,6 +97,8 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.location.Location::") -> LocationHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.util.Pair::") -> PairHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.View::") -> ViewHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.view.SurfaceView::") -> SurfaceViewHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.view.SurfaceHolder::") -> SurfaceHolderHandler(registrar, methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.ViewGroup::") -> ViewGroupHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("java.io.File::") -> FileHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("PlatformService::") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding, pluginBinding, registrar)
