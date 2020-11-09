@@ -5,13 +5,13 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import me.yohom.foundation_fluttify.core.get
 
-fun SurfaceHolderHandler(registrar: PluginRegistry.Registrar, method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
+fun SurfaceHolderHandler(registrar: PluginRegistry.Registrar?, method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
         "android.view.SurfaceView::addCallback" -> {
             val __this__ = rawArgs["__this__"] as SurfaceHolder
 
             __this__.addCallback(object : SurfaceHolder.Callback {
-                private val channel = MethodChannel(registrar.messenger(), "android.view.SurfaceHolder::addCallback::Callback")
+                private val channel = MethodChannel(registrar?.messenger(), "android.view.SurfaceHolder::addCallback::Callback")
 
                 override fun surfaceCreated(p0: SurfaceHolder?) {
                     channel.invokeMethod(
