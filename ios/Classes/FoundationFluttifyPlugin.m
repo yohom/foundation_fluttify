@@ -4,6 +4,7 @@
 #import "UIViewHandler.h"
 #import "CGPointHandler.h"
 #import "NSDataHandler.h"
+#import "NSDateHandler.h"
 #import "UIEdgeInsetsHandler.h"
 #import "UIColorHandler.h"
 #import "NSErrorHandler.h"
@@ -81,6 +82,8 @@ NSString *_channelName = @"com.fluttify/foundation_method";
     UIImageViewHandler(methodCall.method, rawArgs, methodResult);
   } else if ([methodCall.method hasPrefix:@"NSObject::"]) {
     NSObjectHandler(methodCall.method, rawArgs, methodResult);
+  } else if ([methodCall.method hasPrefix:@"NSDate::"]) {
+    NSDateHandler(methodCall.method, rawArgs, methodResult);
   } else if ([methodCall.method hasPrefix:@"Platform"]) {
     PlatformService(methodCall.method, rawArgs, methodResult, self->_registrar);
   } else {
