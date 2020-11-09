@@ -8,29 +8,30 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
 typedef _OnViewCreated = Future<void> Function(
-    android_view_SurfaceView controller);
+  android_opengl_GLSurfaceView controller,
+);
 typedef _OnViewDispose = Future<void> Function();
 
-class android_view_SurfaceViewWidget extends StatefulWidget {
-  const android_view_SurfaceViewWidget({
+class android_opengl_GLSurfaceViewWidget extends StatefulWidget {
+  const android_opengl_GLSurfaceViewWidget({
     Key key,
-    this.onSurfaceViewCreated,
+    this.onGLSurfaceViewCreated,
     this.onDispose,
     this.gestureRecognizers,
   }) : super(key: key);
 
-  final _OnViewCreated onSurfaceViewCreated;
+  final _OnViewCreated onGLSurfaceViewCreated;
   final _OnViewDispose onDispose;
   final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
 
   @override
-  _android_view_SurfaceViewWidgetState createState() =>
-      _android_view_SurfaceViewWidgetState();
+  _android_opengl_GLSurfaceViewWidgetState createState() =>
+      _android_opengl_GLSurfaceViewWidgetState();
 }
 
-class _android_view_SurfaceViewWidgetState
-    extends State<android_view_SurfaceViewWidget> {
-  android_view_SurfaceView _view;
+class _android_opengl_GLSurfaceViewWidgetState
+    extends State<android_opengl_GLSurfaceViewWidget> {
+  android_opengl_GLSurfaceView _view;
 
   @override
   Widget build(BuildContext context) {
@@ -40,17 +41,17 @@ class _android_view_SurfaceViewWidgetState
             Factory<OneSequenceGestureRecognizer>(
                 () => EagerGestureRecognizer()),
           };
-      final messageCodec = FluttifyMessageCodec();
+      final messageCodec = FluttifyMessageCodec(tag: 'platform');
       return AndroidView(
-        viewType: 'me.yohom/foundation_fluttify/android.view.SurfaceView',
+        viewType: 'me.yohom/foundation_fluttify/android.opengl.GLSurfaceView',
         creationParamsCodec: messageCodec,
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = android_view_SurfaceView()
-            ..refId = 'android.view.SurfaceView:$refId';
-          if (widget.onSurfaceViewCreated != null) {
-            await widget.onSurfaceViewCreated(_view);
+          _view = android_opengl_GLSurfaceView()
+            ..refId = 'android.opengl.GLSurfaceView:$refId';
+          if (widget.onGLSurfaceViewCreated != null) {
+            await widget.onGLSurfaceViewCreated(_view);
           }
         },
       );
