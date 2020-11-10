@@ -18,7 +18,7 @@ mixin android_view_SurfaceHolder on java_lang_Object {
     // invoke native method
     await kMethodChannel.invokeMethod(
       'android.view.SurfaceHolder::addCallback',
-      {'callback': callback},
+      {'__this__': this, 'callback': callback},
     );
 
     // handle native call
