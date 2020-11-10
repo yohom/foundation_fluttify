@@ -17,7 +17,7 @@ mixin android_view_SurfaceHolder on java_lang_Object {
   ) async {
     // invoke native method
     await kMethodChannel.invokeMethod(
-      'com.aliyun.player.AliPlayerFactory::setConvertURLCallback',
+      'android.view.SurfaceHolder::addCallback',
       {'callback': callback},
     );
 

@@ -7,7 +7,7 @@ import me.yohom.foundation_fluttify.core.get
 
 fun SurfaceHolderHandler(registrar: PluginRegistry.Registrar?, method: String, rawArgs: Any, methodResult: MethodChannel.Result) {
     when (method) {
-        "android.view.SurfaceView::addCallback" -> {
+        "android.view.SurfaceHolder::addCallback" -> {
             val __this__ = rawArgs["__this__"] as SurfaceHolder
 
             __this__.addCallback(object : SurfaceHolder.Callback {
