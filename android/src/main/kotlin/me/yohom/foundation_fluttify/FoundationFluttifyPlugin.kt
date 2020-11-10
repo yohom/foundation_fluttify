@@ -5,6 +5,7 @@ import android.content.Context
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
+import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
@@ -33,8 +34,8 @@ import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 import me.yohom.foundation_fluttify.core.PlatformService
 import me.yohom.foundation_fluttify.java.io.FileHandler
 import me.yohom.foundation_fluttify.platform_view.android_opengl_GLSurfaceViewFactory
-import me.yohom.foundation_fluttify.platform_view.android_widget_FrameLayoutFactory
 import me.yohom.foundation_fluttify.platform_view.android_view_SurfaceViewFactory
+import me.yohom.foundation_fluttify.platform_view.android_widget_FrameLayoutFactory
 
 
 // The stack that exists on the Dart side for a method call is enabled only when the MethodChannel passing parameters are limited
@@ -56,6 +57,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     private var pluginBinding: FlutterPlugin.FlutterPluginBinding? = null
     private var registrar: Registrar? = null
     private var platformViewRegistry: PlatformViewRegistry? = null
+    private var binaryMessenger: BinaryMessenger? = null
 
     companion object {
         @JvmStatic
@@ -63,9 +65,10 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
             val plugin = FoundationFluttifyPlugin()
             plugin.registrar = registrar
             plugin.platformViewRegistry = registrar.platformViewRegistry()
+            plugin.binaryMessenger = registrar.messenger()
             plugin.activity = registrar.activity()
             plugin.applicationContext = registrar.activity()?.applicationContext
-            plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
+            plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory(registrar.messenger()))
             plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.widget.FrameLayout", android_widget_FrameLayoutFactory())
             plugin.platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.opengl.GLSurfaceView", android_opengl_GLSurfaceViewFactory())
 
@@ -98,7 +101,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.util.Pair::") -> PairHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.View::") -> ViewHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.SurfaceView::") -> SurfaceViewHandler(methodCall.method, rawArgs, methodResult)
-                startsWith("android.view.SurfaceHolder::") -> SurfaceHolderHandler(registrar, methodCall.method, rawArgs, methodResult)
+                startsWith("android.view.SurfaceHolder::") -> SurfaceHolderHandler(binaryMessenger, methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.ViewGroup::") -> ViewGroupHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("java.io.File::") -> FileHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("PlatformService::") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding, pluginBinding, registrar)
@@ -111,6 +114,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
         applicationContext = binding.applicationContext
         pluginBinding = binding
         platformViewRegistry = binding.platformViewRegistry
+        binaryMessenger = binding.binaryMessenger
 
         gMethodChannel = MethodChannel(
                 binding.binaryMessenger,
@@ -129,7 +133,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
     override fun onAttachedToActivity(binding: ActivityPluginBinding) {
         activity = binding.activity
         activityBinding = binding
-        platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory())
+        platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.view.SurfaceView", android_view_SurfaceViewFactory(binaryMessenger))
         platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.widget.FrameLayout", android_widget_FrameLayoutFactory())
         platformViewRegistry?.registerViewFactory("me.yohom/foundation_fluttify/android.opengl.GLSurfaceView", android_opengl_GLSurfaceViewFactory())
     }
