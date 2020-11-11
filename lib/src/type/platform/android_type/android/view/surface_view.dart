@@ -11,4 +11,18 @@ class android_view_SurfaceView extends android_view_View {
     );
     return android_view_SurfaceHolder.subInstance()..refId = result.refId;
   }
+
+  Future<void> setZOrderOnTop(bool onTop) async {
+    await kMethodChannel.invokeMethod(
+      'android.view.SurfaceView::setZOrderOnTop',
+      {'__this__': this, 'onTop': onTop},
+    );
+  }
+
+  Future<void> setZOrderMediaOverlay(bool isMediaOverlay) async {
+    await kMethodChannel.invokeMethod(
+      'android.view.SurfaceView::setZOrderMediaOverlay',
+      {'__this__': this, 'isMediaOverlay': isMediaOverlay},
+    );
+  }
 }
