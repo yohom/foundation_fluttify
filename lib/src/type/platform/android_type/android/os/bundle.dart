@@ -13,31 +13,31 @@ class android_os_Bundle extends java_lang_Object {
   @override
   final String tag__ = 'platform';
 
-  Future<void> putString(String key, String value) async {
-    await kMethodChannel.invokeMethod('android.os.Bundle::putString', {
+  Future<void> putString(String key, String value) {
+    return kMethodChannel.invokeMethod('android.os.Bundle::putString', {
       '__this__': this,
       'key': key,
       'value': value,
     });
   }
 
-  Future<void> putInt(String key, int value) async {
-    await kMethodChannel.invokeMethod('android.os.Bundle::putInt', {
+  Future<void> putInt(String key, int value) {
+    return kMethodChannel.invokeMethod('android.os.Bundle::putInt', {
       '__this__': this,
       'key': key,
       'value': value,
     });
   }
 
-  Future<String> getString(String key) async {
-    await kMethodChannel.invokeMethod(
+  Future<String> getString(String key) {
+    return kMethodChannel.invokeMethod<String>(
       'android.os.Bundle::getString',
       {'__this__': this, 'key': key},
     );
   }
 
-  Future<int> getInt(String key) async {
-    await kMethodChannel.invokeMethod(
+  Future<int> getInt(String key) {
+    return kMethodChannel.invokeMethod<int>(
       'android.os.Bundle::getInt',
       {'__this__': this, 'key': key},
     );
