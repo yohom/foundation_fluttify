@@ -21,12 +21,29 @@ fun BundleHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Resu
 
             methodResult.success("success")
         }
+        "android.os.Bundle::putInt" -> {
+            val key = rawArgs["key"] as String
+            val value = rawArgs["value"] as Int
+
+            val bundle: Bundle = rawArgs.__this__()
+
+            bundle.putInt(key, value)
+
+            methodResult.success("success")
+        }
         "android.os.Bundle::getString" -> {
             val key = rawArgs["key"] as String
 
             val bundle: Bundle = rawArgs.__this__()
 
             methodResult.success(bundle.getString(key))
+        }
+        "android.os.Bundle::getInt" -> {
+            val key = rawArgs["key"] as String
+
+            val bundle: Bundle = rawArgs.__this__()
+
+            methodResult.success(bundle.getInt(key))
         }
         else -> methodResult.notImplemented()
     }

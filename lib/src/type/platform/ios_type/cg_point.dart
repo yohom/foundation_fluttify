@@ -1,4 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:math';
+
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
@@ -9,6 +11,12 @@ class CGPoint extends Ref {
   static Future<CGPoint> create(double x, double y) async {
     final result = await kMethodChannel
         .invokeMethod<Ref>('CGPoint::create', {'x': x, 'y': y});
+    return CGPoint()..refId = result.refId;
+  }
+
+  static Future<CGPoint> createWithPoint(Point point) async {
+    final result = await kMethodChannel
+        .invokeMethod<Ref>('CGPoint::create', {'x': point.x, 'y': point.y});
     return CGPoint()..refId = result.refId;
   }
 
