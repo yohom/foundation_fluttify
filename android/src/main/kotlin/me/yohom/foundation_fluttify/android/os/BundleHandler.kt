@@ -23,7 +23,7 @@ fun BundleHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Resu
         }
         "android.os.Bundle::putInt" -> {
             val key = rawArgs["key"] as String
-            val value = rawArgs["value"] as String
+            val value = rawArgs["value"] as Int
 
             val bundle: Bundle = rawArgs.__this__()
 
