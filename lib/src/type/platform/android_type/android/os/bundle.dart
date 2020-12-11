@@ -21,9 +21,24 @@ class android_os_Bundle extends java_lang_Object {
     });
   }
 
+  Future<void> putInt(String key, int value) async {
+    await kMethodChannel.invokeMethod('android.os.Bundle::putInt', {
+      '__this__': this,
+      'key': key,
+      'value': value,
+    });
+  }
+
   Future<String> getString(String key) async {
     await kMethodChannel.invokeMethod(
       'android.os.Bundle::getString',
+      {'__this__': this, 'key': key},
+    );
+  }
+
+  Future<int> getInt(String key) async {
+    await kMethodChannel.invokeMethod(
+      'android.os.Bundle::getInt',
       {'__this__': this, 'key': key},
     );
   }
