@@ -13,4 +13,11 @@ class NSData extends NSObject {
         .invokeMethod<Ref>('NSData::createWithUint8List', {'data': data});
     return NSData()..refId = result.refId;
   }
+
+  Future<Uint8List> getData() {
+    return kMethodChannel.invokeMethod<Uint8List>(
+      'NSData::getData',
+      {'__this__': this},
+    );
+  }
 }
