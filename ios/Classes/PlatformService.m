@@ -38,6 +38,13 @@ void PlatformService(NSString* method, id rawArgs, FlutterResult methodResult, N
                                              details:@"目标对象为nul"]);
         }
     }
+    // 判断当前对象是否存在
+    else if ([@"PlatformService::isNull" isEqualToString:method]) {
+        NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;
+
+        NSObject *__this__ = (NSObject *) args[@"__this__"];
+        methodResult(@(__this__ == nil || (NSNull*) __this__ == [NSNull null]));
+    }
     // 为对象添加字段
     else if ([@"PlatformService::addProperty" isEqualToString:method]) {
         NSDictionary<NSString*, id>* args = (NSDictionary<NSString*, id>*) rawArgs;

@@ -16,6 +16,11 @@ class Ref {
         .invokeMethod('PlatformService::release', {'__this__': refId});
   }
 
+  Future<bool> isNull() {
+    return kMethodChannel
+        .invokeMethod('PlatformService::isNull', {'__this__': this});
+  }
+
   /// 通过反射调用方法
   Future<void> performSelectorWithObject__(String selector, Object object) {
     return kMethodChannel
