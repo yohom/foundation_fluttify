@@ -41,7 +41,7 @@ class _ContinuousSettingState extends State<ContinuousSetting> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(widget.head, style: Theme.of(context).textTheme.subhead),
-          SPACE_NORMAL,
+          SPACE_8,
           Slider(
             value: _value,
             min: widget.min,
@@ -77,18 +77,18 @@ class DiscreteSetting extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
       onSelected: onSelected,
+      itemBuilder: (context) {
+        return options
+            .map((value) => PopupMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                ))
+            .toList();
+      },
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Text(head, style: Theme.of(context).textTheme.subhead),
       ),
-      itemBuilder: (context) {
-        return options
-            .map((value) => PopupMenuItem<String>(
-                  child: Text(value),
-                  value: value,
-                ))
-            .toList();
-      },
     );
   }
 }
