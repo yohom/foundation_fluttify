@@ -1,3 +1,4 @@
+//@dart=2.9
 library foundation_fluttify;
 
 export 'src/extension/image_provider.x.dart';

@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 class android_view_SurfaceView extends android_view_View {

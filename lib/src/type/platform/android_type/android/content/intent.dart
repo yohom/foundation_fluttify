@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/android/os/bundle.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';

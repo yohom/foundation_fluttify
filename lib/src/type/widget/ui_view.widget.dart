@@ -1,3 +1,5 @@
+// @dart=2.9
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -26,7 +28,7 @@ class UIViewWidget extends StatefulWidget {
 }
 
 class _UIViewWidgetState extends State<UIViewWidget> {
-  UIView _view;
+  UIView/*?*//*?*//*?*//*?*//*!*//*?*//*?*//*?*//*?*/ _view;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class _UIViewWidgetState extends State<UIViewWidget> {
     if (widget.onDispose != null) {
       widget.onDispose().then((_) => _view.release__());
     } else {
-      _view.release__();
+      _view/*!*/.release__();
     }
     super.dispose();
   }

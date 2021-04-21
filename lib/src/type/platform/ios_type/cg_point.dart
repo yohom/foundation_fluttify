@@ -1,4 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
+
+// @dart=2.9
+
 import 'dart:math';
 
 import 'package:foundation_fluttify/foundation_fluttify.dart';

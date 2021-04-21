@@ -1,4 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
+
+// @dart=2.9
+
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
