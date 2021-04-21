@@ -23,6 +23,6 @@ class android_content_Context extends java_lang_Object {
         'intentFilter': intentFilter,
       },
     );
-    return android_content_Intent()..refId = result.refId;
+    return android_content_Intent()..refId = result?.refId;
   }
 }

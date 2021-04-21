@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
+
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/cg_point.dart';
@@ -15,14 +15,13 @@ class UIView extends NSObject {
 
   static Future<UIView> create() async {
     final result = await kMethodChannel.invokeMethod<Ref>('UIView::create');
-    return UIView()..refId = result.refId;
+    return UIView()..refId = result?.refId;
   }
 
   /// 旋转
   ///
   /// 单位为度
   Future<void> rotate(double angle) async {
-    assert(angle != null);
     await kMethodChannel.invokeMethod('UIView::rotate', {
       '__this__': this,
       'angle': angle,
@@ -33,7 +32,7 @@ class UIView extends NSObject {
   Future<void> scaleWithDuration({
     Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
-    @required double toValue,
+    required double toValue,
     int repeatCount = 0,
     int repeatMode = 1,
   }) async {
@@ -52,7 +51,7 @@ class UIView extends NSObject {
   /// 执行移动动画
   Future<void> translateWithDuration({
     Duration duration = const Duration(seconds: 1),
-    @required CGPoint toValue,
+    required CGPoint toValue,
     int repeatCount = 0,
     int repeatMode = 1,
   }) async {
@@ -72,7 +71,7 @@ class UIView extends NSObject {
   Future<void> alphaWithDuration({
     Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
-    @required double toValue,
+    required double toValue,
     int repeatCount = 0,
     int repeatMode = 0,
   }) async {
@@ -94,11 +93,10 @@ class UIView extends NSObject {
   Future<void> rotateWithDuration({
     Duration duration = const Duration(seconds: 1),
     double fromValue = 0,
-    @required double toValue,
+    required double toValue,
     int repeatCount = 0,
     int repeatMode = 0,
   }) async {
-    assert(duration != null);
     await kMethodChannel.invokeMethod('UIView::rotateWithDuration', {
       '__this__': this,
       'duration': duration.inMilliseconds / 1000,
@@ -117,13 +115,12 @@ class UIView extends NSObject {
   /// [fromValue], [toValue]和[keyPath]的长度必须相等
   Future<void> groupWithDuration({
     Duration duration = const Duration(seconds: 1),
-    @required List<double> fromValue,
-    @required List<double> toValue,
-    @required List<String> keyPath,
+    required List<double> fromValue,
+    required List<double> toValue,
+    required List<String> keyPath,
     int repeatCount = 0,
     int repeatMode = 0,
   }) async {
-    assert(duration != null);
     assert(fromValue.length == toValue.length);
     assert(toValue.length == keyPath.length);
     await kMethodChannel.invokeMethod('UIView::groupWithDuration', {
@@ -140,17 +137,16 @@ class UIView extends NSObject {
   Future<CGRect> get frame async {
     final result = await kMethodChannel
         .invokeMethod<Ref>('UIView::getFrame', {'__this__': this});
-    return CGRect()..refId = result.refId;
+    return CGRect()..refId = result?.refId;
   }
 
-  Future<bool> get hidden async {
+  Future<bool?> get hidden async {
     final result = await kMethodChannel
         .invokeMethod('UIView::getHidden', {'__this__': this});
     return result;
   }
 
   Future<void> setHidden(bool hidden) async {
-    assert(hidden != null);
     await kMethodChannel.invokeMethod('UIView::setHidden', {
       '__this__': this,
       'hidden': hidden,
@@ -158,7 +154,6 @@ class UIView extends NSObject {
   }
 
   Future<void> setAnchorPoint(double anchorU, double anchorV) async {
-    assert(hidden != null);
     await kMethodChannel.invokeMethod('UIView::setAnchorPoint', {
       '__this__': this,
       'anchorU': anchorU,

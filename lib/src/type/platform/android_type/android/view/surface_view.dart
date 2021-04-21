@@ -9,7 +9,7 @@ class android_view_SurfaceView extends android_view_View {
       'android.view.SurfaceView::getHolder',
       {'__this__': this},
     );
-    return android_view_SurfaceHolder.subInstance()..refId = result.refId;
+    return android_view_SurfaceHolder.subInstance()..refId = result?.refId;
   }
 
   Future<void> setZOrderOnTop(bool onTop) async {

@@ -1,12 +1,11 @@
-// ignore_for_file: non_constant_identifier_names
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
 class Ref {
   /// unique id of native side counterpart object
-  String refId;
+  String? refId;
 
   /// custom tag
-  String tag__;
+  String? tag__;
 
   /// 释放当前引用对象
   Future<void> release__() async {
@@ -14,6 +13,11 @@ class Ref {
     // 通过获取hash的方式删除元素
     await kMethodChannel
         .invokeMethod('PlatformService::release', {'__this__': refId});
+  }
+
+  Future<bool?> isNull() {
+    return kMethodChannel
+        .invokeMethod('PlatformService::isNull', {'__this__': this});
   }
 
   /// 通过反射调用方法
@@ -86,7 +90,7 @@ class Ref {
   /// 转换为批处理
   List<T> asBatch<T extends Ref>(int length) {
     assert(length > 0);
-    return List.filled(length, this);
+    return List.filled(length, this as T);
   }
 
   @override

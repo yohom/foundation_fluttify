@@ -11,12 +11,12 @@ class android_app_Activity extends android_content_Context {
   static Future<android_app_Activity> get() async {
     final result =
         await kMethodChannel.invokeMethod<Ref>('android.app.Activity::get');
-    return android_app_Activity()..refId = result.refId;
+    return android_app_Activity()..refId = result?.refId;
   }
 
   Future<android_content_Intent> get intent async {
     final result = await kMethodChannel.invokeMethod<Ref>(
         'android.app.Activity::getIntent', {'__this__': this});
-    return android_content_Intent()..refId = result.refId;
+    return android_content_Intent()..refId = result?.refId;
   }
 }

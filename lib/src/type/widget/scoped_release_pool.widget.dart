@@ -1,12 +1,14 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/ref.dart';
 
 class ScopedReleasePool extends StatefulWidget {
   const ScopedReleasePool({
-    Key key,
-    @required this.child,
-    @required this.tag,
+    Key? key,
+    required this.child,
+    required this.tag,
   }) : super(key: key);
 
   final Widget child;

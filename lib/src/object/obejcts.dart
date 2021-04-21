@@ -21,38 +21,39 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
       case 'applicationDidFinishLaunchingWithOptions':
         if (applicationDidFinishLaunchingWithOptions != null) {
           final launchOptions = arguments['launchOptions'] as Map;
-          applicationDidFinishLaunchingWithOptions(application, launchOptions);
+          applicationDidFinishLaunchingWithOptions!(application, launchOptions);
         }
         break;
       case 'applicationWillFinishLaunchingWithOptions':
         if (applicationWillFinishLaunchingWithOptions != null) {
           final launchOptions = arguments['launchOptions'] as Map;
-          applicationWillFinishLaunchingWithOptions(application, launchOptions);
+          applicationWillFinishLaunchingWithOptions!(
+              application, launchOptions);
         }
         break;
       case 'applicationDidBecomeActive':
         if (applicationDidBecomeActive != null) {
-          applicationDidBecomeActive(application);
+          applicationDidBecomeActive!(application);
         }
         break;
       case 'applicationWillResignActive':
         if (applicationWillResignActive != null) {
-          applicationWillResignActive(application);
+          applicationWillResignActive!(application);
         }
         break;
       case 'applicationDidEnterBackground':
         if (applicationDidEnterBackground != null) {
-          applicationDidEnterBackground(application);
+          applicationDidEnterBackground!(application);
         }
         break;
       case 'applicationWillEnterForeground':
         if (applicationWillEnterForeground != null) {
-          applicationWillEnterForeground(application);
+          applicationWillEnterForeground!(application);
         }
         break;
       case 'applicationWillTerminate':
         if (applicationWillTerminate != null) {
-          applicationWillTerminate(application);
+          applicationWillTerminate!(application);
         }
         break;
       case 'applicationDidRegisterUserNotificationSettings':
@@ -60,7 +61,7 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
           final notificationSettings = UIUserNotificationSettings()
             ..refId = arguments['notificationSettings'];
 
-          applicationDidRegisterUserNotificationSettings(
+          applicationDidRegisterUserNotificationSettings!(
               application, notificationSettings);
         }
         break;
@@ -69,7 +70,7 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
             null) {
           final deviceToken = NSData()..refId = arguments['deviceToken'];
 
-          applicationDidRegisterForRemoteNotificationsWithDeviceToken(
+          applicationDidRegisterForRemoteNotificationsWithDeviceToken!(
               application, deviceToken);
         }
         break;
@@ -77,21 +78,21 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
         if (applicationDidReceiveRemoteNotificationFetchCompletionHandler !=
             null) {
           final userInfo = arguments['userInfo'] as Map;
-          applicationDidReceiveRemoteNotificationFetchCompletionHandler(
+          applicationDidReceiveRemoteNotificationFetchCompletionHandler!(
               application, userInfo);
         }
         break;
       case 'applicationOpenURLOptions':
         if (applicationOpenURLOptions != null) {
           final url = NSURL()..refId = arguments['url'];
-          final options = arguments['options'] as Map;
-          applicationOpenURLOptions(application, url, options);
+          final options = (arguments['options'] as Map).cast<String, dynamic>();
+          applicationOpenURLOptions!(application, url, options);
         }
         break;
       case 'applicationHandleOpenURL':
         if (applicationHandleOpenURL != null) {
           final url = NSURL()..refId = arguments['url'];
-          applicationHandleOpenURL(application, url);
+          applicationHandleOpenURL!(application, url);
         }
         break;
       case 'applicationOpenURLSourceApplicationAnnotation':
@@ -100,7 +101,7 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
           final sourceApplication = arguments['sourceApplication'] as String;
           final annotation = NSObject()..refId = arguments['annotation'];
 
-          applicationOpenURLSourceApplicationAnnotation(
+          applicationOpenURLSourceApplicationAnnotation!(
             application,
             openURL,
             sourceApplication,
@@ -113,7 +114,7 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
           final shortcutItem = UIApplicationShortcutItem()
             ..refId = arguments['shortcutItem'];
 
-          applicationPerformActionForShortcutItemCompletionHandler(
+          applicationPerformActionForShortcutItemCompletionHandler!(
               application, shortcutItem);
         }
         break;
@@ -122,21 +123,20 @@ final kMethodChannel = MethodChannel(kMethodChannelName, kMethodCodec)
             null) {
           final identifier = arguments['identifier'] as String;
 
-          applicationHandleEventsForBackgroundURLSessionCompletionHandler(
+          applicationHandleEventsForBackgroundURLSessionCompletionHandler!(
               application, identifier);
         }
         break;
       case 'applicationPerformFetchWithCompletionHandler':
-        if (applicationPerformFetchWithCompletionHandler != null) {
-          applicationPerformFetchWithCompletionHandler(application);
-        }
+        applicationPerformFetchWithCompletionHandler?.call(application);
+
         break;
       case 'applicationContinueUserActivityRestorationHandler':
         if (applicationContinueUserActivityRestorationHandler != null) {
           final userActivity = NSUserActivity()
             ..refId = arguments['userActivity'];
 
-          applicationContinueUserActivityRestorationHandler(
+          applicationContinueUserActivityRestorationHandler!(
               application, userActivity);
         }
         break;
@@ -152,46 +152,46 @@ const kBroadcastEventChannel =
 const kSensorEventChannelName = 'com.fluttify/foundation_sensor_event';
 const kSensorEventChannel = EventChannel(kSensorEventChannelName);
 
-ApplicationDidFinishLaunchingWithOptions
+ApplicationDidFinishLaunchingWithOptions?
     applicationDidFinishLaunchingWithOptions;
 
-ApplicationWillFinishLaunchingWithOptions
+ApplicationWillFinishLaunchingWithOptions?
     applicationWillFinishLaunchingWithOptions;
 
-ApplicationDidBecomeActive applicationDidBecomeActive;
+ApplicationDidBecomeActive? applicationDidBecomeActive;
 
-ApplicationWillResignActive applicationWillResignActive;
+ApplicationWillResignActive? applicationWillResignActive;
 
-ApplicationDidEnterBackground applicationDidEnterBackground;
+ApplicationDidEnterBackground? applicationDidEnterBackground;
 
-ApplicationWillEnterForeground applicationWillEnterForeground;
+ApplicationWillEnterForeground? applicationWillEnterForeground;
 
-ApplicationWillTerminate applicationWillTerminate;
+ApplicationWillTerminate? applicationWillTerminate;
 
-ApplicationDidRegisterUserNotificationSettings
+ApplicationDidRegisterUserNotificationSettings?
     applicationDidRegisterUserNotificationSettings;
 
-ApplicationDidRegisterForRemoteNotificationsWithDeviceToken
+ApplicationDidRegisterForRemoteNotificationsWithDeviceToken?
     applicationDidRegisterForRemoteNotificationsWithDeviceToken;
 
-ApplicationDidReceiveRemoteNotificationFetchCompletionHandler
+ApplicationDidReceiveRemoteNotificationFetchCompletionHandler?
     applicationDidReceiveRemoteNotificationFetchCompletionHandler;
 
-ApplicationOpenURLOptions applicationOpenURLOptions;
+ApplicationOpenURLOptions? applicationOpenURLOptions;
 
-ApplicationHandleOpenURL applicationHandleOpenURL;
+ApplicationHandleOpenURL? applicationHandleOpenURL;
 
-ApplicationOpenURLSourceApplicationAnnotation
+ApplicationOpenURLSourceApplicationAnnotation?
     applicationOpenURLSourceApplicationAnnotation;
 
-ApplicationPerformActionForShortcutItemCompletionHandler
+ApplicationPerformActionForShortcutItemCompletionHandler?
     applicationPerformActionForShortcutItemCompletionHandler;
 
-ApplicationHandleEventsForBackgroundURLSessionCompletionHandler
+ApplicationHandleEventsForBackgroundURLSessionCompletionHandler?
     applicationHandleEventsForBackgroundURLSessionCompletionHandler;
 
-ApplicationPerformFetchWithCompletionHandler
+ApplicationPerformFetchWithCompletionHandler?
     applicationPerformFetchWithCompletionHandler;
 
-ApplicationContinueUserActivityRestorationHandler
+ApplicationContinueUserActivityRestorationHandler?
     applicationContinueUserActivityRestorationHandler;

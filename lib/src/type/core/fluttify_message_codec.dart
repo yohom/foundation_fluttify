@@ -14,12 +14,12 @@ class FluttifyMessageCodec extends StandardMessageCodec {
     this.iosCaster,
   });
 
-  final String tag;
+  final String? tag;
 
   /// 外部传入造型回调, 自动把Ref转换为目标对象
   /// foundation内部还是手动处理
-  final dynamic Function(dynamic ref, String typeName) androidCaster;
-  final dynamic Function(dynamic ref, String typeName) iosCaster;
+  final dynamic Function(dynamic ref, String typeName)? androidCaster;
+  final dynamic Function(dynamic ref, String typeName)? iosCaster;
 
   static const int _valueNull = 0;
   static const int _valueTrue = 1;
@@ -116,7 +116,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
     // fluttify Ref类
     else if (value is Ref) {
       buffer.putUint8(_valueRef);
-      final Uint8List bytes = utf8.encoder.convert(value.refId);
+      final Uint8List bytes = utf8.encoder.convert(value.refId!);
       writeSize(buffer, bytes.length);
       buffer.putUint8List(bytes);
     } else {
@@ -157,14 +157,16 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         return buffer.getFloat64List(length);
       case _valueArray:
         final int length = readSize(buffer);
-        final dynamic result = List<dynamic>(length);
+        final dynamic result =
+            List<dynamic>.filled(length, null, growable: false);
         for (int i = 0; i < length; i++) {
           result[i] = readValue(buffer);
         }
         return result;
       case _valueList:
         final int length = readSize(buffer);
-        final dynamic result = List<dynamic>(length);
+        final dynamic result =
+            List<dynamic>.filled(length, null, growable: false);
         for (int i = 0; i < length; i++) {
           result[i] = readValue(buffer);
         }
@@ -182,22 +184,20 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         final int length = readSize(buffer);
         final String refId = utf8.decoder.convert(buffer.getUint8List(length));
 
-        if (refId == null) return null;
-
         Ref ref = Ref()
           ..refId = refId
           ..tag__ = tag;
         if (Platform.isAndroid && androidCaster != null) {
-          ref = androidCaster(ref, refId.split(':')[0]);
+          ref = androidCaster!(ref, refId.split(':')[0]);
         } else if (Platform.isIOS && iosCaster != null) {
-          ref = iosCaster(ref, refId.split(':')[0]);
+          ref = iosCaster!(ref, refId.split(':')[0]);
         }
 
         // 如果有ScopedReleasePool, 则使用ScopedReleasePool里的释放池
         // 否则使用全局的释放池
         if (gReleasePoolStack.peek() != null) {
           log('添加对象 $ref 到局部释放池');
-          gReleasePoolStack.peek().add(ref);
+          gReleasePoolStack.peek()?.add(ref);
         } else {
           log('添加对象 $ref 到全局释放池');
           gGlobalReleasePool.add(ref);

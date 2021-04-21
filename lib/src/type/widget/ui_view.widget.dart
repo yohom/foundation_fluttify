@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -6,27 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
-typedef OnUIViewCreated = Future<void> Function(UIView controller);
+typedef OnUIViewCreated = Future<void> Function(UIView? controller);
 typedef _OnUiKitViewDispose = Future<void> Function();
 
 class UIViewWidget extends StatefulWidget {
   const UIViewWidget({
-    Key key,
+    Key? key,
     this.onUIViewCreated,
     this.onDispose,
     this.gestureRecognizers,
   }) : super(key: key);
 
-  final OnUIViewCreated onUIViewCreated;
-  final _OnUiKitViewDispose onDispose;
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
+  final OnUIViewCreated? onUIViewCreated;
+  final _OnUiKitViewDispose? onDispose;
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
 
   @override
   _UIViewWidgetState createState() => _UIViewWidgetState();
 }
 
 class _UIViewWidgetState extends State<UIViewWidget> {
-  UIView _view;
+  UIView?/*?*//*?*//*?*//*!*//*?*//*?*//*?*//*?*/ _view;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class _UIViewWidgetState extends State<UIViewWidget> {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
           _view = UIView()..refId = refId; // TODO 改成`类型:id`形式
           if (widget.onUIViewCreated != null) {
-            await widget.onUIViewCreated(_view);
+            await widget.onUIViewCreated!(_view);
           }
         },
       );
@@ -57,9 +59,9 @@ class _UIViewWidgetState extends State<UIViewWidget> {
   @override
   void dispose() {
     if (widget.onDispose != null) {
-      widget.onDispose().then((_) => _view.release__());
+      widget.onDispose!().then((_) => _view!.release__());
     } else {
-      _view.release__();
+      _view!.release__();
     }
     super.dispose();
   }

@@ -10,11 +10,11 @@ class android_app_Notification extends java_lang_Object {
   final String tag__ = 'platform';
 
   static Future<android_app_Notification> create({
-    @required String contentTitle,
-    @required String contentText,
-    int when,
-    @required String channelId,
-    @required String channelName,
+    required String contentTitle,
+    required String contentText,
+    int? when,
+    required String channelId,
+    required String channelName,
     bool enableLights = true,
     bool showBadge = true,
   }) async {
@@ -30,6 +30,6 @@ class android_app_Notification extends java_lang_Object {
         'showBadge': showBadge,
       },
     );
-    return android_app_Notification()..refId = result.refId;
+    return android_app_Notification()..refId = result?.refId;
   }
 }

@@ -14,6 +14,6 @@ class android_content_IntentFilter extends java_lang_Object {
       'android.content.IntentFilter::create',
       {'__this__': this, 'action': action},
     );
-    return android_content_IntentFilter()..refId = result.refId;
+    return android_content_IntentFilter()..refId = result?.refId;
   }
 }

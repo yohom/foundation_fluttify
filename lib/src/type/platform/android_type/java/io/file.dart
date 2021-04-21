@@ -8,6 +8,6 @@ class java_io_File extends java_lang_Object {
   static Future<java_io_File> create(String path) async {
     final result = await kMethodChannel
         .invokeMethod<Ref>('java.io.File::create', {'path': path});
-    return java_io_File()..refId = result.refId;
+    return java_io_File()..refId = result?.refId;
   }
 }

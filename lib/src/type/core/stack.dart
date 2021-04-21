@@ -22,7 +22,7 @@ class Stack<T> {
   }
 
   /// get the top of the stack without deleting it.
-  T peek() {
+  T? peek() {
     if (_list.isEmpty) return null;
     return _list.last;
   }

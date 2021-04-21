@@ -10,6 +10,6 @@ class android_app_Application extends android_content_Context {
   static Future<android_app_Application> get() async {
     final result =
         await kMethodChannel.invokeMethod<Ref>('android.app.Application::get');
-    return android_app_Application()..refId = result.refId;
+    return android_app_Application()..refId = result?.refId;
   }
 }

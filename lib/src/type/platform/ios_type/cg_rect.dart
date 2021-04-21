@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
+
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 
 class CGRect extends Ref {
@@ -17,22 +18,22 @@ class CGRect extends Ref {
       'width': width,
       'height': height,
     });
-    return CGRect()..refId = result.refId;
+    return CGRect()..refId = result?.refId;
   }
 
-  Future<double> get x {
+  Future<double?> get x {
     return kMethodChannel.invokeMethod('CGRect::getX', {'__this__': this});
   }
 
-  Future<double> get y {
+  Future<double?> get y {
     return kMethodChannel.invokeMethod('CGRect::getY', {'__this__': this});
   }
 
-  Future<double> get width {
+  Future<double?> get width {
     return kMethodChannel.invokeMethod('CGRect::getWidth', {'__this__': this});
   }
 
-  Future<double> get height {
+  Future<double?> get height {
     return kMethodChannel.invokeMethod('CGRect::getHeight', {'__this__': this});
   }
 }

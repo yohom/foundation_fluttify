@@ -36,6 +36,9 @@ fun PlatformService(
             // print current HEAP
             if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, HEAP: $HEAP")
         }
+        "PlatformService::isNull" -> {
+            methodResult.success(args["__this__"] == null)
+        }
         "PlatformService::release_batch" -> {
             if (enableLog) Log.d("PlatformService", "size: ${HEAP.size}, 批量释放对象: __this_batch__: ${args["__this_batch__"]}")
 

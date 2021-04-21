@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
+
 import 'dart:math';
 
 import 'package:foundation_fluttify/foundation_fluttify.dart';
@@ -11,13 +12,13 @@ class CGPoint extends Ref {
   static Future<CGPoint> create(double x, double y) async {
     final result = await kMethodChannel
         .invokeMethod<Ref>('CGPoint::create', {'x': x, 'y': y});
-    return CGPoint()..refId = result.refId;
+    return CGPoint()..refId = result?.refId;
   }
 
   static Future<CGPoint> createWithPoint(Point point) async {
     final result = await kMethodChannel
         .invokeMethod<Ref>('CGPoint::create', {'x': point.x, 'y': point.y});
-    return CGPoint()..refId = result.refId;
+    return CGPoint()..refId = result?.refId;
   }
 
   static Future<List<CGPoint>> create_batch(
@@ -26,25 +27,27 @@ class CGPoint extends Ref {
   ) async {
     final resultBatch = await kMethodChannel
         .invokeListMethod<Ref>('CGPoint::create_batch', {'x': x, 'y': y});
-    return [for (final item in resultBatch) CGPoint()..refId = item.refId];
+    return [
+      for (final item in resultBatch ?? []) CGPoint()..refId = item.refId
+    ];
   }
 
-  Future<double> get x {
+  Future<double?> get x {
     return kMethodChannel.invokeMethod('CGPoint::getX', {'__this__': this});
   }
 
-  Future<double> get y {
+  Future<double?> get y {
     return kMethodChannel.invokeMethod('CGPoint::getY', {'__this__': this});
   }
 }
 
 extension CGPointListX on List<CGPoint> {
-  Future<List<double>> get x_batch {
+  Future<List<double>?> get x_batch {
     return kMethodChannel
         .invokeMethod('CGPoint::getX_batch', {'__this__': this});
   }
 
-  Future<List<double>> get y_batch {
+  Future<List<double>?> get y_batch {
     return kMethodChannel
         .invokeMethod('CGPoint::getY_batch', {'__this__': this});
   }

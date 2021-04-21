@@ -24,16 +24,14 @@ class android_content_BroadcastReceiver extends java_lang_Object {
     );
 
     MethodChannel('android.content.BroadcastReceiver::create::Callback')
-        .setMethodCallHandler((call) {
+        .setMethodCallHandler((call) async {
       if (call.method ==
           'Callback::android.content.BroadcastReceiver::onReceive') {
         final intentRefId = call.arguments['intent'] as String;
-        if (intentRefId != null) {
-          final intent = android_content_Intent()..refId = intentRefId;
-          if (onReceive != null) onReceive(intent);
-        }
+        final intent = android_content_Intent()..refId = intentRefId;
+        onReceive(intent);
       }
     });
-    return android_content_BroadcastReceiver()..refId = result.refId;
+    return android_content_BroadcastReceiver()..refId = result?.refId;
   }
 }
