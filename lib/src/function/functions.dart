@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'dart:async';
 import 'dart:io';
 
@@ -9,7 +7,6 @@ import 'package:flutter/foundation.dart';
 import '../../foundation_fluttify.dart';
 
 typedef _FutureCallback<T> = Future<T> Function(Set<Ref> releasePool);
-typedef _StreamCallback<T> = T Function(Set<Ref> releasePool);
 
 bool _enableFluttifyLog = true;
 Future<void> enableFluttifyLog(bool enable) {
@@ -22,8 +19,8 @@ Future<void> enableFluttifyLog(bool enable) {
 bool get fluttifyLogEnabled => _enableFluttifyLog;
 
 Future<T> platform<T>({
-  _FutureCallback<T> android,
-  _FutureCallback<T> ios,
+  _FutureCallback<T>? android,
+  _FutureCallback<T>? ios,
 }) async {
   // 方法单位的释放池, 如果需要的时候可以在这里直接释放, 不使用这个释放池的话可以使用[ScopedReleasePool]
   final releasePool = <Ref>{};
@@ -37,31 +34,6 @@ Future<T> platform<T>({
     }
   } catch (e) {
     return Future.error(e);
-  } finally {
-    if (releasePool.isNotEmpty) {
-      await releasePool.release_batch();
-      releasePool.clear();
-      // remove all local object from global object pool
-      gGlobalReleasePool.removeAll(releasePool);
-    }
-  }
-}
-
-Stream<T> platformStream<T>({
-  _StreamCallback<T> android,
-  _StreamCallback<T> ios,
-}) async* {
-  final releasePool = <Ref>{};
-  try {
-    if (android != null && Platform.isAndroid) {
-      yield android(releasePool);
-    } else if (ios != null && Platform.isIOS) {
-      yield ios(releasePool);
-    } else {
-      yield null;
-    }
-  } catch (e) {
-    yield e;
   } finally {
     if (releasePool.isNotEmpty) {
       await releasePool.release_batch();
@@ -102,7 +74,7 @@ Future<void> startActivity(
   String activityClass, {
   Map<String, dynamic> extras = const {},
 }) async {
-  assert(activityClass != null && activityClass.isNotEmpty);
+  assert(activityClass.isNotEmpty);
   await kMethodChannel.invokeMethod(
     'PlatformService::startActivity',
     {'activityClass': activityClass, 'extras': extras},
@@ -111,12 +83,10 @@ Future<void> startActivity(
 
 Future<android_content_Intent> startActivityForResult(
   String activityClass, {
-  @required int requestCode,
+  required int requestCode,
   Map<String, dynamic> extras = const {},
 }) async {
-  assert(
-    activityClass != null && activityClass.isNotEmpty && requestCode != null,
-  );
+  assert(activityClass.isNotEmpty);
   final result = await kMethodChannel.invokeMethod(
     'PlatformService::startActivityForResult',
     {
@@ -134,7 +104,7 @@ Future<void> presentViewController(
   String viewControllerClass, {
   bool withNavigationController = false,
 }) async {
-  assert(viewControllerClass != null && viewControllerClass.isNotEmpty);
+  assert(viewControllerClass.isNotEmpty);
   await kMethodChannel.invokeMethod(
     'PlatformService::presentViewController',
     {
@@ -148,7 +118,7 @@ Future<void> presentViewController(
 ///
 /// 使用这个方法前, 保存PlatformView是把viewId作为key保存在Map中, 带来了不一致性.
 /// 使用这个方法把viewId转换为对应PlatformView对象的refId, 使其与普通对象的行为保持一致.
-Future<String> viewId2RefId(String viewId) async {
+Future<String?> viewId2RefId(String viewId) async {
   return kMethodChannel.invokeMethod(
     'PlatformService::viewId2RefId',
     {'viewId': viewId},
@@ -157,7 +127,7 @@ Future<String> viewId2RefId(String viewId) async {
 
 /// 不怎么好用
 @deprecated
-Future<String> getAssetPath(String flutterAssetPath) async {
+Future<String?> getAssetPath(String flutterAssetPath) async {
   return kMethodChannel.invokeMethod(
     'PlatformService::getAssetPath',
     {'flutterAssetPath': flutterAssetPath},

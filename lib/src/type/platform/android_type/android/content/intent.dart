@@ -1,4 +1,4 @@
-// @dart=2.9
+
 
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/android/os/bundle.dart';
@@ -9,13 +9,13 @@ class android_content_Intent extends java_lang_Object {
   @override
   final String tag__ = 'platform';
 
-  Future<Map<String, dynamic>> get bundle async {
+  Future<Map<String, dynamic>?> get bundle async {
     final result = await kMethodChannel.invokeMapMethod<String, dynamic>(
         'android.content.Intent::getBundle', {'__this__': this});
     return result;
   }
 
-  Future<String> get action async {
+  Future<String?> get action async {
     final result = await kMethodChannel
         .invokeMethod('android.content.Intent::getAction', {'__this__': this});
     return result;

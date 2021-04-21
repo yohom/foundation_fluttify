@@ -1,48 +1,45 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 
-// @dart=2.9
-
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
 
 class android_location_Location extends java_lang_Object {
   static Future<android_location_Location> create(String provider) async {
-    assert(provider != null);
     final result = await kMethodChannel.invokeMethod<Ref>(
         'android.location.Location::create', {'provider': provider});
-    return android_location_Location()..refId = result.refId;
+    return android_location_Location()..refId = result?.refId;
   }
 
   @override
   final String tag__ = 'platform';
 
-  Future<double> get latitude {
+  Future<double?> get latitude {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getLatitude', {'__this__': this});
   }
 
-  Future<double> get longitude {
+  Future<double?> get longitude {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getLongitude', {'__this__': this});
   }
 
-  Future<double> get bearing {
+  Future<double?> get bearing {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getBearing', {'__this__': this});
   }
 
-  Future<double> get altitude {
+  Future<double?> get altitude {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getAltitude', {'__this__': this});
   }
 
-  Future<double> get accuracy {
+  Future<double?> get accuracy {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getAccuracy', {'__this__': this});
   }
 
-  Future<double> get speed {
+  Future<double?> get speed {
     return kMethodChannel.invokeMethod(
         'android.location.Location::getSpeed', {'__this__': this});
   }

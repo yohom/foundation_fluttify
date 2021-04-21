@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
@@ -25,6 +23,6 @@ class android_content_Context extends java_lang_Object {
         'intentFilter': intentFilter,
       },
     );
-    return android_content_Intent()..refId = result.refId;
+    return android_content_Intent()..refId = result?.refId;
   }
 }

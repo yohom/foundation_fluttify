@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 
-// @dart=2.9
+
 
 import 'dart:io';
 
@@ -11,20 +11,20 @@ import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
 typedef _OnViewCreated = Future<void> Function(
-    android_widget_FrameLayout controller);
+    android_widget_FrameLayout? controller);
 typedef _OnViewDispose = Future<void> Function();
 
 class android_view_FrameLayoutWidget extends StatefulWidget {
   const android_view_FrameLayoutWidget({
-    Key key,
+    Key? key,
     this.onFrameLayoutCreated,
     this.onDispose,
     this.gestureRecognizers,
   }) : super(key: key);
 
-  final _OnViewCreated onFrameLayoutCreated;
-  final _OnViewDispose onDispose;
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
+  final _OnViewCreated? onFrameLayoutCreated;
+  final _OnViewDispose? onDispose;
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
 
   @override
   _android_view_FrameLayoutWidgetState createState() =>
@@ -33,7 +33,7 @@ class android_view_FrameLayoutWidget extends StatefulWidget {
 
 class _android_view_FrameLayoutWidgetState
     extends State<android_view_FrameLayoutWidget> {
-  android_widget_FrameLayout _view;
+  android_widget_FrameLayout? _view;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _android_view_FrameLayoutWidgetState
           _view = android_widget_FrameLayout()
             ..refId = 'android.widget.FrameLayout:$refId';
           if (widget.onFrameLayoutCreated != null) {
-            await widget.onFrameLayoutCreated(_view);
+            await widget.onFrameLayoutCreated!(_view);
           }
         },
       );
@@ -65,9 +65,9 @@ class _android_view_FrameLayoutWidgetState
   @override
   void dispose() {
     if (widget.onDispose != null) {
-      widget.onDispose().then((_) => _view.release__());
+      widget.onDispose!().then((_) => _view!.release__());
     } else {
-      _view.release__();
+      _view!.release__();
     }
     super.dispose();
   }

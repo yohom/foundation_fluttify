@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, camel_case_types, missing_return, unused_import
 
-// @dart=2.9
-
 import 'dart:typed_data';
 
 import 'package:foundation_fluttify/foundation_fluttify.dart';
@@ -18,7 +16,7 @@ class UIImage extends NSObject {
       'UIImage::createUIImage',
       {'bitmapBytes': bitmapBytes},
     );
-    return UIImage()..refId = result.refId;
+    return UIImage()..refId = result?.refId;
   }
 
   static Future<UIImage> createWithPath(
@@ -34,7 +32,7 @@ class UIImage extends NSObject {
         'fileName': fileName,
       },
     );
-    return UIImage()..refId = result.refId;
+    return UIImage()..refId = result?.refId;
   }
 
   static Future<List<UIImage>> create_batch(
@@ -46,10 +44,10 @@ class UIImage extends NSObject {
         for (final bitmapBytes in bitmapBytesBatch) {'bitmapBytes': bitmapBytes}
       ],
     );
-    return resultBatch.map((it) => UIImage()..refId = it.refId).toList();
+    return resultBatch?.map((it) => UIImage()..refId = it.refId).toList() ?? [];
   }
 
-  Future<Uint8List> get data {
+  Future<Uint8List?> get data {
     return kMethodChannel.invokeMethod('UIImage::getData', {'__this__': this});
   }
 }

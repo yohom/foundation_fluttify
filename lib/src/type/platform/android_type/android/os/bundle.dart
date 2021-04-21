@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/java/lang/object.dart';
@@ -9,7 +7,7 @@ class android_os_Bundle extends java_lang_Object {
   static Future<android_os_Bundle> create() async {
     final result =
         await kMethodChannel.invokeMethod<Ref>('android.os.Bundle::create');
-    return android_os_Bundle()..refId = result.refId;
+    return android_os_Bundle()..refId = result?.refId;
   }
 
   @override
@@ -31,14 +29,14 @@ class android_os_Bundle extends java_lang_Object {
     });
   }
 
-  Future<String> getString(String key) {
+  Future<String?> getString(String key) {
     return kMethodChannel.invokeMethod<String>(
       'android.os.Bundle::getString',
       {'__this__': this, 'key': key},
     );
   }
 
-  Future<int> getInt(String key) {
+  Future<int?> getInt(String key) {
     return kMethodChannel.invokeMethod<int>(
       'android.os.Bundle::getInt',
       {'__this__': this, 'key': key},

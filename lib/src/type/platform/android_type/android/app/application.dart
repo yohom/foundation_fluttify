@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 import 'package:foundation_fluttify/src/type/platform/android_type/android/content/context.dart';
@@ -12,6 +10,6 @@ class android_app_Application extends android_content_Context {
   static Future<android_app_Application> get() async {
     final result =
         await kMethodChannel.invokeMethod<Ref>('android.app.Application::get');
-    return android_app_Application()..refId = result.refId;
+    return android_app_Application()..refId = result?.refId;
   }
 }

@@ -1,5 +1,3 @@
-// @dart=2.9
-
 import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui';
@@ -16,13 +14,15 @@ extension ImageProviderX on ImageProvider {
       debugPrint('命中缓存');
       completer.complete(_cache[key.toString()]);
     } else {
-      ImageStreamListener listener;
+      late ImageStreamListener listener;
       ImageStream stream = resolve(config); //获取图片流
       listener = ImageStreamListener((imageInfo, sync) async {
         final byteData =
             await imageInfo.image.toByteData(format: ImageByteFormat.png);
-        final result = byteData.buffer.asUint8List();
-        _cache[key.toString()] = result;
+        final result = byteData?.buffer.asUint8List();
+        if (result != null) {
+          _cache[key.toString()] = result;
+        }
 
         if (!completer.isCompleted) completer.complete(result);
 

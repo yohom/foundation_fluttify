@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-// @dart=2.9
-
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
@@ -16,6 +14,6 @@ class UIImageView extends UIView {
       'UIImageView::create',
       {'image': image},
     );
-    return UIImageView()..refId = result.refId;
+    return UIImageView()..refId = result?.refId;
   }
 }

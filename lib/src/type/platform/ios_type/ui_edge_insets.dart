@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-// @dart=2.9
-
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/object/obejcts.dart';
 
@@ -22,25 +20,25 @@ class UIEdgeInsets extends Ref {
       'bottom': bottom,
       'right': right,
     });
-    return UIEdgeInsets()..refId = result.refId;
+    return UIEdgeInsets()..refId = result?.refId;
   }
 
-  Future<double> get top {
+  Future<double?> get top {
     return kMethodChannel
         .invokeMethod('UIEdgeInsets::getTop', {'__this__': this});
   }
 
-  Future<double> get left {
+  Future<double?> get left {
     return kMethodChannel
         .invokeMethod('UIEdgeInsets::getLeft', {'__this__': this});
   }
 
-  Future<double> get bottom {
+  Future<double?> get bottom {
     return kMethodChannel
         .invokeMethod('UIEdgeInsets::getBottom', {'__this__': this});
   }
 
-  Future<double> get right {
+  Future<double?> get right {
     return kMethodChannel
         .invokeMethod('UIEdgeInsets::getRight', {'__this__': this});
   }
