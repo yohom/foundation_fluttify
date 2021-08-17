@@ -25,21 +25,21 @@ class android_view_SurfaceViewFactory(private val binaryMessenger: BinaryMesseng
                     StandardMethodCodec(FluttifyMessageCodec())
             )
 
-            override fun surfaceCreated(holder: SurfaceHolder?) {
+            override fun surfaceCreated(holder: SurfaceHolder) {
                 channel.invokeMethod(
                         "Callback::android.view.SurfaceHolder.Callback::surfaceCreated",
                         mapOf("holder" to holder)
                 )
             }
 
-            override fun surfaceChanged(holder: SurfaceHolder?, format: Int, width: Int, height: Int) {
+            override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
                 channel.invokeMethod(
                         "Callback::android.view.SurfaceHolder.Callback::surfaceChanged",
                         mapOf("holder" to holder, "format" to format, "width" to width, "height" to height)
                 )
             }
 
-            override fun surfaceDestroyed(holder: SurfaceHolder?) {
+            override fun surfaceDestroyed(holder: SurfaceHolder) {
                 channel.invokeMethod(
                         "Callback::android.view.SurfaceHolder.Callback::surfaceDestroyed",
                         mapOf("holder" to holder)
