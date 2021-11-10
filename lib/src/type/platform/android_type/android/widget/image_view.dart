@@ -6,7 +6,7 @@ class android_widget_ImageView extends android_view_View {
   @override
   final String tag__ = 'platform';
 
-  Future<android_widget_ImageView> createWithBitmap(
+  static Future<android_widget_ImageView> createWithBitmap(
     android_graphics_Bitmap bitmap,
   ) async {
     final result = await kMethodChannel.invokeMethod<Ref>(
