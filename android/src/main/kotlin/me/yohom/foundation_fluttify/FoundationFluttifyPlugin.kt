@@ -30,6 +30,7 @@ import me.yohom.foundation_fluttify.android.view.SurfaceHolderHandler
 import me.yohom.foundation_fluttify.android.view.SurfaceViewHandler
 import me.yohom.foundation_fluttify.android.view.ViewGroupHandler
 import me.yohom.foundation_fluttify.android.view.ViewHandler
+import me.yohom.foundation_fluttify.android.widget.ImageViewHandler
 import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 import me.yohom.foundation_fluttify.core.PlatformService
 import me.yohom.foundation_fluttify.java.io.FileHandler
@@ -103,6 +104,7 @@ class FoundationFluttifyPlugin : FlutterPlugin, ActivityAware, MethodCallHandler
                 startsWith("android.view.SurfaceView::") -> SurfaceViewHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.SurfaceHolder::") -> SurfaceHolderHandler(binaryMessenger, methodCall.method, rawArgs, methodResult)
                 startsWith("android.view.ViewGroup::") -> ViewGroupHandler(methodCall.method, rawArgs, methodResult)
+                startsWith("android.widget.ImageView::") -> ImageViewHandler(methodCall.method, rawArgs, methodResult, activity)
                 startsWith("java.io.File::") -> FileHandler(methodCall.method, rawArgs, methodResult)
                 startsWith("PlatformService::") -> PlatformService(methodCall.method, rawArgs as Map<String, Any>, methodResult, activityBinding, pluginBinding, registrar)
                 else -> methodResult.notImplemented()
