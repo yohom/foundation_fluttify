@@ -40,7 +40,7 @@ class _ContinuousSettingState extends State<ContinuousSetting> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(widget.head, style: Theme.of(context).textTheme.subhead),
+          Text(widget.head, style: Theme.of(context).textTheme.bodyText2),
           SPACE_8,
           Slider(
             value: _value,
@@ -87,7 +87,7 @@ class DiscreteSetting extends StatelessWidget {
       },
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Text(head, style: Theme.of(context).textTheme.subhead),
+        child: Text(head, style: Theme.of(context).textTheme.bodyText2),
       ),
     );
   }

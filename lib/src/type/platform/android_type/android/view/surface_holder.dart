@@ -45,7 +45,6 @@ mixin android_view_SurfaceHolder on java_lang_Object {
             break;
           default:
             throw MissingPluginException('方法${methodCall.method}未实现');
-            break;
         }
       } catch (e) {
         debugPrint(e.toString());

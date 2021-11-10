@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
 import 'package:foundation_fluttify/src/type/core/ref.dart';
@@ -42,7 +40,7 @@ class ScopedReleasePoolState extends State<ScopedReleasePool> {
     gReleasePoolStack.pop();
     _releasePool
         // 过滤出tag为目标tag的对象进行释放 或 tag为null表示不过滤
-        .where((e) => widget.tag == null || e.tag__ == widget.tag)
+        .where((e) => e.tag__ == widget.tag)
         .release_batch()
         .then((value) => _releasePool.clear());
     super.dispose();
