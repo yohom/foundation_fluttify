@@ -30,7 +30,7 @@ class FluttifyMessageCodec : StandardMessageCodec() {
     private val ENUM: Byte = 126
     private val REF: Byte = 127
 
-    override fun writeValue(stream: ByteArrayOutputStream, value: Any?) {
+    override fun writeValue(stream: ByteArrayOutputStream, value: Any) {
         if (value == null) {
             stream.write(NULL.toInt())
         } else if (value == true) {
@@ -59,7 +59,7 @@ class FluttifyMessageCodec : StandardMessageCodec() {
             writeBytes(stream, value.toByteArray(UTF8))
         } else if (value is ByteArray) {
             stream.write(BYTE_ARRAY.toInt())
-            writeBytes(stream, value as ByteArray?)
+            writeBytes(stream, value)
         } else if (value is IntArray) {
             stream.write(INT_ARRAY.toInt())
             writeSize(stream, value.size)
@@ -85,20 +85,20 @@ class FluttifyMessageCodec : StandardMessageCodec() {
             stream.write(LIST.toInt())
             writeSize(stream, value.size)
             for (o in value) {
-                writeValue(stream, o)
+                writeValue(stream, o!!)
             }
         } else if (value is Array<*>) {
             stream.write(ARRAY.toInt())
             writeSize(stream, value.size)
             for (o in value) {
-                writeValue(stream, o)
+                writeValue(stream, o!!)
             }
         } else if (value is Map<*, *>) {
             stream.write(MAP.toInt())
             writeSize(stream, value.size)
             for ((key, value1) in value) {
-                writeValue(stream, key)
-                writeValue(stream, value1)
+                writeValue(stream, key!!)
+                writeValue(stream, value1!!)
             }
         }
         // 枚举值传索引

@@ -15,12 +15,12 @@ import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 @Suppress("ClassName")
 class android_view_SurfaceViewFactory(private val binaryMessenger: BinaryMessenger?)
     : PlatformViewFactory(FluttifyMessageCodec()) {
-    override fun create(context: Context, id: Int, params: Any?): PlatformView {
+    override fun create(context: Context?, id: Int, params: Any?): PlatformView {
         val view = SurfaceView(context)
 
         view.holder.addCallback(object : SurfaceHolder.Callback {
             private val channel = MethodChannel(
-                    binaryMessenger,
+                    binaryMessenger!!,
                     "android.view.SurfaceHolder::addCallback::Callback",
                     StandardMethodCodec(FluttifyMessageCodec())
             )

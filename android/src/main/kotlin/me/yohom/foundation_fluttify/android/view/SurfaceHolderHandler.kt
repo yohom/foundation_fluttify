@@ -17,7 +17,7 @@ fun SurfaceHolderHandler(
 
             __this__.addCallback(object : SurfaceHolder.Callback {
                 private val channel =
-                    MethodChannel(messenger, "android.view.SurfaceHolder::addCallback::Callback")
+                    MethodChannel(messenger!!, "android.view.SurfaceHolder::addCallback::Callback")
 
                 override fun surfaceCreated(p0: SurfaceHolder) {
                     print("kotlin: onSurfaceCreated")
