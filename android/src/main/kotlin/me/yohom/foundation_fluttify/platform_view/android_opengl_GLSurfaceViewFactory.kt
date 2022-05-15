@@ -10,7 +10,7 @@ import me.yohom.foundation_fluttify.HEAP
 
 @Suppress("ClassName")
 class android_opengl_GLSurfaceViewFactory : PlatformViewFactory(StandardMessageCodec.INSTANCE) {
-    override fun create(context: Context, id: Int, params: Any?): PlatformView {
+    override fun create(context: Context?, id: Int, params: Any?): PlatformView {
         val view = GLSurfaceView(context)
 
         // 同时存放viewId和refId的对象, 供后续viewId转refId使用

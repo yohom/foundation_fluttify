@@ -12,7 +12,7 @@ import me.yohom.foundation_fluttify.core.FluttifyMessageCodec
 
 @Suppress("ClassName")
 class android_widget_FrameLayoutFactory : PlatformViewFactory(FluttifyMessageCodec()) {
-    override fun create(context: Context, id: Int, params: Any?): PlatformView {
+    override fun create(context: Context?, id: Int, params: Any?): PlatformView {
         val view = FrameLayout(context)
 
         // 同时存放viewId和refId的对象, 供后续viewId转refId使用
