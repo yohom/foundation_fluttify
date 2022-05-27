@@ -45,6 +45,20 @@ fun BundleHandler(method: String, rawArgs: Any, methodResult: MethodChannel.Resu
 
       methodResult.success(bundle.getInt(key))
     }
+    "android.os.Bundle::getFloat" -> {
+      val key = rawArgs["key"] as String
+
+      val bundle: Bundle = rawArgs.__this__()
+
+      methodResult.success(bundle.getFloat(key))
+    }
+    "android.os.Bundle::getDouble" -> {
+      val key = rawArgs["key"] as String
+
+      val bundle: Bundle = rawArgs.__this__()
+
+      methodResult.success(bundle.getDouble(key))
+    }
     "android.os.Bundle::getAll" -> {
       val bundle: Bundle = rawArgs.__this__()
 
