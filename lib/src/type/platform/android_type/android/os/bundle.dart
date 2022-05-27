@@ -42,4 +42,18 @@ class android_os_Bundle extends java_lang_Object {
       {'__this__': this, 'key': key},
     );
   }
+
+  Future<int?> getDouble(String key) {
+    return kMethodChannel.invokeMethod<int>(
+      'android.os.Bundle::getDouble',
+      {'__this__': this, 'key': key},
+    );
+  }
+
+  Future<int?> getFloat(String key) {
+    return kMethodChannel.invokeMethod<int>(
+      'android.os.Bundle::getFloat',
+      {'__this__': this, 'key': key},
+    );
+  }
 }
