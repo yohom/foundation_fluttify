@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -28,7 +26,7 @@ class UIViewWidget extends StatefulWidget {
 }
 
 class _UIViewWidgetState extends State<UIViewWidget> {
-  UIView?/*?*//*?*//*?*//*!*//*?*//*?*//*?*//*?*/ _view;
+  UIView? _view;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +43,7 @@ class _UIViewWidgetState extends State<UIViewWidget> {
         gestureRecognizers: gestureRecognizers,
         onPlatformViewCreated: (viewId) async {
           final refId = await viewId2RefId((2147483647 - viewId).toString());
-          _view = UIView()..refId = refId; // TODO 改成`类型:id`形式
+          _view = UIView()..refId = 'UIView:$refId';
           if (widget.onUIViewCreated != null) {
             await widget.onUIViewCreated!(_view);
           }
