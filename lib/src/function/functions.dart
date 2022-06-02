@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../foundation_fluttify.dart';
 
-typedef _FutureCallback<T> = Future<T> Function(Set<Ref> releasePool);
+typedef _FutureCallback<T> = Future<T> Function(Set<Ref?> releasePool);
 
 bool _enableFluttifyLog = true;
 Future<void> enableFluttifyLog(bool enable) {
@@ -23,7 +23,7 @@ Future<T> platform<T>({
   _FutureCallback<T>? ios,
 }) async {
   // 方法单位的释放池, 如果需要的时候可以在这里直接释放, 不使用这个释放池的话可以使用[ScopedReleasePool]
-  final releasePool = <Ref>{};
+  final releasePool = <Ref?>{};
   try {
     if (android != null && Platform.isAndroid) {
       return await android(releasePool);
@@ -36,7 +36,7 @@ Future<T> platform<T>({
     return Future.error(e);
   } finally {
     if (releasePool.isNotEmpty) {
-      await releasePool.release_batch();
+      await releasePool.whereType<Ref>().release_batch();
       releasePool.clear();
       // remove all local object from global object pool
       gGlobalReleasePool.removeAll(releasePool);
