@@ -109,7 +109,7 @@ class FluttifyMessageCodec extends StandardMessageCodec {
     }
     // 以下为fluttify增加的类型
     // 枚举 传递索引值
-    else if (_isEnum(value)) {
+    else if (value is Enum) {
       buffer.putUint8(_valueEnum);
       buffer.putInt32(value.index);
     }
@@ -207,9 +207,4 @@ class FluttifyMessageCodec extends StandardMessageCodec {
         throw const FormatException('Message corrupted');
     }
   }
-}
-
-bool _isEnum(dynamic data) {
-  final split = data.toString().split('.');
-  return split.length > 1 && split[0] == data.runtimeType.toString();
 }
