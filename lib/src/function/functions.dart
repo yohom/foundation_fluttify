@@ -138,7 +138,7 @@ void log(String content) {
   if (fluttifyLogEnabled) debugPrint(content);
 }
 
-T? foundationFluttifyAndroidAs<T>(dynamic __this__) {
+T? FoundationFluttifyAndroidAs<T>(dynamic __this__) {
   if (T == android_content_Context) {
     return (android_content_Context()..refId = (__this__ as Ref).refId) as T;
   } else if (T == android_content_Intent) {
@@ -213,7 +213,7 @@ T? foundationFluttifyAndroidAs<T>(dynamic __this__) {
   }
 }
 
-T? foundationFluttifyIOSAs<T>(dynamic __this__) {
+T? FoundationFluttifyIOSAs<T>(dynamic __this__) {
   if (T == CGRect) {
     return (CGRect()..refId = (__this__ as Ref).refId) as T;
   } else if (T == CGPoint) {
