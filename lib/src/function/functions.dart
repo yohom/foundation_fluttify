@@ -138,7 +138,7 @@ void log(String content) {
   if (fluttifyLogEnabled) debugPrint(content);
 }
 
-T? foundationFluttifyAs<T>(dynamic __this__) {
+T? FoundationFluttifyAndroidAs<T>(dynamic __this__) {
   if (T == android_content_Context) {
     return (android_content_Context()..refId = (__this__ as Ref).refId) as T;
   } else if (T == android_content_Intent) {
@@ -208,6 +208,47 @@ T? foundationFluttifyAs<T>(dynamic __this__) {
       ..refId = (__this__ as Ref).refId) as T;
   } else if (T == android_util_Pair) {
     return (android_util_Pair()..refId = (__this__ as Ref).refId) as T;
+  } else {
+    return null;
+  }
+}
+
+T? FoundationFluttifyIOSAs<T>(dynamic __this__) {
+  if (T == CGRect) {
+    return (CGRect()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == CGPoint) {
+    return (CGPoint()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == CGSize) {
+    return (CGSize()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == UIEdgeInsets) {
+    return (UIEdgeInsets()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSError) {
+    return (NSError()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSCoding) {
+    return (NSCoding.subInstance()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSCopying) {
+    return (NSCopying.subInstance()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSMutableCopying) {
+    return (NSMutableCopying.subInstance()..refId = (__this__ as Ref).refId)
+        as T;
+  } else if (T == UIView) {
+    return (UIView()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == UIViewController) {
+    return (UIViewController()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == UIControl) {
+    return (UIControl()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == UIImage) {
+    return (UIImage()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == UIImageView) {
+    return (UIImageView()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == UIColor) {
+    return (UIColor()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSData) {
+    return (NSData()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSDate) {
+    return (NSDate()..refId = (__this__ as Ref).refId) as T;
+  } else if (T == NSOperation) {
+    return (NSOperation()..refId = (__this__ as Ref).refId) as T;
   } else {
     return null;
   }
