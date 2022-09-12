@@ -1,6 +1,6 @@
 name: foundation_fluttify
 description: Foundation for `Fluttify`.
-version: 0.13.0
+version: 0.13.0+1
 homepage: https://github.com/fluttify-project/foundation_fluttify
 
 environment:
