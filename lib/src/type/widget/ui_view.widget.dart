@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:foundation_fluttify/foundation_fluttify.dart';
-import 'package:foundation_fluttify/src/type/platform/ios_type/ui_view.dart';
 
 typedef OnUIViewCreated = Future<void> Function(UIView? controller);
 typedef _OnUiKitViewDispose = Future<void> Function();
@@ -57,9 +56,9 @@ class _UIViewWidgetState extends State<UIViewWidget> {
   @override
   void dispose() {
     if (widget.onDispose != null) {
-      widget.onDispose!().then((_) => _view!.release__());
+      widget.onDispose!().then((_) => _view?.release__());
     } else {
-      _view!.release__();
+      _view?.release__();
     }
     super.dispose();
   }
